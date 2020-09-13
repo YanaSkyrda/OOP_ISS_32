@@ -3,10 +3,16 @@ package com.momotenko.model.entity;
 public abstract class Ammunition {
     private double weight;
     private double price;
+    private String name;
 
-    public Ammunition(double weight, double price){
+    public Ammunition(String name, double weight, double price){
+        this.name = name;
         this.weight = weight;
         this.price = price;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public double getPrice() {
@@ -15,6 +21,11 @@ public abstract class Ammunition {
 
     public double getWeight() {
         return weight;
+    }
+
+    public Ammunition setName(String name) {
+        this.name = name;
+        return this;
     }
 
     public Ammunition setPrice(double price) {

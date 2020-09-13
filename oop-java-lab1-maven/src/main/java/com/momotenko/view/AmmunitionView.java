@@ -6,7 +6,8 @@ public class AmmunitionView {
                 "1. Show current ammunition\n" +
                 "2. Change ammunition\n" +
                 "3. Calculate cost\n" +
-                "4. Sort according to weight\n" +
-                "5. Find ammunition elements by the provided price range");
+                "4. Sort according to the weight\n" +
+                "5. Find ammunition elements by the provided price range\n" +
+                "6. Exit");
     }
 }
