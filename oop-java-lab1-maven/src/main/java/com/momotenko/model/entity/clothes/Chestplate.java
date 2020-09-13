@@ -6,4 +6,9 @@ public class Chestplate extends Ammunition {
     public Chestplate(String name, double weight, double price) {
         super(name, weight, price);
     }
+
+    @Override
+    public String getType() {
+        return "Chestplate";
+    }
 }

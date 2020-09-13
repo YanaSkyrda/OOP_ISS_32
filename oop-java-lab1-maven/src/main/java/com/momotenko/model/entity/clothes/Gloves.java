@@ -6,4 +6,9 @@ public class Gloves extends Ammunition {
     public Gloves(String name, double weight, double price) {
         super(name, weight, price);
     }
+
+    @Override
+    public String getType() {
+        return "Gloves";
+    }
 }

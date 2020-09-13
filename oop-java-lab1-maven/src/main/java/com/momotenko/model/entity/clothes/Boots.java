@@ -6,4 +6,9 @@ public class Boots extends Ammunition {
     public Boots(String name, double weight, double price) {
         super(name, weight, price);
     }
+
+    @Override
+    public String getType() {
+        return "Boots";
+    }
 }
