@@ -1,5 +1,7 @@
 package com.momotenko.lab1.model.entity;
 
+import java.util.Objects;
+
 public abstract class Ammunition {
     private double weight;
     private double price;
@@ -40,6 +42,21 @@ public abstract class Ammunition {
     public Ammunition setWeight(double weight) {
         this.weight = weight;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ammunition that = (Ammunition) o;
+        return Double.compare(that.weight, weight) == 0 &&
+                Double.compare(that.price, price) == 0 &&
+                name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(weight, price, name);
     }
 
     @Override

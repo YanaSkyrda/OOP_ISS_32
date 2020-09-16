@@ -42,22 +42,13 @@ public class Knight {
 
     public void replaceAmmunition(Ammunition toReplace){
         String type = toReplace.getType();
-        for (Ammunition i : ammunition){
-            if (i.getType().equals(type)){
-                i = toReplace;
+
+        for (int i = 0, size = ammunition.size(); i < size; ++i){
+            if (ammunition.get(i).getType().equals(type)){
+                ammunition.set(i, toReplace);
                 return;
             }
         }
-    }
-
-    private boolean checkIfPresentAmmunition(String toCheck){
-        for (Ammunition i : ammunition){
-            if (i.getType().equals(toCheck)){
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public double calculateCost(){
@@ -68,5 +59,15 @@ public class Knight {
         }
 
         return ans;
+    }
+
+    private boolean checkIfPresentAmmunition(String toCheck){
+        for (Ammunition i : ammunition){
+            if (i.getType().equals(toCheck)){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

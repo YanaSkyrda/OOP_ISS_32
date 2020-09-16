@@ -15,10 +15,11 @@ public class AmmunitionTest {
     @ArgumentsSource(AmmunitionArgumentProvider.class)
     void gettersCheckTest(Class<? extends Ammunition> ammunitionClass) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
         Ammunition ammunition = ammunitionClass.getConstructor(String.class, double.class, double.class)
-                .newInstance("4234", 34.2, 43.2);
-        
+                .newInstance("ammunition", 34.2, 43.2);
+
         assertTrue(ammunitionClass.getSimpleName().equals(ammunition.getType()));
+        assertTrue(ammunition.setName("ammunition1").getName().equals("ammunition1"));
+        assertTrue(ammunition.setPrice(45.2).getPrice() == 45.2);
+        assertTrue(ammunition.setWeight(2.3).getWeight() == 2.3);
     }
-
-
 }
