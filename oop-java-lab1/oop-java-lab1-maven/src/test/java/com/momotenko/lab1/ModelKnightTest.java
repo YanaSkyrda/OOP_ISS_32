@@ -45,7 +45,7 @@ public class ModelKnightTest {
     }
 
     @Test
-    @DisplayName("Knight test for main functions")
+    @DisplayName("Ammunition test for main functions")
     void knightMainFuncTest(){
         Ammunition helmet = new Helmet("helm", 5.6,1.3);
         Ammunition chestplate = new Chestplate("chestplate",3.6,23.4);
