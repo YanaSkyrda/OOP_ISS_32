@@ -1,14 +1,10 @@
-package com.momotenko.model;
+package com.momotenko.lab1.model;
 
-import com.momotenko.controller.AmmunitionController;
-import com.momotenko.model.entity.Ammunition;
-import com.momotenko.model.entity.Knight;
-import com.momotenko.view.AmmunitionView;
+import com.momotenko.lab1.model.entity.Ammunition;
+import com.momotenko.lab1.model.entity.Knight;
+import com.momotenko.lab1.view.AmmunitionView;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class AmmunitionModel {
     Knight knight = new Knight();

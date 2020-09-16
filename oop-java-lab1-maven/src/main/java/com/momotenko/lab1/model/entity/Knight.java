@@ -1,6 +1,6 @@
-package com.momotenko.model.entity;
+package com.momotenko.lab1.model.entity;
 
-import com.momotenko.model.ComparatorWeight;
+import com.momotenko.lab1.model.ComparatorWeight;
 
 import java.util.ArrayList;
 import java.util.Collections;

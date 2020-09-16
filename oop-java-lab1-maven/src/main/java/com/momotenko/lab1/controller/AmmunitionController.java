@@ -1,9 +1,9 @@
-package com.momotenko.controller;
+package com.momotenko.lab1.controller;
 
-import com.momotenko.model.AmmunitionModel;
-import com.momotenko.model.entity.clothes.*;
-import com.momotenko.model.entity.weapons.*;
-import com.momotenko.view.AmmunitionView;
+import com.momotenko.lab1.model.AmmunitionModel;
+import com.momotenko.lab1.model.entity.clothes.*;
+import com.momotenko.lab1.model.entity.weapons.*;
+import com.momotenko.lab1.view.AmmunitionView;
 
 import java.util.Scanner;
 

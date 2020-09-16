@@ -1,6 +1,6 @@
-package com.momotenko.model.entity.clothes;
+package com.momotenko.lab1.model.entity.clothes;
 
-import com.momotenko.model.entity.Ammunition;
+import com.momotenko.lab1.model.entity.Ammunition;
 
 public class Boots extends Ammunition {
     public Boots(String name, double weight, double price) {

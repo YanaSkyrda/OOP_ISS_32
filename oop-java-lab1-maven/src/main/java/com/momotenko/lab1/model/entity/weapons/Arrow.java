@@ -1,6 +1,6 @@
-package com.momotenko.model.entity.weapons;
+package com.momotenko.lab1.model.entity.weapons;
 
-import com.momotenko.model.entity.Ammunition;
+import com.momotenko.lab1.model.entity.Ammunition;
 
 public class Arrow extends Ammunition {
     public Arrow(String name, double weight, double price) {

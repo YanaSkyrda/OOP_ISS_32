@@ -1,6 +1,6 @@
-package com.momotenko.model;
+package com.momotenko.lab1.model;
 
-import com.momotenko.model.entity.Ammunition;
+import com.momotenko.lab1.model.entity.Ammunition;
 
 import java.util.Comparator;
 

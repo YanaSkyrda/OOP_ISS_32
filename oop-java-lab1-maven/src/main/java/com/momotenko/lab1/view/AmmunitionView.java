@@ -1,6 +1,6 @@
-package com.momotenko.view;
+package com.momotenko.lab1.view;
 
-import com.momotenko.model.entity.Ammunition;
+import com.momotenko.lab1.model.entity.Ammunition;
 
 import java.util.ArrayList;
 import java.util.Scanner;

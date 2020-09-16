@@ -1,6 +1,6 @@
-package com.momotenko;
+package com.momotenko.lab1;
 
-import com.momotenko.controller.AmmunitionController;
+import com.momotenko.lab1.controller.AmmunitionController;
 
 import java.io.IOException;
 

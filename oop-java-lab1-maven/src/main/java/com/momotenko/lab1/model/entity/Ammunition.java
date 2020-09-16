@@ -1,4 +1,4 @@
-package com.momotenko.model.entity;
+package com.momotenko.lab1.model.entity;
 
 public abstract class Ammunition {
     private double weight;
