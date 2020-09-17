@@ -12,7 +12,11 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Test class for model and knight
+ */
 public class ModelKnightTest {
+    /** Adding and getting back ammunition of the knight test */
     @Test
     @DisplayName("Knight test for get/add ammunition")
     void knightGetAddTest() {
@@ -44,6 +48,9 @@ public class ModelKnightTest {
         assertTrue(knight.getAmmunition().size() == 3);
     }
 
+    /** Testing function which are not getter nor setters.
+     * Model class reflects interface of the Knight, so the Model class tested only.
+     */
     @Test
     @DisplayName("Ammunition test for main functions")
     void knightMainFuncTest(){

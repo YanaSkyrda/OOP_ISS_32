@@ -5,19 +5,26 @@ import com.momotenko.lab1.model.ComparatorWeight;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * This class is my subject area.
+ * The knight has ammunition and it's possible to get some info on it.
+ */
 public class Knight {
-    private ArrayList<Ammunition> ammunition = new ArrayList<>();
+    private ArrayList<Ammunition> ammunition = new ArrayList<>(); //List of unique pieces of ammunition
 
+    /** Getter for ammunition*/
     public ArrayList<Ammunition> getAmmunition() {
         return ammunition;
     }
 
+    /** Sort ammunition by weight and get it */
     public ArrayList<Ammunition> sortAmmunitionByWeight(){
         Collections.sort(ammunition, new ComparatorWeight());
 
         return ammunition;
     }
 
+    /** Get ammunition by the price range */
     public ArrayList<Ammunition> getAmmunitionByPriceRange(double from, double to){
         ArrayList<Ammunition> ans = new ArrayList<>();
 
@@ -30,7 +37,7 @@ public class Knight {
         return ans;
     }
 
-    //return false if didn't add
+    /** The function returns true if addition was successful and false vise versa */
     public boolean addAmmunition(Ammunition toAdd){
         if (!checkIfPresentAmmunition(toAdd.getType())){
             ammunition.add(toAdd);
@@ -40,6 +47,7 @@ public class Knight {
         return false;
     }
 
+    /** The function replaces ammunition if such piece already exists */
     public void replaceAmmunition(Ammunition toReplace){
         String type = toReplace.getType();
 
@@ -51,6 +59,7 @@ public class Knight {
         }
     }
 
+    /** Get total cost of all pieces of ammunition */
     public double calculateCost(){
         double ans = 0.0;
 
@@ -61,6 +70,7 @@ public class Knight {
         return ans;
     }
 
+    /** Helper for checking if same type of ammunition already equipped */
     private boolean checkIfPresentAmmunition(String toCheck){
         for (Ammunition i : ammunition){
             if (i.getType().equals(toCheck)){

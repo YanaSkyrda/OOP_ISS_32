@@ -7,13 +7,18 @@ import com.momotenko.lab1.view.AmmunitionView;
 
 import java.util.Scanner;
 
+/**
+ * Controller for MVC pattern.
+ * This class requires Model and View to work with them.
+ * All the communication between user and program controls here.
+ *
+ * @author Yurii Momotenko
+ */
 public class AmmunitionController {
     AmmunitionModel model = new AmmunitionModel();
     AmmunitionView view = new AmmunitionView();
 
-    public AmmunitionController(){
-    }
-
+    /** Main command to run the program */
     public void run(){
         Scanner input = new Scanner(System.in);
         int command;
@@ -27,6 +32,7 @@ public class AmmunitionController {
         }
     }
 
+    /** Helper function for the different commands */
     private void doCommand(int command){
         Scanner input = new Scanner(System.in);
         switch (command){
@@ -64,6 +70,7 @@ public class AmmunitionController {
         }
     }
 
+    /** Helper function for add new ammunition command */
     private void handleAddCommand(int command){
         Scanner input = new Scanner(System.in);
         view.printAskFor("name");

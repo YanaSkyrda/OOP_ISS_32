@@ -9,7 +9,11 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * Test class for ammunition
+ */
 public class AmmunitionTest {
+    /** Parametrized test for checking the correctness for getters and setters */
     @DisplayName("Check getters via inherited classes")
     @ParameterizedTest(name = "Getters for {0} checked")
     @ArgumentsSource(AmmunitionArgumentProvider.class)
