@@ -35,6 +35,8 @@ public class TridiagonalMatrix {
             }
             if (end == diagonalSize - 1) {
                 result.add((double)0);
+            } else {
+                result.add(coefficients.get(diagonalSize - 1));
             }
         } else {
             throw new Exception("Wrong diagonal size");
@@ -45,6 +47,18 @@ public class TridiagonalMatrix {
 
     public int getDiagonalSize() {
         return B.size();
+    }
+
+    public double getAByIndex(int index) {
+        return A.get(index);
+    }
+
+    public double getBByIndex(int index) {
+        return B.get(index);
+    }
+
+    public double getCByIndex(int index) {
+        return C.get(index);
     }
 
 }
