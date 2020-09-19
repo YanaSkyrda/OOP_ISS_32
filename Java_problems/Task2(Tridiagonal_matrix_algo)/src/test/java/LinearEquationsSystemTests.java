@@ -8,7 +8,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LinearEquationsSystemTests {
+class LinearEquationsSystemTests {
     private TridiagonalMatrix coefficients = new TridiagonalMatrix(Arrays.asList(0d, -3d, -5d, -6d, -5d),
             Arrays.asList(2d, 8d, 12d, 18d, 10d), Arrays.asList(-1d, -1d, 2d, -4d));
 
@@ -16,8 +16,7 @@ public class LinearEquationsSystemTests {
 
     private LinearEquationsSystem equationsSystem = new LinearEquationsSystem(coefficients, rightSideValues);
 
-    public LinearEquationsSystemTests() throws Exception {
-    }
+    LinearEquationsSystemTests() throws Exception { }
 
     @Test
     void constructorWithMatrix() throws Exception {

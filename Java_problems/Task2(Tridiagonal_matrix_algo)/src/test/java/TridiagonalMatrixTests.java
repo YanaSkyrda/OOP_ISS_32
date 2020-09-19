@@ -2,15 +2,16 @@ import org.junit.jupiter.api.Test;
 import tridiagonalmatrixalgorithm.TridiagonalMatrix;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TridiagonalMatrixTests {
+class TridiagonalMatrixTests {
 
     private TridiagonalMatrix coefficients = new TridiagonalMatrix(Arrays.asList(1d, 2d, 4d),
             Arrays.asList(5d, 6d, 7d), Arrays.asList(8d, 9d, 10d));
 
-    public TridiagonalMatrixTests() throws Exception { }
+    TridiagonalMatrixTests() throws Exception { }
 
     @Test
     void constructorFromList() throws Exception {
@@ -26,11 +27,11 @@ public class TridiagonalMatrixTests {
         assertEquals(Arrays.asList(8d, 9d, 0d), coefficients.getC());
 
         Throwable exception = assertThrows(Exception.class, () ->
-                new TridiagonalMatrix(Arrays.asList(2d), Arrays.asList(5d, 6d, 7d), Arrays.asList(8d, 9d)));
+                new TridiagonalMatrix(Collections.singletonList(2d), Arrays.asList(5d, 6d, 7d), Arrays.asList(8d, 9d)));
         assertEquals("Wrong diagonal size", exception.getMessage());
 
         exception = assertThrows(Exception.class, () ->
-                new TridiagonalMatrix(Arrays.asList(2d, 4d), Arrays.asList(5d, 6d, 7d), Arrays.asList(9d)));
+                new TridiagonalMatrix(Arrays.asList(2d, 4d), Arrays.asList(5d, 6d, 7d), Collections.singletonList(9d)));
         assertEquals("Wrong diagonal size", exception.getMessage());
 
         exception = assertThrows(Exception.class, () ->

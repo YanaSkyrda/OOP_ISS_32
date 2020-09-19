@@ -81,9 +81,7 @@ public class TridiagonalMatrix {
     public boolean equals(Object other) {
         if (other instanceof TridiagonalMatrix) {
             TridiagonalMatrix otherMatrix = (TridiagonalMatrix) other;
-            if (this.A.equals(otherMatrix.A) && this.B.equals(otherMatrix.B) && this.C.equals(otherMatrix.C)) {
-                return true;
-            }
+            return (this.A.equals(otherMatrix.A) && this.B.equals(otherMatrix.B) && this.C.equals(otherMatrix.C));
         }
         return false;
     }
