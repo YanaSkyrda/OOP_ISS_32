@@ -1,7 +1,9 @@
+package tridiagonalmatrixalgorithm;
+
 import java.util.*;
 
 public class LinearEquationsSystem {
-    private TridiagonalMatrix coefficients;
+    private final TridiagonalMatrix coefficients;
     private final List<Double> rightSideValues;
     private List<Double> resultX = null;
 
@@ -55,6 +57,14 @@ public class LinearEquationsSystem {
         }
 
         return this.resultX;
+    }
+
+    public TridiagonalMatrix getCoefficients() {
+        return coefficients;
+    }
+
+    public List<Double> getRightSideValues() {
+        return rightSideValues;
     }
 
     public static void main(String[] args) throws Exception {

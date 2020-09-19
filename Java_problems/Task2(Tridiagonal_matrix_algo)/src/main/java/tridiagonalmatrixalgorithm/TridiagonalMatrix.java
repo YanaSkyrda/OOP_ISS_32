@@ -1,3 +1,5 @@
+package tridiagonalmatrixalgorithm;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +38,9 @@ public class TridiagonalMatrix {
             if (end == diagonalSize - 1) {
                 result.add((double)0);
             } else {
-                result.add(coefficients.get(diagonalSize - 1));
+                if (coefficients.size() == diagonalSize) {
+                    result.add(coefficients.get(diagonalSize - 1));
+                }
             }
         } else {
             throw new Exception("Wrong diagonal size");
@@ -59,6 +63,29 @@ public class TridiagonalMatrix {
 
     public double getCByIndex(int index) {
         return C.get(index);
+    }
+
+    public List<Double> getA() {
+        return A;
+    }
+
+    public List<Double> getB() {
+        return B;
+    }
+
+    public List<Double> getC() {
+        return C;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof TridiagonalMatrix) {
+            TridiagonalMatrix otherMatrix = (TridiagonalMatrix) other;
+            if (this.A.equals(otherMatrix.A) && this.B.equals(otherMatrix.B) && this.C.equals(otherMatrix.C)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
