@@ -60,20 +60,42 @@ class LinearEquationsSystemTests {
         assertEquals(coefficients, equationsSystem.getCoefficients());
     }
 
-
     @Test
     void rightSideValuesGetter() {
         assertEquals(rightSideValues, equationsSystem.getRightSideValues());
     }
 
     @Test
-    void resultCheck() {
-        List<Double> result = equationsSystem.getResult();
+    void resultCheck() throws Exception {
+        List<Double> result = equationsSystem.getResult(false);
         List<Double> expectedResult = Arrays.asList(-10d, 5d, -2d, -10d, -3d);
 
         for (int i = 0; i < result.size(); i++) {
             assertEquals(expectedResult.get(i), result.get(i), 0.01);
         }
 
+        result = new LinearEquationsSystem(Arrays.asList(-1d, -1d), Arrays.asList(3d, 3d, 3d),
+                Arrays.asList(-1d, -1d), Arrays.asList(-1d, 7d, 7d)).getResult(false);
+        expectedResult = Arrays.asList(0.952, 3.857, 3.619);
+        for (int i = 0; i < result.size(); i++) {
+            assertEquals(expectedResult.get(i), result.get(i), 0.01);
+        }
+    }
+
+    @Test
+    void parallelResultCheck() throws Exception {
+        List<Double> result = equationsSystem.getResult(true);
+        List<Double> expectedResult = Arrays.asList(-10d, 5d, -2d, -10d, -3d);
+
+        for (int i = 0; i < result.size(); i++) {
+            assertEquals(expectedResult.get(i), result.get(i), 0.01);
+        }
+
+        result = new LinearEquationsSystem(Arrays.asList(-1d, -1d), Arrays.asList(3d, 3d, 3d),
+                Arrays.asList(-1d, -1d), Arrays.asList(-1d, 7d, 7d)).getResult(true);
+        expectedResult = Arrays.asList(0.952, 3.857, 3.619);
+        for (int i = 0; i < result.size(); i++) {
+            assertEquals(expectedResult.get(i), result.get(i), 0.01);
+        }
     }
 }
