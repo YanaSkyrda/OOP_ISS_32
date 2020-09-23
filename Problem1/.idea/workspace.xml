@@ -28,11 +28,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d4e7b653-ac06-411e-9d1d-91c19bcc022c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Problem1_clientSide_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Problem1_serverSide_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_mockito_mockito_core_3_5_11.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/serverSide/src/test/java/ServerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Problem2/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Problem2/src/main/java/LinearEquations.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Problem2/src/main/java/TridiagonalMatrix.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.3/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.3/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.3/fileHashes/fileHashes.bin" afterDir="false" />
@@ -43,26 +41,14 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.3/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.3/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.3/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.3/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ClientSide.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ClientSide.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ServerSide.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ServerSide.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/CatTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/CatTest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-CatTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-CatTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cat.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/model/Cat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ClientSide.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ServerSide.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/CatTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/test/java/CatTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientSide/src/main/java/ClientSide.java" beforeDir="false" afterPath="$PROJECT_DIR$/clientSide/src/main/java/ClientSide.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/model/Cat.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/model/Cat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serverSide/src/main/java/ServerSide.java" beforeDir="false" afterPath="$PROJECT_DIR$/serverSide/src/main/java/ServerSide.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Problem2/.gradle/6.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Problem2/.gradle/6.3/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Problem2/.gradle/6.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Problem2/.gradle/6.3/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Problem2/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Problem2/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Problems/Problem2/.idea/workspace.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +96,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -122,7 +108,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ServerTest">
+  <component name="RunManager" selected="Application.ClientSide">
     <configuration name="ClientSide" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ClientSide" />
       <module name="Problem1.clientSide.main" />
@@ -137,15 +123,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -231,6 +215,7 @@
       <workItem from="1600699282340" duration="5906000" />
       <workItem from="1600786196171" duration="176000" />
       <workItem from="1600786429113" duration="12570000" />
+      <workItem from="1600880139483" duration="1092000" />
     </task>
     <servers />
   </component>
@@ -279,22 +264,22 @@
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
     <state x="654" y="297" key="FileChooserDialogImpl/0.0.2048.1112@0.0.2048.1112" timestamp="1600788294898" />
-    <state width="2005" height="415" key="GridCell.Tab.0.bottom" timestamp="1600799581164">
+    <state width="2005" height="415" key="GridCell.Tab.0.bottom" timestamp="1600881232890">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="2005" height="415" key="GridCell.Tab.0.bottom/0.0.2048.1112@0.0.2048.1112" timestamp="1600799581164" />
-    <state width="2005" height="415" key="GridCell.Tab.0.center" timestamp="1600799581164">
+    <state width="2005" height="415" key="GridCell.Tab.0.bottom/0.0.2048.1112@0.0.2048.1112" timestamp="1600881232890" />
+    <state width="2005" height="415" key="GridCell.Tab.0.center" timestamp="1600881232890">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="2005" height="415" key="GridCell.Tab.0.center/0.0.2048.1112@0.0.2048.1112" timestamp="1600799581164" />
-    <state width="2005" height="415" key="GridCell.Tab.0.left" timestamp="1600799581164">
+    <state width="2005" height="415" key="GridCell.Tab.0.center/0.0.2048.1112@0.0.2048.1112" timestamp="1600881232890" />
+    <state width="2005" height="415" key="GridCell.Tab.0.left" timestamp="1600881232890">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="2005" height="415" key="GridCell.Tab.0.left/0.0.2048.1112@0.0.2048.1112" timestamp="1600799581164" />
-    <state width="2005" height="415" key="GridCell.Tab.0.right" timestamp="1600799581164">
+    <state width="2005" height="415" key="GridCell.Tab.0.left/0.0.2048.1112@0.0.2048.1112" timestamp="1600881232890" />
+    <state width="2005" height="415" key="GridCell.Tab.0.right" timestamp="1600881232890">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="2005" height="415" key="GridCell.Tab.0.right/0.0.2048.1112@0.0.2048.1112" timestamp="1600799581164" />
+    <state width="2005" height="415" key="GridCell.Tab.0.right/0.0.2048.1112@0.0.2048.1112" timestamp="1600881232890" />
     <state width="1689" height="373" key="GridCell.Tab.1.bottom" timestamp="1600712186654">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
@@ -311,10 +296,10 @@
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
     <state width="1689" height="373" key="GridCell.Tab.1.right/0.0.2048.1112@0.0.2048.1112" timestamp="1600712186654" />
-    <state x="47" y="135" key="SettingsEditor" timestamp="1600788583008">
+    <state x="47" y="135" key="SettingsEditor" timestamp="1600880181097">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state x="47" y="135" key="SettingsEditor/0.0.2048.1112@0.0.2048.1112" timestamp="1600788583008" />
+    <state x="47" y="135" key="SettingsEditor/0.0.2048.1112@0.0.2048.1112" timestamp="1600880181097" />
     <state x="271" y="452" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1600788299760">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>

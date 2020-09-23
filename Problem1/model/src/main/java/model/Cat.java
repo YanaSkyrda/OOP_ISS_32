@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * main.model.Cat class is used as victim of serialize and deserialize processes
  */
-public class Cat implements Serializable {
+public class Cat implements Serializable{
     private String name;
     private String color;
     private Integer age;

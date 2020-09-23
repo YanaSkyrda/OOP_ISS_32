@@ -37,7 +37,6 @@ public class ClientSide {
             if(client != null)
                 client.close();
         }
-        //return true;
     }
     public static void main(String[] args) throws IOException {
         ClientSide clientSide = new ClientSide();

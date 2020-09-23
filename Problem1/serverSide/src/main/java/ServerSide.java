@@ -48,7 +48,6 @@ public class ServerSide {
             if (server != null)
                 server.close();
         }
-        //return true;
     }
 
     public static void main(String[] args) throws IOException {
