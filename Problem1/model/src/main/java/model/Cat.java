@@ -1,7 +1,9 @@
+package model;
+
 import java.io.Serializable;
 
 /**
- * main.Cat class is used as victim of serialize and deserialize processes
+ * main.model.Cat class is used as victim of serialize and deserialize processes
  */
 public class Cat implements Serializable {
     private String name;
@@ -50,8 +52,18 @@ public class Cat implements Serializable {
             this.age = age;
     }
 
-    public void printInfo() {
-        System.out.println("Cat's name:" + this.name + "\n" + "Cat's color:" + this.color + "\n" + "Cat's age:" + this.age.toString() + "\n");
+    @Override
+    public String toString() {
+        return "model.Cat{" +
+                "name='" + name + '\'' +
+                ", color='" + color + '\'' +
+                ", age=" + age +
+                '}';
     }
 
+    public boolean equals(Cat obj) {
+        if(this.age.equals(obj.age) && this.color.equals(obj.color) && this.name.equals(obj.name))
+            return true;
+        return false;
+    }
 }

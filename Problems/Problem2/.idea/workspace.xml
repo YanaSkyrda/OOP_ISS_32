@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8071cf4a-66aa-462e-8a40-6174cb0d3c46" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../Problem1/.idea/artifacts/Problem1_clientSide_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Problem1/.idea/artifacts/Problem1_serverSide_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Problem1/.idea/libraries/org_mockito_mockito_core_3_5_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Problem1/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Problem1/serverSide/src/test/java/ServerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/javaCompile/jarAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.gradle/6.3/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/build/classes/java/main/ClientSide.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/build/classes/java/main/ClientSide.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/build/classes/java/main/ServerSide.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/build/classes/java/main/ServerSide.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/build/reports/tests/test/classes/CatTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/build/reports/tests/test/classes/CatTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/build/reports/tests/test/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/build/reports/tests/test/packages/default-package.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/build/reports/tests/test/packages/default-package.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/build/test-results/test/TEST-CatTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/build/test-results/test/TEST-CatTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/build/test-results/test/binary/results.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/src/main/java/Cat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/model/src/main/java/model/Cat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/src/main/java/ClientSide.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/src/main/java/ServerSide.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Problem1/src/test/java/CatTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Problem1/model/src/test/java/CatTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:\Programs\IntelliJ\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1huI1fxRZzpwXT04ZeSBtDYnFv3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Problem2" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8071cf4a-66aa-462e-8a40-6174cb0d3c46" name="Default Changelist" comment="" />
+      <created>1600854339745</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1600854339745</updated>
+      <workItem from="1600854346260" duration="193000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="804" y="311" key="FileChooserDialogImpl" timestamp="1600854536549">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="804" y="311" key="FileChooserDialogImpl/0.0.2048.1112@0.0.2048.1112" timestamp="1600854536549" />
+  </component>
+</project>

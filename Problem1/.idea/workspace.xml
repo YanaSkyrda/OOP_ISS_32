@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Problem1.serverSide:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
@@ -18,16 +23,47 @@
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:upstream" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
     </expand>
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d4e7b653-ac06-411e-9d1d-91c19bcc022c" name="Default Changelist" comment="" />
+    <list default="true" id="d4e7b653-ac06-411e-9d1d-91c19bcc022c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Problem1_clientSide_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Problem1_serverSide_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_mockito_mockito_core_3_5_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/serverSide/src/test/java/ServerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.3/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.3/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.3/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.3/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.3/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.3/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.3/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.3/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.3/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.3/javaCompile/jarAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.3/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.3/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.3/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.3/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ClientSide.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ClientSide.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ServerSide.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ServerSide.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/CatTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/CatTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-CatTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-CatTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cat.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/model/Cat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ClientSide.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ServerSide.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/CatTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/test/java/CatTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,6 +74,16 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view />
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -46,7 +92,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="1heFT45IBLtdqJc254NHNWFHLyY" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -55,51 +101,105 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path" value="D:\University\3rd Course\OOP\Libs" />
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.45817247" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
-  <component name="RunManager" selected="Application.ClientSide">
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.ServerTest">
     <configuration name="ClientSide" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ClientSide" />
-      <module name="Problem1.main" />
+      <module name="Problem1.clientSide.main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="ServerSide" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ServerSide" />
-      <module name="Problem1.main" />
+      <module name="Problem1.serverSide.main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CatTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ClientTest.checkWriteCat" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;CatTest&quot;" />
+        <option name="scriptParameters" value="--tests &quot;ClientTest.checkWriteCat&quot; --scan" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":test" />
+            <option value=":clientSide:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Clientest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;Clientest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":clientSide:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ServerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;ServerTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":serverSide:test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -109,9 +209,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.ServerTest" />
         <item itemvalue="Application.ClientSide" />
         <item itemvalue="Application.ServerSide" />
-        <item itemvalue="Gradle.CatTest" />
+        <item itemvalue="Gradle.ClientTest.checkWriteCat" />
+        <item itemvalue="Gradle.Clientest" />
       </list>
     </recent_temporary>
   </component>
@@ -124,6 +226,11 @@
       <option name="presentableId" value="Default" />
       <updated>1600363655230</updated>
       <workItem from="1600363656677" duration="1605000" />
+      <workItem from="1600369388916" duration="85000" />
+      <workItem from="1600598939408" duration="1243000" />
+      <workItem from="1600699282340" duration="5906000" />
+      <workItem from="1600786196171" duration="176000" />
+      <workItem from="1600786429113" duration="12570000" />
     </task>
     <servers />
   </component>
@@ -140,27 +247,81 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/../.." />
+    </ignored-roots>
   </component>
   <component name="WindowStateProjectService">
-    <state x="0" y="130" key="#Project_Structure" timestamp="1600367671009">
+    <state x="0" y="130" key="#Project_Structure" timestamp="1600790941602">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state x="0" y="130" key="#Project_Structure/0.0.2048.1112@0.0.2048.1112" timestamp="1600367671009" />
-    <state width="1689" height="308" key="GridCell.Tab.0.bottom" timestamp="1600367817616">
+    <state x="0" y="130" key="#Project_Structure/0.0.2048.1112@0.0.2048.1112" timestamp="1600790941602" />
+    <state x="636" y="257" key="#com.intellij.ide.util.MemberChooser" timestamp="1600796132098">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="1689" height="308" key="GridCell.Tab.0.bottom/0.0.2048.1112@0.0.2048.1112" timestamp="1600367817616" />
-    <state width="1689" height="308" key="GridCell.Tab.0.center" timestamp="1600367817615">
+    <state x="636" y="257" key="#com.intellij.ide.util.MemberChooser/0.0.2048.1112@0.0.2048.1112" timestamp="1600796132098" />
+    <state x="297" y="351" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1600712136342">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="1689" height="308" key="GridCell.Tab.0.center/0.0.2048.1112@0.0.2048.1112" timestamp="1600367817615" />
-    <state width="1689" height="308" key="GridCell.Tab.0.left" timestamp="1600367817615">
+    <state x="297" y="351" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.2048.1112@0.0.2048.1112" timestamp="1600712136342" />
+    <state x="554" y="292" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1600786347694">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="1689" height="308" key="GridCell.Tab.0.left/0.0.2048.1112@0.0.2048.1112" timestamp="1600367817615" />
-    <state width="1689" height="308" key="GridCell.Tab.0.right" timestamp="1600367817616">
+    <state x="554" y="292" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.2048.1112@0.0.2048.1112" timestamp="1600786347694" />
+    <state x="654" y="421" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1600796973958">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="1689" height="308" key="GridCell.Tab.0.right/0.0.2048.1112@0.0.2048.1112" timestamp="1600367817616" />
+    <state x="654" y="421" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.2048.1112@0.0.2048.1112" timestamp="1600796973958" />
+    <state x="654" y="297" key="FileChooserDialogImpl" timestamp="1600788294898">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="654" y="297" key="FileChooserDialogImpl/0.0.2048.1112@0.0.2048.1112" timestamp="1600788294898" />
+    <state width="2005" height="415" key="GridCell.Tab.0.bottom" timestamp="1600799581164">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state width="2005" height="415" key="GridCell.Tab.0.bottom/0.0.2048.1112@0.0.2048.1112" timestamp="1600799581164" />
+    <state width="2005" height="415" key="GridCell.Tab.0.center" timestamp="1600799581164">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state width="2005" height="415" key="GridCell.Tab.0.center/0.0.2048.1112@0.0.2048.1112" timestamp="1600799581164" />
+    <state width="2005" height="415" key="GridCell.Tab.0.left" timestamp="1600799581164">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state width="2005" height="415" key="GridCell.Tab.0.left/0.0.2048.1112@0.0.2048.1112" timestamp="1600799581164" />
+    <state width="2005" height="415" key="GridCell.Tab.0.right" timestamp="1600799581164">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state width="2005" height="415" key="GridCell.Tab.0.right/0.0.2048.1112@0.0.2048.1112" timestamp="1600799581164" />
+    <state width="1689" height="373" key="GridCell.Tab.1.bottom" timestamp="1600712186654">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state width="1689" height="373" key="GridCell.Tab.1.bottom/0.0.2048.1112@0.0.2048.1112" timestamp="1600712186654" />
+    <state width="1689" height="373" key="GridCell.Tab.1.center" timestamp="1600712186654">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state width="1689" height="373" key="GridCell.Tab.1.center/0.0.2048.1112@0.0.2048.1112" timestamp="1600712186654" />
+    <state width="1689" height="373" key="GridCell.Tab.1.left" timestamp="1600712186654">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state width="1689" height="373" key="GridCell.Tab.1.left/0.0.2048.1112@0.0.2048.1112" timestamp="1600712186654" />
+    <state width="1689" height="373" key="GridCell.Tab.1.right" timestamp="1600712186654">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state width="1689" height="373" key="GridCell.Tab.1.right/0.0.2048.1112@0.0.2048.1112" timestamp="1600712186654" />
+    <state x="47" y="135" key="SettingsEditor" timestamp="1600788583008">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="47" y="135" key="SettingsEditor/0.0.2048.1112@0.0.2048.1112" timestamp="1600788583008" />
+    <state x="271" y="452" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1600788299760">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="271" y="452" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.2048.1112@0.0.2048.1112" timestamp="1600788299760" />
+    <state x="257" y="166" key="new project wizard" timestamp="1600709637327">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="257" y="166" key="new project wizard/0.0.2048.1112@0.0.2048.1112" timestamp="1600709637327" />
   </component>
 </project>
