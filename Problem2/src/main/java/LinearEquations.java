@@ -19,12 +19,20 @@ public class LinearEquations {
 
         System.out.println(linearEquations.toString());
 
-        linearEquations.thomasAlgorithmOneThread(true);
+        linearEquations.thomasAlgorithm(true);
 
         //System.out.println(linearEquations.toString());
         System.out.println(linearEquations.toStringXVector());
 
 
+    }
+
+    public ArrayList<Double> getdVector() {
+        return dVector;
+    }
+
+    public ArrayList<Double> getxVector() {
+        return xVector;
     }
 
     public LinearEquations(TridiagonalMatrix tridiagonalMatrix, double[] dVector) throws Exception {
@@ -33,6 +41,15 @@ public class LinearEquations {
 
         if(tridiagonalMatrix == null)
             throw new Exception("Wrong input matrix");
+
+        if(tridiagonalMatrix.getSize() != dVector.length){
+            this.tridiagonalMatrix = null;
+            this.dVector = null;
+            xVector = null;
+            size = 0;
+            return;
+        }
+
 
         this.tridiagonalMatrix = tridiagonalMatrix;
         this.size = tridiagonalMatrix.getSize();
@@ -45,23 +62,6 @@ public class LinearEquations {
 
         for(double i : dVector)
             this.dVector.add(i);
-
-        coffIndexReady = 0;
-    }
-
-    public LinearEquations(TridiagonalMatrix tridiagonalMatrix, ArrayList<Double> dVector) throws Exception {
-        if(dVector == null)
-            throw new Exception("Wrong input dVector");
-
-        if(tridiagonalMatrix == null)
-            throw new Exception("Wrong input matrix");
-
-        this.tridiagonalMatrix = tridiagonalMatrix;
-        this.dVector = dVector;
-
-        this.size = tridiagonalMatrix.getSize();
-
-        this.xVector = new ArrayList<>();
 
         coffIndexReady = 0;
     }
@@ -121,11 +121,12 @@ public class LinearEquations {
     //cixi-1 + aixi + bixi+1 = di ; i = 1...n
     //c1 = 0
     //bn = 0
-    public void thomasAlgorithmOneThread(boolean isMultiThreaded) throws InterruptedException {
+    public void thomasAlgorithm(boolean isMultiThreaded) throws InterruptedException {
         if(isMultiThreaded)
             eliminateLowerDiagonalMultiThread();
         else
             eliminateLowerDiagonalOneThread();
+
         solveUnknowns();
     }
 
