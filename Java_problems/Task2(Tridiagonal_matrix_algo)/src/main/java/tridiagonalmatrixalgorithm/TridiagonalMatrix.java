@@ -8,11 +8,11 @@ public class TridiagonalMatrix {
     private List<Double> B;
     private List<Double> C;
 
-    public TridiagonalMatrix(List<Double> A, List<Double> B, List<Double> C) throws Exception {
+    public TridiagonalMatrix(List<Double> A, List<Double> B, List<Double> C) throws WrongDiagonalSizeException {
         int diagonalSize = B.size();
-        this.A = initializeCoefficientArray(A, diagonalSize, 1, diagonalSize);
-        this.B = initializeCoefficientArray(B, diagonalSize, 0, diagonalSize);
-        this.C = initializeCoefficientArray(C, diagonalSize, 0, diagonalSize - 1);
+        this.A = initializeCoefficientArray(A, diagonalSize, true, false);
+        this.B = initializeCoefficientArray(B, diagonalSize, false, false);
+        this.C = initializeCoefficientArray(C, diagonalSize, false, true);
     }
 
     public TridiagonalMatrix(TridiagonalMatrix tridiagonalMatrix) {
@@ -21,29 +21,46 @@ public class TridiagonalMatrix {
         this.C = new ArrayList<>(tridiagonalMatrix.C);
     }
 
-    private List<Double> initializeCoefficientArray(List<Double> coefficients, int diagonalSize, int start, int end)
-            throws Exception {
-        List<Double> result = new ArrayList<>(diagonalSize);
+    private List<Double> initializeFullDiagonal(List<Double> coefficients, boolean firstIsZero, boolean lastIsZero) {
+        List<Double> result = new ArrayList<>(coefficients.size());
+        result.addAll(coefficients);
 
-        if (coefficients.size() == diagonalSize || coefficients.size() == diagonalSize - 1) {
-            if (start == 1) {
-                result.add((double)0);
-                if (coefficients.size() == diagonalSize - 1) {
-                    start = 0;
-                }
-            }
-            for (int i = start; i < diagonalSize - 1; i++) {
-                result.add(coefficients.get(i));
-            }
-            if (end == diagonalSize - 1) {
-                result.add((double)0);
-            } else {
-                if (coefficients.size() == diagonalSize) {
-                    result.add(coefficients.get(diagonalSize - 1));
-                }
-            }
+        if (firstIsZero) {
+            result.set(0, 0d);
+        }
+
+        if (lastIsZero) {
+            result.set(coefficients.size() - 1, 0d);
+        }
+
+        return result;
+    }
+
+    private List<Double> initializeIncompleteDiagonal(List<Double> coefficient, boolean firstIsZero, boolean lastIsZero) {
+        List<Double> result = new ArrayList<>(coefficient.size() + 1);
+        result.addAll(coefficient);
+
+        if (firstIsZero) {
+            result.add(0, 0d);
+        }
+
+        if (lastIsZero) {
+            result.add(0d);
+        }
+
+        return result;
+    }
+    private List<Double> initializeCoefficientArray(List<Double> coefficients, int diagonalSize,
+                                                    boolean firstIsZero, boolean lastIsZero)
+            throws WrongDiagonalSizeException {
+        List<Double> result;
+
+        if (coefficients.size() - diagonalSize == 0) {
+            result = initializeFullDiagonal(coefficients, firstIsZero, lastIsZero);
+        } else if (diagonalSize - coefficients.size() == 1) {
+            result = initializeIncompleteDiagonal(coefficients, firstIsZero, lastIsZero);
         } else {
-            throw new Exception("Wrong diagonal size");
+            throw new WrongDiagonalSizeException("Wrong diagonal size.");
         }
 
         return result;
