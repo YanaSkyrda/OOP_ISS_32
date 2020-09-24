@@ -13,7 +13,7 @@ public class TridiagonalMatrix {
             throw new Exception("Wrong input parameters");
 
         if(aVector.length <= 1)
-            throw new Exception("Wrong size of aVector.");
+            throw new Exception("Wrong size of aVector");
 
         if(aVector.length != (bVector.length + 1))
             throw new Exception("Wrong size of bVector");
@@ -35,17 +35,6 @@ public class TridiagonalMatrix {
         this.cVector.add((double)0);
         for(double i : cVector)
             this.cVector.add(i);
-
-        this.size = this.aVector.size();
-    }
-
-    public TridiagonalMatrix(ArrayList<Double> aVector, ArrayList<Double> bVector, ArrayList<Double> cVector) throws Exception {
-        if(aVector == null || bVector == null || cVector == null)
-            throw new Exception("Wrong input parameters");
-
-        this.aVector = aVector;
-        this.bVector = bVector;
-        this.cVector = cVector;
 
         this.size = this.aVector.size();
     }
