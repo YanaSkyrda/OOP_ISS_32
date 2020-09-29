@@ -1,48 +1,33 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
 
 public class LinearEquations {
     private final TridiagonalMatrix tridiagonalMatrix;
-    private final ArrayList<Double> dVector;
-    private final ArrayList<Double> xVector;
+    private final List<Double> dVector;
+    private final List<Double> xVector;
 
     private final int size;
-    private volatile int coffIndexReady;
+    private volatile int coffIndexReady;    //не будет добавлен в стек потока
 
-    public static void main(String[] args) throws Exception {
-        double [] A = {-2.25, -2.25, -2.25, -2.25, -2.25, -2.25, -2.25};
-        double [] B = {1, 1, 1, 1, 1, 1};
-        double [] C = {1, 1, 1, 1, 1, 1};
-        double [] D = {0, 0, 0, 0, 0, 0, -100};
+    private static final Logger log = Logger.getLogger(LinearEquations.class.getName());
 
-        TridiagonalMatrix tridiagonalMatrix = new TridiagonalMatrix(A, B ,C);
-        LinearEquations linearEquations = new LinearEquations(tridiagonalMatrix, D);
-
-        System.out.println(linearEquations.toString());
-
-        linearEquations.thomasAlgorithm(true);
-
-        //System.out.println(linearEquations.toString());
-        System.out.println(linearEquations.toStringXVector());
-
-
-    }
-
-    public ArrayList<Double> getdVector() {
+    public List<Double> getdVector() {
         return dVector;
     }
 
-    public ArrayList<Double> getxVector() {
+    public List<Double> getxVector() {
         return xVector;
     }
 
-    public LinearEquations(TridiagonalMatrix tridiagonalMatrix, double[] dVector) throws Exception {
+    public LinearEquations(TridiagonalMatrix tridiagonalMatrix, List<Double> dVector) throws Exception {
         if(dVector == null)
             throw new Exception("Wrong input dVector");
 
         if(tridiagonalMatrix == null)
             throw new Exception("Wrong input matrix");
 
-        if(tridiagonalMatrix.getSize() != dVector.length){
+        if(tridiagonalMatrix.getSize() != dVector.size()){
             this.tridiagonalMatrix = null;
             this.dVector = null;
             xVector = null;
@@ -50,84 +35,85 @@ public class LinearEquations {
             return;
         }
 
-
         this.tridiagonalMatrix = tridiagonalMatrix;
         this.size = tridiagonalMatrix.getSize();
 
-        this.dVector = new ArrayList<>();
+        this.dVector = dVector;
         this.xVector = new ArrayList<>(this.size);
 
         for(int i = 0; i < this.size; i++)
             xVector.add(0d);
 
-        for(double i : dVector)
-            this.dVector.add(i);
-
         coffIndexReady = 0;
     }
 
+    private void addLastDVectorCoeff(){
+        this.dVector.set(this.size - 1, ((this.dVector.get(this.size - 1) - this.dVector.get(this.size - 2) * tridiagonalMatrix.getcVector().get(this.size - 1)) / (tridiagonalMatrix.getaVector().get(this.size - 1) - tridiagonalMatrix.getbVector().get(this.size - 2) * tridiagonalMatrix.getcVector().get(this.size - 1))));
+
+    }                   //Adjustment 5.
+
     private void eliminateLowerDiagonalOneThread(){
-        tridiagonalMatrix.changeCoefficient(tridiagonalMatrix.getbVector(), 0, (tridiagonalMatrix.getbVector().get(0)) / tridiagonalMatrix.getaVector().get(0));
+        Utils.changeCoefficient(tridiagonalMatrix.getbVector(), 0, (tridiagonalMatrix.getbVector().get(0)) / tridiagonalMatrix.getaVector().get(0));
         this.dVector.set(0, this.dVector.get(0) / tridiagonalMatrix.getaVector().get(0));
 
         for(int i = 1; i < this.size - 1; i++){
-            tridiagonalMatrix.changeCoefficient(tridiagonalMatrix.getbVector(), i, (tridiagonalMatrix.getbVector().get(i) / (tridiagonalMatrix.getaVector().get(i) - tridiagonalMatrix.getbVector().get(i - 1) * tridiagonalMatrix.getcVector().get(i))));
+            //Formula
+            Utils.changeCoefficient(tridiagonalMatrix.getbVector(), i, (tridiagonalMatrix.getbVector().get(i) / (tridiagonalMatrix.getaVector().get(i) - tridiagonalMatrix.getbVector().get(i - 1) * tridiagonalMatrix.getcVector().get(i))));
             this.dVector.set(i, ((this.dVector.get(i) - this.dVector.get(i - 1) * tridiagonalMatrix.getcVector().get(i)) / (tridiagonalMatrix.getaVector().get(i) - tridiagonalMatrix.getbVector().get(i - 1) * tridiagonalMatrix.getcVector().get(i))));
         }
-
-        this.dVector.set(this.size - 1, ((this.dVector.get(this.size - 1) - this.dVector.get(this.size - 2) * tridiagonalMatrix.getcVector().get(this.size - 1)) / (tridiagonalMatrix.getaVector().get(this.size - 1) - tridiagonalMatrix.getbVector().get(this.size - 2) * tridiagonalMatrix.getcVector().get(this.size - 1))));
-
     }
 
-    private void eliminateLowerDiagonalMultiThread() throws InterruptedException {
+    private synchronized void eliminateLowerDiagonalMultiThread() throws InterruptedException {
         Runnable bCoffsEval;
         bCoffsEval = () -> {
-            System.out.println(Thread.currentThread().toString() + "Started");
-            tridiagonalMatrix.changeCoefficient(tridiagonalMatrix.getbVector(), 0, (tridiagonalMatrix.getbVector().get(0)) / tridiagonalMatrix.getaVector().get(0));
+            synchronized (this){
+                log.info(Thread.currentThread().toString() + " started");               //Adjustment 6.
+                log.info(Thread.currentThread().toString() + " eliminating the lower diagonal coefficients...");
+                Utils.changeCoefficient(tridiagonalMatrix.getbVector(), 0, (tridiagonalMatrix.getbVector().get(0)) / tridiagonalMatrix.getaVector().get(0));
 
-            for(int i = 1; i < this.size - 1; i++){
-                tridiagonalMatrix.changeCoefficient(tridiagonalMatrix.getbVector(), i, (tridiagonalMatrix.getbVector().get(i) / (tridiagonalMatrix.getaVector().get(i) - tridiagonalMatrix.getbVector().get(i - 1) * tridiagonalMatrix.getcVector().get(i))));
-                coffIndexReady = i;
+                for(int i = 1; i < this.size - 1; i++){
+                    Utils.changeCoefficient(tridiagonalMatrix.getbVector(), i, (tridiagonalMatrix.getbVector().get(i) / (tridiagonalMatrix.getaVector().get(i) - tridiagonalMatrix.getbVector().get(i - 1) * tridiagonalMatrix.getcVector().get(i))));
+                    coffIndexReady = i;
+                    notify();
+                }
+                log.info(Thread.currentThread().toString() + " ended");
             }
-            System.out.println(Thread.currentThread().toString() + "Ended");
+
         };
 
         new Thread(bCoffsEval).start();
 
-        System.out.println(Thread.currentThread().toString() + "Started");
+        log.info(Thread.currentThread().toString() + " started");
+        log.info(Thread.currentThread().toString() + " eliminating the lower diagonal coefficients...");
         this.dVector.set(0, this.dVector.get(0) / tridiagonalMatrix.getaVector().get(0));
 
         for(int i = 1; i < this.size - 1; i++){
             while(i - 1 >= coffIndexReady) {
-                Thread.sleep(1);
-                System.out.println(Thread.currentThread().toString() + "waited 1msec");
+                wait();                                                                  //Adjustment 7.
+                log.info(Thread.currentThread().toString() + " waiting for the other thread...");
             }
             this.dVector.set(i, ((this.dVector.get(i) - this.dVector.get(i - 1) * tridiagonalMatrix.getcVector().get(i)) / (tridiagonalMatrix.getaVector().get(i) - tridiagonalMatrix.getbVector().get(i - 1) * tridiagonalMatrix.getcVector().get(i))));
         }
-        this.dVector.set(this.size - 1, ((this.dVector.get(this.size - 1) - this.dVector.get(this.size - 2) * tridiagonalMatrix.getcVector().get(this.size - 1)) / (tridiagonalMatrix.getaVector().get(this.size - 1) - tridiagonalMatrix.getbVector().get(this.size - 2) * tridiagonalMatrix.getcVector().get(this.size - 1))));
-        System.out.println(Thread.currentThread().toString() + "Ended");
+        log.info(Thread.currentThread().toString() + " ended");
     }
 
-    private void solveUnknowns(){
-        //this.xVector.set(this.size - 1, this.dVector.get(this.size - 1) / tridiagonalMatrix.getaVector().get(this.size - 1));
+    private void solve(){
         this.xVector.set(this.size - 1, this.dVector.get(this.size - 1));
 
         for(int i = this.size - 2; i >= 0; i--){
-            //this.xVector.set(i, this.dVector.get(i) - this.dVector.get(i) * this.xVector.get(i + 1));
             this.xVector.set(i, this.dVector.get(i) - tridiagonalMatrix.getbVector().get(i) * this.xVector.get(i + 1));
         }
     }
 
-    //cixi-1 + aixi + bixi+1 = di ; i = 1...n
-    //c1 = 0
-    //bn = 0
     public void thomasAlgorithm(boolean isMultiThreaded) throws InterruptedException {
         if(isMultiThreaded)
             eliminateLowerDiagonalMultiThread();
         else
             eliminateLowerDiagonalOneThread();
 
-        solveUnknowns();
+        addLastDVectorCoeff();
+
+        solve();
     }
 
     @Override

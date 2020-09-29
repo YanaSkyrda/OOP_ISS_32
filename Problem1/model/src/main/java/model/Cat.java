@@ -19,10 +19,12 @@ public class Cat implements Serializable{
     public Cat(String name, String color, Integer age) {
         this.name = name;
         this.color = color;
-        if(age <= 0)
+        /*if(age <= 0)
             this.age = 1;
         else
-            this.age = age;
+            this.age = age;*/
+        this.age = age;
+
     }
 
     public String getName() {

@@ -6,6 +6,8 @@ import org.junit.Test;
 
 
 import java.io.*;
+import java.net.InetAddress;
+import java.net.Socket;
 
 public class ServerTest {
 
@@ -26,7 +28,7 @@ public class ServerTest {
         thread = new Thread(taskServer);
         thread.start();
 
-        clientSide = new ClientSide();
+        clientSide = new ClientSide(new Socket(InetAddress.getLocalHost(), 8188));
     }
 
     @Test
