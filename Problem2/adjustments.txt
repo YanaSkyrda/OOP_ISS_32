@@ -1,0 +1,9 @@
+1)I was supposed to use System.arraycopy() instead of manual element copy(in Tridiagonal matrix constructor).
+	Decided to move from double[] arrays to List<Double>. Because of that I don't need to copy elements, just to pass the reference on List
+	in constructor.
+2)Created new class Main where I have my main function. Deleted the main function from LinearEquations class.
+3)Pass the copy constructor of TridiagonalMatrix into the LinearEquations constructor(insted of passing the same matrix).
+4)Moved changeCoefficient() into new class Utils.(Moved from TridiagonalMatrix class)
+5)Created new function addLastDVectorCoeff() in order to get rid of two repeated lines in my code.
+6)Added logging instead of System.out.println().
+7)Removed sleep() methods. Substitute it with wait() and notify() methods. Added synchronized keyword to eliminateLowerDiagonalMultiThread().

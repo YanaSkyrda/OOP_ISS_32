@@ -1,0 +1,5 @@
+1)Move *client* FROM ClientSide constructor to ClientSide constructor arguments.
+2)Added test that verifies that function run() in ClientSide class was invoked only once with right cat parameter.
+(Though I was supposed to test the invocation of ObjectOutputStream::writeObject() func,
+as I've understood I can't do such a test. This function is final and I get the error message
+(The picture with error text is attached. "Error.JPG"
