@@ -1,9 +1,11 @@
-package com.momotenko.client.model.entity;
+package com.momotenko.task1.server.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class Delivery implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String city;
     private String sender;
     private String receiver;

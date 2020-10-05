@@ -1,16 +1,25 @@
-package com.momotenko.client.controller;
+package com.momotenko.task1.client.controller;
 
-import com.momotenko.client.model.entity.Delivery;
-import com.momotenko.client.view.ClientView;
+import com.momotenko.task1.client.Client;
+import com.momotenko.task1.client.entity.Delivery;
+import com.momotenko.task1.client.view.ClientView;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class ClientController {
     private ClientView view = new ClientView();
     private Delivery delivery;
+    private Client client;
 
-    public void run() {
+    public void run() throws IOException {
+        client = Client.start();
+        handleCommands();
+        Client.stop();
+    }
+
+    private void handleCommands(){
         Scanner input = new Scanner(System.in);
         int command;
         while (true) {
@@ -94,6 +103,6 @@ public class ClientController {
     }
 
     private void sendDelivery() {
-
+        System.out.println(client.sendMessage(delivery).toString());
     }
 }
