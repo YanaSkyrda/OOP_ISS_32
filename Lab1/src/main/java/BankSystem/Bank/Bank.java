@@ -1,3 +1,7 @@
+package BankSystem.Bank;
+
+import BankSystem.Credits.Credit;
+
 import java.util.List;
 import java.util.Vector;
 
@@ -9,10 +13,6 @@ public class Bank {
     public Bank(String name) {
         this.name = name;
         this.availableCredits = new Vector<>();
-    }
-    public Bank(String name, List<Credit> availableCredits) {
-        this.name = name;
-        this.availableCredits = availableCredits;
     }
 
     public String getName() {
@@ -26,11 +26,5 @@ public class Bank {
     public void setAvailableCredits(List<Credit> availableCredits){
         this.availableCredits = availableCredits;
     }
-
-    public boolean addAvailableCredit(Credit credit){
-        return this.availableCredits.add(credit);
-    }
-
-
 }
 
