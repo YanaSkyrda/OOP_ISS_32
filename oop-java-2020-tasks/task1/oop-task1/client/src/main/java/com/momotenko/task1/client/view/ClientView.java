@@ -1,6 +1,6 @@
 package com.momotenko.task1.client.view;
 
-import com.momotenko.task1.client.entity.Delivery;
+import com.momotenko.task1.api.entity.Delivery;
 
 public class ClientView {
     public void printAllCommands(){

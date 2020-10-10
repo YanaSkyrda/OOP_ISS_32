@@ -1,7 +1,7 @@
 package com.momotenko.task1.client.controller;
 
+import com.momotenko.task1.api.entity.Delivery;
 import com.momotenko.task1.client.Client;
-import com.momotenko.task1.client.entity.Delivery;
 import com.momotenko.task1.client.view.ClientView;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ public class ClientController {
     private Delivery delivery;
     private Client client;
 
-    public void run() throws IOException {
+    public void run() {
         client = Client.start();
         handleCommands();
         Client.stop();
@@ -72,6 +72,7 @@ public class ClientController {
         while(true){
             view.printEditCommands();
             command = scanner.nextInt();
+            scanner = new Scanner(System.in);
             switch (command){
                 case 1:
                     view.print("Enter new city name: ");
@@ -103,6 +104,6 @@ public class ClientController {
     }
 
     private void sendDelivery() {
-        System.out.println(client.sendMessage(delivery).toString());
+         System.out.println(client.sendMessage(delivery).toString());
     }
 }

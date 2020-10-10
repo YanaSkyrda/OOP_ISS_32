@@ -1,7 +1,7 @@
 package com.momotenko.task1.client;
 
+import com.momotenko.task1.api.entity.Delivery;
 import com.momotenko.task1.client.controller.ClientController;
-import com.momotenko.task1.client.entity.Delivery;
 
 import java.io.*;
 import java.net.InetSocketAddress;
@@ -21,7 +21,7 @@ public class Client {
     private Client() {
         try {
             clientSocketChannel = SocketChannel.open(new InetSocketAddress("localhost", 4040));
-            buffer = ByteBuffer.allocate(256);
+            buffer = ByteBuffer.allocate(1024);
             System.out.println("Connected to the server");
         } catch (IOException e) {
             e.printStackTrace();
@@ -36,15 +36,19 @@ public class Client {
         return instance;
     }
 
-    public static void stop() throws IOException {
-        clientSocketChannel.close();
+    public static void stop() {
+        try {
+            clientSocketChannel.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         buffer = null;
     }
 
     public String sendMessage(Delivery delivery) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ByteArrayInputStream byteArrayInputStream;
-        ObjectOutputStream outputStream = null;
+        ByteBuffer inputBuffer = ByteBuffer.allocate(256);
+        ObjectOutputStream outputStream;
         String response = null;
 
         try {
@@ -56,10 +60,10 @@ public class Client {
 
             clientSocketChannel.write(buffer);
             buffer.clear();
-            clientSocketChannel.read(buffer);
+            clientSocketChannel.read(inputBuffer);
             //TODO: check response
             System.out.println("Server response: ");
-            response = new String(buffer.array()).trim();
+            response = new String(inputBuffer.array()).trim();
             System.out.println(response);
             buffer.clear();
         } catch (IOException e) {

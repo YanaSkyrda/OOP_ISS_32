@@ -1,4 +1,4 @@
-package com.momotenko.task1.server.entity;
+package com.momotenko.task1.api.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -51,6 +51,13 @@ public class Delivery implements Serializable {
         this.sender = sender;
         this.receiver = receiver;
         this.cost = cost;
+    }
+
+    public Delivery(Delivery toCopy){
+        this.city = toCopy.city;
+        this.sender = toCopy.sender;
+        this.receiver = toCopy.receiver;
+        this.cost = toCopy.cost;
     }
 
     @Override
