@@ -1,88 +1,110 @@
 package com.momotenko.task1.server;
 
-import com.momotenko.task1.server.entity.Delivery;
+import com.momotenko.task1.api.entity.Delivery;
+import com.momotenko.task1.server.controller.ServerController;
 
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
+import java.nio.channels.*;
 import java.util.Iterator;
 import java.util.Set;
 
-import static java.lang.module.ModuleDescriptor.read;
-
 public class Server {
+    private static Selector selector;
+    private static ServerSocketChannel serverSocketChannel;
+    private static ByteBuffer buffer;
+    private static Server instance;
+
+
     public static void main(String[] argc) throws IOException {
-        Selector selector = Selector.open();
-        ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
-        serverSocketChannel.bind(new InetSocketAddress("localhost", 4040));
-        serverSocketChannel.configureBlocking(false);
-        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-        ByteBuffer buffer = ByteBuffer.allocate(256);
+        ServerController controller = new ServerController();
+        controller.run();
+    }
 
-        while (true) {
-            selector.select();
-            Set<SelectionKey> selectedKeys = selector.selectedKeys();
-            Iterator<SelectionKey> iterator = selectedKeys.iterator();
-
-            while (iterator.hasNext()) {
-                SelectionKey key = iterator.next();
-
-                if (key.isAcceptable()) {
-                    register(selector, serverSocketChannel);
-                }
-
-                if (key.isReadable()) {
-                    answer(buffer, key);
-                }
-
-                iterator.remove();
-            }
+    private Server() {
+        try {
+            selector = Selector.open();
+            serverSocketChannel = ServerSocketChannel.open();
+            serverSocketChannel.bind(new InetSocketAddress("localhost", 4040));
+            serverSocketChannel.configureBlocking(false);
+            serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+            buffer = ByteBuffer.allocate(1024);
+        } catch (ClosedChannelException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    private static void answer(ByteBuffer buffer, SelectionKey key) throws IOException {
-        SocketChannel client = (SocketChannel) key.channel();
-        ByteArrayInputStream byteArrayInputStream;
-        ObjectInput objectInput = null;
-        Delivery delivery = null;
-        client.read(buffer);
-        try{
-            byteArrayInputStream = new ByteArrayInputStream(buffer.array());
-            objectInput = new ObjectInputStream(byteArrayInputStream);
-            delivery = (Delivery) objectInput.readObject();
-            System.out.println("Received: ");
-            System.out.println(delivery.toString());
-        } catch (ClassNotFoundException e) {
+    public void run() {
+        try {
+            while (true) {
+                selector.select();
+                Set<SelectionKey> selectedKeys = selector.selectedKeys();
+                Iterator<SelectionKey> iterator = selectedKeys.iterator();
+
+                while (iterator.hasNext()) {
+                    SelectionKey key = iterator.next();
+
+                    if (key.isAcceptable()) {
+                        register(selector, serverSocketChannel);
+                    }
+
+                    if (key.isReadable()) {
+                        answer(buffer, key);
+                    }
+
+                    iterator.remove();
+                }
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        buffer.clear();
-        buffer = ByteBuffer.wrap("Received successfully".getBytes());
-
-        //buffer.flip();
-        client.write(buffer);
-        buffer.clear();
     }
 
-    private static void register(Selector selector, ServerSocketChannel serverSocketChannel) throws IOException {
+    private void answer(ByteBuffer buffer, SelectionKey key) throws IOException {
+        SocketChannel client = (SocketChannel) key.channel();
+        ByteArrayInputStream byteArrayInputStream;
+        ObjectInputStream objectInput;
+        Delivery delivery = null;
+        client.read(buffer);
+        try {
+            byteArrayInputStream = new ByteArrayInputStream(buffer.array());
+            objectInput = new ObjectInputStream(byteArrayInputStream);
+            Object object = objectInput.readObject();
+            delivery = new Delivery((Delivery) object);
+            buffer.clear();
+
+            buffer = ByteBuffer.wrap("Received successfully".getBytes());
+
+
+            System.out.println("Received: ");
+            System.out.println(delivery.toString());
+
+            client.write(buffer);
+            buffer.clear();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.printf("Receiving failed");
+
+        }
+
+    }
+
+    private void register(Selector selector, ServerSocketChannel serverSocketChannel) throws IOException {
         SocketChannel client = serverSocketChannel.accept();
         System.out.println("Client connected");
         client.configureBlocking(false);
         client.register(selector, SelectionKey.OP_READ);
     }
 
-    public static Process start() throws IOException {
-        String javaHome = System.getProperty("java.home");
-        String javaBin = javaHome + File.separator + "bin" + File.separator + "java";
-        String classPath = System.getProperty("java.class.path");
-        String className = Server.class.getCanonicalName();
+    public static Server start() throws IOException {
+        if (instance == null) {
+            instance = new Server();
+        }
 
-        ProcessBuilder builder = new ProcessBuilder(javaBin,"-cp",classPath,className);
-
-        return builder.start();
+        return instance;
     }
 }
