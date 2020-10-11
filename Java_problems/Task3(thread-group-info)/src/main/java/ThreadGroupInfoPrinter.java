@@ -14,7 +14,7 @@ public class ThreadGroupInfoPrinter {
         @Override
         public void run() {
             printGroupLevelsRecursively(threadGroup, 0);
-            if (threadGroup.activeCount() == 0 && threadGroup.activeGroupCount() == 0) {
+            if (threadGroup.activeCount() == 0) {
                 executorService.shutdown();
             }
         }
@@ -24,10 +24,12 @@ public class ThreadGroupInfoPrinter {
         Thread[] activeThreads = new Thread[group.activeCount()];
         group.enumerate(activeThreads);
         for (Thread thread : activeThreads) {
-            for (int i = 0; i < level; i++) {
-                System.out.print("-");
+            if (thread.getThreadGroup().equals(group)) {
+                for (int i = 0; i < level; i++) {
+                    System.out.print("-");
+                }
+                System.out.println(thread.getName());
             }
-            System.out.println(thread.getName());
         }
     }
 
@@ -35,7 +37,9 @@ public class ThreadGroupInfoPrinter {
         ThreadGroup[] activeThreadGroups = new ThreadGroup[group.activeGroupCount()];
         group.enumerate(activeThreadGroups);
         for (ThreadGroup threadGroup : activeThreadGroups) {
-            printGroupLevelsRecursively(threadGroup, level);
+            if (threadGroup.getParent().equals(group)) {
+                printGroupLevelsRecursively(threadGroup, level);
+            }
         }
     }
 
@@ -47,17 +51,25 @@ public class ThreadGroupInfoPrinter {
 
     private void printGroupLevelsRecursively(ThreadGroup group, int level) {
         printLevelSeparator(level);
+        if (level == 0) {
+            System.out.print("Current info for group thread: ");
+        }
         System.out.println(group.getName());
         level = level + 2;
 
         printActiveThreads(group, level);
         printActiveGroups(group, level);
     }
+
     public void printInfoPeriodically(long period) {
         Thread threadForPrint = new Thread(() -> {
             executorService = new ScheduledThreadPoolExecutor(0);
             executorService.scheduleAtFixedRate(printInfo, 0L, period, TimeUnit.MILLISECONDS);
         });
         threadForPrint.start();
+    }
+
+    public boolean stillRunningInfo() {
+        return !executorService.isShutdown();
     }
 }
