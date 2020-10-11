@@ -9,12 +9,14 @@ import java.nio.channels.*;
 import java.nio.charset.StandardCharsets;
 
 public class Client extends Thread {
-    private static SocketChannel client;
+    private SocketChannel client;
     private ByteBuffer buffer;
+    private Cat catToThrow;
 
-    public Client(int port) throws IOException {
-        client = SocketChannel.open(new InetSocketAddress("localhost", port));
-        buffer = ByteBuffer.allocate(1024);
+    public Client(int port, Cat cat) throws IOException {
+        this.client = SocketChannel.open(new InetSocketAddress("localhost", port));
+        this.buffer = ByteBuffer.allocate(1024);
+        this.catToThrow = cat;
     }
 
     @Override
@@ -40,12 +42,6 @@ public class Client extends Thread {
         return StandardCharsets.UTF_8.decode(buffer).toString();
     }
 
-    private Cat createCat() throws IOException {
-        System.out.println("It's time to create your cat. Enter name and age.");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        return new Cat(reader.readLine(), Integer.parseInt(reader.readLine()));
-    }
-
     private void sendToServer(Cat cat) throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream writer = new ObjectOutputStream(byteArrayOutputStream);
@@ -56,17 +52,8 @@ public class Client extends Thread {
     }
 
     private String throwTheCat() throws IOException {
-        Cat cat;
-        try {
-            cat = createCat();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Can't create a cat.");
-            return "";
-        }
-
          try {
-             sendToServer(cat);
+             sendToServer(catToThrow);
          } catch (IOException e) {
              e.printStackTrace();
              System.out.println("Can't send cat object to server.");
