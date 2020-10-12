@@ -4,8 +4,8 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class ThreadGroupInfoPrinter {
-    ThreadGroup threadGroup;
-    ScheduledExecutorService executorService;
+    private ThreadGroup threadGroup;
+    private ScheduledExecutorService executorService;
 
     public ThreadGroupInfoPrinter(ThreadGroup group) {
         this.threadGroup = group;
@@ -13,9 +13,10 @@ public class ThreadGroupInfoPrinter {
     private TimerTask printInfo = new TimerTask() {
         @Override
         public void run() {
-            printGroupLevelsRecursively(threadGroup, 0);
             if (threadGroup.activeCount() == 0) {
-                executorService.shutdown();
+                executorService.shutdownNow();
+            } else {
+                printGroupLevelsRecursively(threadGroup, 0);
             }
         }
     };
@@ -69,7 +70,10 @@ public class ThreadGroupInfoPrinter {
         threadForPrint.start();
     }
 
-    public boolean stillRunningInfo() {
-        return !executorService.isShutdown();
+    public boolean infoRunning() {
+        if (executorService == null) {
+            return false;
+        }
+        return (!executorService.isShutdown());
     }
 }
