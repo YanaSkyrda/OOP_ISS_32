@@ -9,8 +9,7 @@ public class ThreadManager {
     public void printThreadGroupHierarchy(ThreadGroup threadGroup){
         if(threadGroup == null)
             return;
-
-
+        
         Runnable printThreadInfo;
         printThreadInfo = () -> {
             synchronized (this) {

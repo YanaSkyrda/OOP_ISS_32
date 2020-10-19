@@ -1,6 +1,6 @@
-package BankSystem.Bank;
+package bankSystem.bank;
 
-import BankSystem.Credits.Credit;
+import bankSystem.credit.Credit;
 
 import java.util.List;
 import java.util.Vector;

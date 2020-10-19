@@ -1,14 +1,14 @@
-package BankSystem.Credits;
+package bankSystem.credit;
 
 public class Credit {
+
     protected String creditPurpose;
     protected Long moneyAmount;
     protected Long moneyLeft;
     protected Integer monthsDuration;
     protected Integer monthsLeft;
-    protected String bankName;
 
-    public Credit(String creditPurpose, Long moneyAmount, Integer monthsDuration, String bankName) {
+    public Credit(String creditPurpose, Long moneyAmount, Integer monthsDuration) {
         this.creditPurpose = creditPurpose;
 
         if(moneyAmount <= 0)
@@ -24,7 +24,6 @@ public class Credit {
             this.monthsDuration = monthsDuration;
 
         this.monthsLeft = this.monthsDuration;
-        this.bankName = bankName;
     }
 
     public String getCreditPurpose() {
@@ -39,10 +38,6 @@ public class Credit {
         return monthsDuration;
     }
 
-    public String getBankName() {
-        return bankName;
-    }
-
     public Long getMoneyLeft() {
         return moneyLeft;
     }
@@ -55,18 +50,22 @@ public class Credit {
     public String toString() {
         return  "  Credit purpose: " + creditPurpose +
                 ", Money amount to pay: " + moneyLeft +
-                ", Months duration: " + monthsLeft +
-                ", BankSystem.Bank.Bank name: " + bankName;
+                ", Months duration: " + monthsLeft;
     }
 
     /**
      * Makes a month payment that equals moneyAmount / monthsDuration
-     * @return whether the credit is still active
      */
-    public boolean payMonthPart(){
+    public void payMonthPart(){
         moneyLeft = moneyLeft - moneyAmount / monthsDuration;
         monthsLeft--;
+    }
 
+    /**
+     * Checks whether the credit is still alive
+     * @return 1 - alive; 0 - dead
+     */
+    public boolean isAlive(){
         return monthsLeft > 0 && moneyLeft > 0;
     }
 }
