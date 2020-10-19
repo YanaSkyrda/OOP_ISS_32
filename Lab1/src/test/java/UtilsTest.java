@@ -1,23 +1,27 @@
-import BankSystem.Bank.Bank;
+import bankSystem.account.Account;
+import bankSystem.bank.Bank;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
-import Utils.Utils;
+import utils.Utils;
+import view.View;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Vector;
 
 public class UtilsTest {
 
     @Test
-    public void getInputLong_TEST(){
-        InputStream sysInBackup = System.in; // backup System.in to restore it later
-        ByteArrayInputStream in = new ByteArrayInputStream("321".getBytes());
+    public void getInputCredit_TEST(){
+        InputStream sysInBackup = System.in;
+        ByteArrayInputStream in = new ByteArrayInputStream("Test1".getBytes());
         System.setIn(in);
 
-        Assert.assertEquals(Utils.getInputLong(""), Long.valueOf(321));
+        Assert.assertEquals(Utils.getInputCredit("",  new Scanner(System.in)), "Test1 credit");
 
         System.setIn(sysInBackup);
     }
@@ -71,24 +75,14 @@ public class UtilsTest {
     }
 
     @Test
-    public void getInputCredit_TEST(){
-        InputStream sysInBackup = System.in;
-        ByteArrayInputStream in = new ByteArrayInputStream("Test".getBytes());
+    public void getInputLong_TEST(){
+        InputStream sysInBackup = System.in; // backup System.in to restore it later
+        ByteArrayInputStream in = new ByteArrayInputStream("321".getBytes());
         System.setIn(in);
 
-        Assert.assertEquals(Utils.getInputCredit(""), "Test credit");
+        Assert.assertEquals(Utils.getInputLong("",  new Scanner(System.in)), Long.valueOf(321));
 
         System.setIn(sysInBackup);
     }
 
-    @Test
-    public void getInputBank_TEST(){
-        InputStream sysInBackup = System.in;
-        ByteArrayInputStream in = new ByteArrayInputStream("Test".getBytes());
-        System.setIn(in);
-
-        Assert.assertEquals(Utils.getInputBank(""), "Test bank");
-
-        System.setIn(sysInBackup);
-    }
 }

@@ -1,27 +1,20 @@
-package Utils;
+package utils;
 
-import BankSystem.Account.Account;
-import BankSystem.Bank.Bank;
-import BankSystem.Credits.ApartmentCredit;
-import BankSystem.Credits.BusinessCredit;
-import BankSystem.Credits.CarCredit;
-import BankSystem.Credits.Credit;
+import bankSystem.account.Account;
+import bankSystem.bank.Bank;
+import bankSystem.credit.Credit;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Vector;
-import java.util.logging.Logger;
 
 public class Utils {
-
-   // private static final Logger log = Logger.getLogger(Account.class.getName());
 
     public static void printCreditList(List<Credit> list){
         if(list == null)
             return;
         int i = 1;
         for (Credit credit : list) {
-            //log.info(credit.toString());
             System.out.println(i + ": " + credit.toString());
             i++;
         }
@@ -36,27 +29,16 @@ public class Utils {
      * @param userMessage message to be printed for the user
      * @return the user's input string + "credit"
      */
-    public static String getInputCredit(String userMessage){
+    public static String getInputCredit(String userMessage, Scanner scan){
 
+        //Scanner scan = View.scanner;
         System.out.println(userMessage);
 
-        String output = Account.scan.next();
+        String output = "";
+
+        if(scan.hasNext())
+            output = scan.next();
         output += " credit";
-
-        return output;
-    }
-
-    /**
-     * Get users input
-     * @param userMessage message to be printed for the user
-     * @return the user's input string + "bank"
-     */
-    public static String getInputBank(String userMessage){
-
-        System.out.println(userMessage);
-
-        String output = Account.scan.next();
-        output += " bank";
 
         return output;
     }
@@ -66,15 +48,13 @@ public class Utils {
      * @param userMessage message to be printed for the user
      * @return the user's input Long (converted from string)
      */
-    public static Long getInputLong(String userMessage){
-        Scanner scan = new Scanner(System.in);
+    public static Long getInputLong(String userMessage, Scanner scanner){
 
-        System.out.println(userMessage);
-
+        /*
         String str;
 
         while(true){
-            str = scan.next();
+            str = View.scanner.next();
 
             if(isInteger(str)){
                 return (long) Integer.parseInt(str);
@@ -82,7 +62,23 @@ public class Utils {
             else{
                 System.out.println("Wrong value");
             }
+        }*/
+
+        System.out.println(userMessage);
+
+        //Scanner scanner = View.scanner;
+        long output;
+
+        while(scanner.hasNext()){
+            if(scanner.hasNextLong()){
+                output = scanner.nextLong();
+                return output;
+            } else {
+                scanner.next();
+            }
         }
+
+        return null;
     }
 
     public static boolean isInteger(String s) {
@@ -107,9 +103,9 @@ public class Utils {
      * @return list of initialized examples of banks
      */
     public static List<Bank> initializeBanks(){
-        List<Credit> availableList1 = new Vector<>();
-        List<Credit> availableList2 = new Vector<>();
-        List<Bank> banks = new Vector<>();
+        List<Credit> availableList1 = new ArrayList<>();
+        List<Credit> availableList2 = new ArrayList<>();
+        List<Bank> banks = new ArrayList<>();
 
         Bank bankBig = new Bank("Big bank");
         Bank bankPrivate = new Bank("Private bank");
@@ -117,11 +113,11 @@ public class Utils {
         banks.add(bankBig);
         banks.add(bankPrivate);
 
-        Credit avCredit1 = new ApartmentCredit(10000L, 12, bankBig.getName());
-        Credit avCredit2 = new CarCredit(200000L, 50, bankBig.getName());
-        Credit avCredit3 = new BusinessCredit(33333L, 22, bankBig.getName());
-        Credit avCredit4 = new BusinessCredit(44444L, 33, bankPrivate.getName());
-        Credit avCredit5 = new BusinessCredit(5555L, 44, bankPrivate.getName());
+        Credit avCredit1 = new Credit("Apartment credit", 10000L, 12);
+        Credit avCredit2 = new Credit("Car credit", 200000L, 50);
+        Credit avCredit3 = new Credit("Business credit", 33333L, 22);
+        Credit avCredit4 = new Credit("Business credit", 44444L, 33);
+        Credit avCredit5 = new Credit("Business credit", 5555L, 44);
 
         availableList1.add(avCredit1);
         availableList1.add(avCredit2);

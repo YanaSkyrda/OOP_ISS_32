@@ -1,0 +1,8 @@
+1)Renamed packages according to java code convention;
+2)Deleted all classes that extended Credit class;
+3)Deleted bankName variable from the Credit class;
+4)Added new method isAlive() in class Credit that checkes whether the Credit is still active;
+5)Fixed broken Utils tests;
+6)Got rid of vector. Instead used ArrayList;
+7)Added view for my Account class;
+8)Added tests to Account class;
