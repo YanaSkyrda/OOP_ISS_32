@@ -1,6 +1,8 @@
-package com.momotenko.lab1.model.entity;
+package com.momotenko.lab1.model;
 
 import com.momotenko.lab1.model.ComparatorWeight;
+import com.momotenko.lab1.model.entity.Ammunition;
+import com.momotenko.lab1.view.AmmunitionView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +13,7 @@ import java.util.Collections;
  */
 public class Knight {
     private ArrayList<Ammunition> ammunition = new ArrayList<>(); //List of unique pieces of ammunition
+    private AmmunitionView view = new AmmunitionView();
 
     /** Getter for ammunition*/
     public ArrayList<Ammunition> getAmmunition() {
@@ -38,7 +41,7 @@ public class Knight {
     }
 
     /** The function returns true if addition was successful and false vise versa */
-    public boolean addAmmunition(Ammunition toAdd){
+    private boolean addAmmunition(Ammunition toAdd){
         if (!checkIfPresentAmmunition(toAdd.getType())){
             ammunition.add(toAdd);
             return true;
@@ -48,13 +51,22 @@ public class Knight {
     }
 
     /** The function replaces ammunition if such piece already exists */
-    public void replaceAmmunition(Ammunition toReplace){
+    private void replaceAmmunition(Ammunition toReplace){
         String type = toReplace.getType();
 
         for (int i = 0, size = ammunition.size(); i < size; ++i){
             if (ammunition.get(i).getType().equals(type)){
                 ammunition.set(i, toReplace);
                 return;
+            }
+        }
+    }
+
+    /** Gear up some piece of ammunition */
+    public void equipAmmunition(Ammunition toEquip){
+        if (addAmmunition(toEquip)){
+            if (view.askIfSure("replace current ammunition with a new piece")){
+                replaceAmmunition(toEquip);
             }
         }
     }

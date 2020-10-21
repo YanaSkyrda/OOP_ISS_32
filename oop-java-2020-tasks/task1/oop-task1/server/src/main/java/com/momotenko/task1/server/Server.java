@@ -64,7 +64,7 @@ public class Server {
 
     }
 
-    private void answer(ByteBuffer buffer, SelectionKey key) throws IOException {
+    private boolean answer(ByteBuffer buffer, SelectionKey key) throws IOException {
         SocketChannel client = (SocketChannel) key.channel();
         ByteArrayInputStream byteArrayInputStream;
         ObjectInputStream objectInput;
@@ -85,12 +85,13 @@ public class Server {
 
             client.write(buffer);
             buffer.clear();
+
+            return true;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             System.out.printf("Receiving failed");
-
+            return false;
         }
-
     }
 
     private void register(Selector selector, ServerSocketChannel serverSocketChannel) throws IOException {

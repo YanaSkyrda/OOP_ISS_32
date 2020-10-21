@@ -20,12 +20,16 @@ public class Client {
 
     private Client() {
         try {
-            clientSocketChannel = SocketChannel.open(new InetSocketAddress("localhost", 4040));
+            clientSocketChannel = openSocketChannel(new InetSocketAddress("localhost", 4040));
             buffer = ByteBuffer.allocate(1024);
             System.out.println("Connected to the server");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public SocketChannel openSocketChannel (InetSocketAddress address) throws IOException {
+        return SocketChannel.open(address);
     }
 
     public static Client start() {

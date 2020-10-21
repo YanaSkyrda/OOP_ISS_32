@@ -4,7 +4,6 @@ import com.momotenko.task1.api.entity.Delivery;
 import com.momotenko.task1.client.Client;
 import com.momotenko.task1.client.view.ClientView;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Scanner;
 

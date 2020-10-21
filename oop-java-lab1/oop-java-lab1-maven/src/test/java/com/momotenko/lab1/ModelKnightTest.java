@@ -1,8 +1,7 @@
 package com.momotenko.lab1;
 
-import com.momotenko.lab1.model.AmmunitionModel;
 import com.momotenko.lab1.model.entity.Ammunition;
-import com.momotenko.lab1.model.entity.Knight;
+import com.momotenko.lab1.model.Knight;
 import com.momotenko.lab1.model.entity.clothes.*;
 import com.momotenko.lab1.model.entity.weapons.Sword;
 import org.junit.jupiter.api.DisplayName;
