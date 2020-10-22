@@ -1,3 +1,5 @@
+package components;
+
 import utils.Utils;
 
 import java.io.*;
@@ -5,7 +7,7 @@ import java.io.*;
 public class MyClassLoader extends ClassLoader {
 
     @Override
-    protected Class<?> findClass(String path) throws ClassNotFoundException {
+    public Class<?> findClass(String path) throws ClassNotFoundException {
 
         //checking whether the file exists
         File file = new File(path);
@@ -17,7 +19,6 @@ public class MyClassLoader extends ClassLoader {
             inputStream = new BufferedInputStream(new FileInputStream(file));
             byte[] b = new byte[(int) file.length()];
             int size = inputStream.read(b);
-            //С помощью функции defineClass загружаем класс
             return defineClass(Utils.getClassNameFromPath(path), b, 0, size);
         } catch (Exception e) {
             e.printStackTrace();

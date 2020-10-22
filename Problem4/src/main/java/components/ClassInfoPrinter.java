@@ -1,8 +1,8 @@
-import utils.Utils;
+package components;
 
 import java.lang.reflect.*;
 
-public class ClassInfoLoader {
+public class ClassInfoPrinter {
     public static void printClassInfo(String classFullName) throws ClassNotFoundException {
         MyClassLoader loader = new MyClassLoader();
         Class<?> inputClass = loader.findClass(classFullName);
