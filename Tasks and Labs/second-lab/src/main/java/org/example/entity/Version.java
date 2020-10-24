@@ -3,25 +3,25 @@ package org.example.entity;
 public class Version {
     private String type;
 
-    private Certificate certificate;
+    private int certificate;
 
-    private Package packageType;
+    private String packageType;
 
-    private Dosage dosage;
+    private double dosage;
 
     public String getType() {
         return type;
     }
 
-    public Certificate getCertificate() {
+    public int getCertificate() {
         return certificate;
     }
 
-    public Package getPackageType() {
+    public String getPackageType() {
         return packageType;
     }
 
-    public Dosage getDosage() {
+    public double getDosage() {
         return dosage;
     }
 
@@ -29,15 +29,15 @@ public class Version {
         this.type = type;
     }
 
-    public void setCertificate(Certificate certificate) {
+    public void setCertificate(int certificate) {
         this.certificate = certificate;
     }
 
-    public void setPackageType(Package packageType) {
+    public void setPackageType(String packageType) {
         this.packageType = packageType;
     }
 
-    public void setDosage(Dosage dosage) {
+    public void setDosage(double dosage) {
         this.dosage = dosage;
     }
 

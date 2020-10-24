@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Medicine {
-    List<Drug> medicineList;
+    private List<Drug> drugList;
 
-    public List<Drug> getMedicineList() {
-        if(medicineList == null){
-            medicineList = new ArrayList<>();
+    public List<Drug> getDrugList() {
+        if(drugList == null){
+            drugList = new ArrayList<>();
         }
-        return medicineList;
+        return drugList;
     }
 
     @Override
     public String toString() {
-        if (medicineList == null || medicineList.isEmpty()) {
+        if (drugList == null || drugList.isEmpty()) {
             return "Test contains no questions";
         }
         StringBuilder result = new StringBuilder();
-        for (Drug drug : medicineList) {
+        for (Drug drug : drugList) {
             result.append(drug).append('\n');
         }
         return result.toString();

@@ -1,15 +1,23 @@
 package org.example.entity;
 
-public class Drug {
+import java.util.Objects;
+
+public class Drug implements Comparable<Drug>{
+    private int id;
+
     private String name;
 
     private String pharmName;
 
-    private String group;
+    private Group group;
 
     private String analogs;
 
     private Version version;
+
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -19,7 +27,7 @@ public class Drug {
         return pharmName;
     }
 
-    public String getGroup() {
+    public Group getGroup() {
         return group;
     }
 
@@ -31,6 +39,10 @@ public class Drug {
         return version;
     }
 
+    public void setId(int id){
+        this.id = id;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -39,7 +51,7 @@ public class Drug {
         this.pharmName = pharmName;
     }
 
-    public void setGroup(String group) {
+    public void setGroup(Group group) {
         this.group = group;
     }
 
@@ -60,5 +72,20 @@ public class Drug {
         result.append(analogs).append('\n');
         result.append(version).append('\n');
         return result.toString();
+    }
+
+    @Override
+    public int compareTo(Drug o) {
+        return (Integer.compare(this.version.getCertificate(), o.getVersion().getCertificate()));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, pharmName, group, analogs, version);
     }
 }

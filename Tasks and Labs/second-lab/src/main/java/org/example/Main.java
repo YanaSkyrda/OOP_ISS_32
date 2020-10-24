@@ -1,51 +1,29 @@
 package org.example;
 
-
-import org.example.controllers.DOMController;
-import org.example.controllers.SAXController;
-import org.example.controllers.STAXController;
-import org.example.entity.Medicine;
-import org.example.util.Sorter;
+import org.example.parsers.*;
+import org.example.util.XMLCreator;
+import org.example.util.XMLValidator;
+import java.util.logging.Logger;
 
 public class Main {
-        private static final String OUTPUT = "Output ==> ";
-        public static void main(final String[] args) throws Exception{
+    private static final Logger log = Logger.getLogger(Main.class.getName());
 
-            String xmlFileName = args[0];
-            System.out.println("Input ==> " + xmlFileName);
+    public static void main(String[] args) {
+        XMLCreator xmlCreator = new XMLCreator();
+        DOMParser domParser = new DOMParser(xmlCreator);
+        SAXDrugParser saxDrugParser = new SAXDrugParser(xmlCreator);
+        STAXParser staxParser = new STAXParser(xmlCreator);
 
-            //SAX
-            SAXController saxController = new SAXController(xmlFileName);
-            saxController.parse(true);
-            Medicine drugList = saxController.getDrugList();
-
-            Sorter.sortDrugsByPeriodicity(drugList);
-
-            String outputFileName = "output.sax.xml";
-            DOMController.saveToXML(drugList, outputFileName);
-            System.out.println(OUTPUT + outputFileName);
-
-            //DOM
-            DOMController domConroller = new DOMController(xmlFileName);
-            domConroller.parse(true);
-            drugList = domConroller.getDrugs();
-
-            Sorter.sortDrugsByNames(drugList);
-
-            outputFileName = "output.dom.xml";
-            DOMController.saveToXML(drugList, outputFileName);
-            System.out.println(OUTPUT + outputFileName);
-
-            //STAX
-            STAXController staxController = new STAXController(xmlFileName);
-            staxController.parse();
-            drugList = staxController.getDrugList();
-
-            Sorter.sortDrugsByPharms(drugList);
-
-            outputFileName = "output.stax.xml";
-            DOMController.saveToXML(drugList, outputFileName);
-            System.out.println(OUTPUT + outputFileName);
+        String XML = "src/main/resources/input.xml";
+        String XSD = "src/main/resources/input.xsd";
+        if(XMLValidator.validateXML(XML, XSD)){
+            log.info("XML is valid");
         }
-
+        else {
+            log.info("XML is not valid");
+        }
+        saxDrugParser.parse(XML);
+        staxParser.parse(XML);
+        domParser.parse(XML);
+    }
 }
