@@ -8,6 +8,7 @@ import static java.lang.String.format;
 
 public class Main {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
+        //ExecutorService threadPool = Executors.newFixedThreadPool(9);
         ThreadPool threadPool = new ThreadPool(9);
         Counter counter = new Counter();
 
@@ -19,8 +20,7 @@ public class Main {
             futures.add(
                     CompletableFuture.supplyAsync(
                             ()-> counter.count(j), threadPool
-                    )
-            );
+                    ));
         }
         double sumOfFutures = 0;
         for (Future<Double> future: futures){
