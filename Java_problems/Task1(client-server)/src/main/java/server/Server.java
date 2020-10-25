@@ -13,11 +13,10 @@ public class Server extends Thread implements Runnable {
     private ServerSocketChannel serverSocket;
     private Selector selector;
 
-    public Server() throws IOException {
-        serverSocket = ServerSocketChannel.open();
-        serverSocket.bind(new InetSocketAddress("localhost", PORT));
-        serverSocket.configureBlocking(false);
-        connectSelector();
+    Server() {}
+    public Server(ServerSocketChannel serverSocketChannel, Selector selector) throws IOException {
+        this.serverSocket = serverSocketChannel;
+        this.selector = selector;
     }
 
     public static int getPORT() {
@@ -28,10 +27,24 @@ public class Server extends Thread implements Runnable {
         return sessionsCount;
     }
 
-    private void connectSelector() throws IOException {
-        selector = Selector.open();
-        serverSocket.register(selector, SelectionKey.OP_ACCEPT);
+    void checkSelectionKeys(Set<SelectionKey> selectionKeys) {
+        Iterator<SelectionKey> keysIter = selectionKeys.iterator();
+
+        while (keysIter.hasNext()) {
+            SelectionKey key = keysIter.next();
+
+            if (key.isAcceptable()) {
+                acceptClient();
+            }
+
+            if (key.isReadable()) {
+                receiveObject(key);
+            }
+
+            keysIter.remove();
+        }
     }
+
     @Override
     public void run() {
         try {
@@ -42,22 +55,7 @@ public class Server extends Thread implements Runnable {
                     e.printStackTrace();
                 }
 
-                Set<SelectionKey> selectionKeys = selector.selectedKeys();
-                Iterator<SelectionKey> keysIter = selectionKeys.iterator();
-
-                while (keysIter.hasNext()) {
-                    SelectionKey key = keysIter.next();
-
-                    if (key.isAcceptable()) {
-                        acceptClient();
-                    }
-
-                    if (key.isReadable()) {
-                        receiveObject(key);
-                    }
-
-                    keysIter.remove();
-                }
+                checkSelectionKeys(selector.selectedKeys());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,7 +70,7 @@ public class Server extends Thread implements Runnable {
 
     }
 
-    private void acceptClient() {
+    void acceptClient() {
         try {
             SocketChannel clientSocket = serverSocket.accept();
             clientSocket.configureBlocking(false);
@@ -85,7 +83,7 @@ public class Server extends Thread implements Runnable {
         }
     }
 
-    private void sendResponse(boolean objectSuccessfullyWritten, SocketChannel client) {
+    void sendResponse(boolean objectSuccessfullyWritten, SocketChannel client) {
         try {
             if (objectSuccessfullyWritten) {
                 client.write(ByteBuffer.wrap("Cat successfully received".getBytes()));
@@ -98,9 +96,14 @@ public class Server extends Thread implements Runnable {
         }
     }
 
-    private Serializable readObject(SocketChannel client) throws IOException, ClassNotFoundException {
+    ByteBuffer readToBuffer(SocketChannel client) throws IOException {
         ByteBuffer buffer = ByteBuffer.allocate(1024);
         client.read(buffer);
+        return buffer;
+    }
+
+    Serializable readObject(ByteBuffer buffer) throws IOException, ClassNotFoundException {
+        buffer.rewind();
         ObjectInputStream reader = new ObjectInputStream(new ByteArrayInputStream(buffer.array()));
 
         return (Serializable) reader.readObject();
@@ -116,13 +119,14 @@ public class Server extends Thread implements Runnable {
             e.printStackTrace();
         }
     }
-    private void receiveObject(SelectionKey key) {
+    void receiveObject(SelectionKey key) {
         SocketChannel clientSocket = (SocketChannel) key.channel();
         Serializable objectFromClient;
         boolean objectSuccessfullyWritten = false;
 
         try {
-            objectFromClient = readObject(clientSocket);
+            ByteBuffer bufferFromClient = readToBuffer(clientSocket);
+            objectFromClient = readObject(bufferFromClient);
             objectSuccessfullyWritten = writeObjectToFile(objectFromClient);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

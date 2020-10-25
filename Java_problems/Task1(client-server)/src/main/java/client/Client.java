@@ -3,20 +3,20 @@ package client;
 import catObject.Cat;
 
 import java.io.*;
-import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
 import java.nio.charset.StandardCharsets;
 
 public class Client extends Thread {
     private SocketChannel client;
-    private ByteBuffer buffer;
+    ByteBuffer buffer;
     private Cat catToThrow;
 
-    public Client(int port, Cat cat) throws IOException {
-        this.client = SocketChannel.open(new InetSocketAddress("localhost", port));
+    Client() {}
+    public Client(SocketChannel client, Cat cat) {
         this.buffer = ByteBuffer.allocate(1024);
         this.catToThrow = cat;
+        this.client = client;
     }
 
     @Override
@@ -35,17 +35,17 @@ public class Client extends Thread {
         }
     }
 
-    private String getServerResponse() throws IOException {
+     String getServerResponse() throws IOException {
         buffer = ByteBuffer.allocate(1024);
         client.read(buffer);
         buffer.rewind();
         return StandardCharsets.UTF_8.decode(buffer).toString();
     }
 
-    private void sendToServer(Cat cat) throws IOException {
+    void sendToServer() throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream writer = new ObjectOutputStream(byteArrayOutputStream);
-        writer.writeObject(cat);
+        writer.writeObject(catToThrow);
         writer.close();
         buffer = ByteBuffer.wrap(byteArrayOutputStream.toByteArray());
         client.write(buffer);
@@ -53,7 +53,7 @@ public class Client extends Thread {
 
     private String throwTheCat() throws IOException {
          try {
-             sendToServer(catToThrow);
+             sendToServer();
          } catch (IOException e) {
              e.printStackTrace();
              System.out.println("Can't send cat object to server.");
