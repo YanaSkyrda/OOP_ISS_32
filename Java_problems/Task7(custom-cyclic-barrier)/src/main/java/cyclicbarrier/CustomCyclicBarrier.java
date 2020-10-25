@@ -1,7 +1,6 @@
 package cyclicbarrier;
 
 import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.TimeUnit;
 
 public class CustomCyclicBarrier {
     private int threadsAmount;
@@ -48,6 +47,7 @@ public class CustomCyclicBarrier {
 
     public void reset() {
         this.threadsLeft = this.threadsAmount;
+        this.isBroken = false;
     }
 
     public boolean isBroken() {
