@@ -1,10 +1,9 @@
-import vegetables.CaloriesComparator;
 import vegetables.Vegetable;
 
 import java.util.*;
 
-public class Salad {
-    private String name;
+public class Salad implements Eatable {
+    private String name = "";
     private List<Vegetable> vegetables;
 
     public Salad(String name) {
@@ -13,7 +12,6 @@ public class Salad {
     }
 
     public Salad() {
-        this.name = "Salad";
         this.vegetables = new ArrayList<>();
     }
 
@@ -24,7 +22,6 @@ public class Salad {
     }
 
     public Salad(List<Vegetable> vegetables) {
-        this.name = "Salad";
         this.vegetables = new ArrayList<>(vegetables.size());
         this.vegetables.addAll(vegetables);
     }
@@ -94,5 +91,10 @@ public class Salad {
             }
         }
         return result;
+    }
+
+    public void eat() {
+        vegetables.clear();
+        System.out.println("Consumed " + calculateCalories() + "calories from salad " + name);
     }
 }
