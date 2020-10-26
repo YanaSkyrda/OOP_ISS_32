@@ -26,8 +26,14 @@ public class DrugHandler extends DefaultHandler {
 
     private String elementValue;
 
+    private final String nodeName = "Drug";
+
     public void setElementValue(String elementValue) {
         this.elementValue = elementValue;
+    }
+
+    public String getName() {
+        return nodeName;
     }
 
     @Override

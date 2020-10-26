@@ -11,7 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class XMLValidator {
-    private static final Logger log = Logger.getLogger(XMLCreator.class.getName());
+    private static final Logger log = Logger.getLogger(XMLValidator.class.getName());
+
     public static boolean validateXML(String xmlFile, String xsdFile){
         try {
             SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");

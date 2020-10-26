@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -37,7 +38,7 @@ public class MainTest {
             Assert.assertTrue(FileUtils.contentEquals(new File("src/main/resources/sax.xml"),
                     new File("src/main/resources/stax.xml")));
         }catch (IOException e){
-            e.printStackTrace();
+            log.log(Level.SEVERE, "Exception: ", e);
         }
     }
 }

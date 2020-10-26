@@ -38,54 +38,39 @@ public class XMLCreator {
 
     try {
         DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
-
         DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
-
         Document document = documentBuilder.newDocument();
-
         Element root = document.createElement("Medicine");
         document.appendChild(root);
-
         for (Drug drug : drugList) {
             Element drugElement = document.createElement("Drug");
-
             root.appendChild(drugElement);
-
             Element id = document.createElement("Id");
             id.appendChild(document.createTextNode(String.valueOf(drug.getId())));
             drugElement.appendChild(id);
-
             Element name = document.createElement("Name");
             name.appendChild(document.createTextNode(drug.getName()));
             drugElement.appendChild(name);
-
             Element pharm = document.createElement("Pharm");
             pharm.appendChild(document.createTextNode(drug.getPharmName()));
             drugElement.appendChild(pharm);
-
             Element group = document.createElement("Group");
             group.appendChild(document.createTextNode(String.valueOf(drug.getGroup())));
             drugElement.appendChild(group);
-
             Element analogs = document.createElement("Analogs");
             analogs.appendChild(document.createTextNode(drug.getAnalogs()));
             drugElement.appendChild(analogs);
-
             Element version = document.createElement("Version");
             drugElement.appendChild(version);
-
             Element type = document.createElement("Type");
             type.appendChild(document.createTextNode(drug.getVersion().getType()));
             version.appendChild(type);
-
             Element certificate = document.createElement("Certificate");
             certificate.appendChild(document.createTextNode(String.valueOf(drug.getVersion().getCertificate())));
             version.appendChild(certificate);
-
             Element aPackage = document.createElement("Package");
             aPackage.appendChild(document.createTextNode(drug.getVersion().getPackageType()));
             version.appendChild(aPackage);
-
             Element dosage = document.createElement("Dosage");
             dosage.appendChild(document.createTextNode(String.valueOf(drug.getVersion().getDosage())));
             version.appendChild(dosage);

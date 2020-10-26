@@ -1,6 +1,7 @@
 package org.example.parsers;
 
 import org.apache.commons.io.FileUtils;
+import org.example.MainTest;
 import org.example.entity.Drug;
 import org.example.entity.Group;
 import org.example.entity.Version;
@@ -12,9 +13,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class XMLCreatorTest {
+    private static final Logger log = Logger.getLogger(XMLCreatorTest.class.getName());
+
     @Test
     public void createXML(){
         XMLCreator xmlCreator = new XMLCreator();
@@ -51,7 +56,7 @@ public class XMLCreatorTest {
             Assert.assertTrue(FileUtils.contentEquals(new File("src/test/resources/XMLCreatorTest.xml"),
                     new File("src/test/resources/expected.xml")));
         }catch (IOException e){
-            e.printStackTrace();
+            log.log(Level.SEVERE, "Exception: ", e);
         }
     }
 }
