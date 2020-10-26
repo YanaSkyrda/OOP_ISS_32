@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class InfoClass {
     private final String classPath;
-    private final Class loadedClass;
+    private final Class<?> loadedClass;
     private static final String SEPARATOR = "   ";
 
     public InfoClass(String classPath) {

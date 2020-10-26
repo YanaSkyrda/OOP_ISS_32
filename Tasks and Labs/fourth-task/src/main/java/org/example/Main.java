@@ -8,6 +8,5 @@ public class Main {
         infoClass.showClassInfo();
         infoClass = new InfoClass("org.example.classes.Teacher");
         infoClass.showClassInfo();
-
     }
 }
