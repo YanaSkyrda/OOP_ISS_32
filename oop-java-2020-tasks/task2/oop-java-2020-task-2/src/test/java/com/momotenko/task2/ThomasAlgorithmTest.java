@@ -170,20 +170,26 @@ public class ThomasAlgorithmTest extends TestCase {
 
     @Test
     public void testSolveLinear5(){
-        List<List<Double>> generatedMatrix = generateMatrix(15000);
-        List<Double> generatedList = generateList(15000);
+        List<List<Double>> generatedMatrix = generateMatrix(20000);
+        List<Double> generatedList = generateList(20000);
 
         ThomasAlgorithm a = new ThomasAlgorithm(generatedMatrix, generatedList);
 
+        List<Double> answer;
+
         long start = System.currentTimeMillis();
-        assertTrue(checkAnswer(generatedMatrix,generatedList,a.solveLinear(),THRESHOLD));
+        answer = a.solveLinear();
         long end = System.currentTimeMillis();
+
+        assertTrue(checkAnswer(generatedMatrix,generatedList,answer,THRESHOLD));
 
         System.out.println("test linear 5 time: " + (end-start));
 
         start = System.currentTimeMillis();
-        assertTrue(checkAnswer(generatedMatrix,generatedList,a.solveParallel(),THRESHOLD));
+        answer = a.solveParallel();
         end = System.currentTimeMillis();
+
+        assertTrue(checkAnswer(generatedMatrix,generatedList,answer,THRESHOLD));
 
         System.out.println("test parallel 5 time: " + (end-start));
     }
