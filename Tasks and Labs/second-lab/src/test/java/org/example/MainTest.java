@@ -30,8 +30,11 @@ public class MainTest {
         }
         else log.info("XML is not valid");
         saxDrugParser.parse(XML);
+        saxDrugParser.createXML();
         staxParser.parse(XML);
+        staxParser.createXML();
         domParser.parse(XML);
+        domParser.createXML();
         try {
             Assert.assertTrue(FileUtils.contentEquals(new File("src/main/resources/dom.xml"),
                     new File("src/main/resources/sax.xml")));

@@ -12,16 +12,4 @@ public class Medicine {
         }
         return drugList;
     }
-
-    @Override
-    public String toString() {
-        if (drugList == null || drugList.isEmpty()) {
-            return "Test contains no questions";
-        }
-        StringBuilder result = new StringBuilder();
-        for (Drug drug : drugList) {
-            result.append(drug).append('\n');
-        }
-        return result.toString();
-    }
 }

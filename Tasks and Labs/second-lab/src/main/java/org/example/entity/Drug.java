@@ -80,8 +80,16 @@ public class Drug implements Comparable<Drug>{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Drug drug = (Drug) o;
+        return id == drug.id &&
+                name.equals(drug.name) &&
+                pharmName.equals(drug.pharmName) &&
+                group == drug.group &&
+                analogs.equals(drug.analogs) &&
+                version.equals(drug.version);
     }
 
     @Override
