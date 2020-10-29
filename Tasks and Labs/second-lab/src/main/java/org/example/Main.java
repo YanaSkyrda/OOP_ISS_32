@@ -23,7 +23,10 @@ public class Main {
             log.info("XML is not valid");
         }
         saxDrugParser.parse(XML);
+        saxDrugParser.createXML();
         staxParser.parse(XML);
+        staxParser.createXML();
         domParser.parse(XML);
+        domParser.createXML();
     }
 }

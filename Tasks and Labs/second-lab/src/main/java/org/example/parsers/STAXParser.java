@@ -37,9 +37,13 @@ public class STAXParser extends ParserXML {
                     }
                 }
             }
-            xmlCreator.buildXML(drugHandler.getMedicine().getDrugList(), "src/main/resources/stax.xml");
         } catch (FileNotFoundException | XMLStreamException e) {
             log.log(Level.SEVERE, "Exception: ", e);
         }
+    }
+
+    @Override
+    public void createXML() {
+        xmlCreator.buildXML(drugHandler.getMedicine().getDrugList(), "src/main/resources/stax.xml");
     }
 }

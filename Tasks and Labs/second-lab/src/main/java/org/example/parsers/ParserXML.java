@@ -9,4 +9,6 @@ public abstract class ParserXML {
     DrugHandler drugHandler = new DrugHandler();
 
     public abstract void parse(String XMLFile);
+
+    public abstract void createXML();
 }

@@ -23,9 +23,13 @@ public class SAXDrugParser extends ParserXML {
         try {
             SAXParser saxParser = saxParserFactory.newSAXParser();
             saxParser.parse(xmlPath, drugHandler);
-            xmlCreator.buildXML(drugHandler.getMedicine().getDrugList(),"src/main/resources/sax.xml");
         } catch (ParserConfigurationException | SAXException | IOException e) {
             log.log(Level.SEVERE, "Exception: ", e);
         }
+    }
+
+    @Override
+    public void createXML() {
+        xmlCreator.buildXML(drugHandler.getMedicine().getDrugList(),"src/main/resources/sax.xml");
     }
 }

@@ -20,6 +20,8 @@ import java.util.logging.Logger;
 public class DOMParser extends ParserXML {
     private static final Logger log = Logger.getLogger(DOMParser.class.getName());
 
+    public DOMParser() {}
+
     public DOMParser(XMLCreator xmlCreator) {
         this.xmlCreator = xmlCreator;
     }
@@ -59,10 +61,14 @@ public class DOMParser extends ParserXML {
                 }
             }
         }
+    }
+
+    @Override
+    public void createXML() {
         xmlCreator.buildXML(drugHandler.getMedicine().getDrugList(),"src/main/resources/dom.xml");
     }
 
-    private static String getChildValue(Element element, String name) {
+    protected static String getChildValue(Element element, String name) {
         Element child = (Element) element.getElementsByTagName(name).item(0);
         if (child == null) {
             return "";
