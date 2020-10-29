@@ -6,6 +6,7 @@ import java.io.*;
 
 public class MyClassLoader extends ClassLoader {
 
+    //permanent generation(method area)
     @Override
     public Class<?> findClass(String path) throws ClassNotFoundException {
 

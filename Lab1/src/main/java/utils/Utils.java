@@ -81,6 +81,7 @@ public class Utils {
         return null;
     }
 
+    //apache string util (common package) build gradle add(compile)
     public static boolean isInteger(String s) {
         if(s == null)
             return false;
@@ -92,8 +93,9 @@ public class Utils {
 
         for(int i = 0; i < s.length(); i++) {
             char curr = s.charAt(i);
-            if(!Character.isDigit(curr))
+            if(!Character.isDigit(curr)){
                 return false;
+            }
         }
         return true;
     }
