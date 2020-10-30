@@ -13,14 +13,14 @@ public class ThreadPoolTest {
     @Test
     public void checkSpeedUp() throws Exception {
 
-        long timeWithMultipleCores = timeWithCores(9);
-        long timeWithOneCore = timeWithCores(1);
-   //     double speedUp = (double) timeWithOneCore / timeWithMultipleCores;
+        long timeWithMultipleCores = timeWithThreads(9);
+        long timeWithOneCore = timeWithThreads(1);
+ 
         assertTrue(timeWithMultipleCores < timeWithOneCore );
     }
 
-    private long timeWithCores(int cores) throws Exception {
-        ThreadPool threadPool = new ThreadPool(8);
+    private long timeWithThreads(int threads) throws Exception {
+        ThreadPool threadPool = new ThreadPool(threads);
         long start = System.nanoTime();
         List<Future<Double>> futures = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
