@@ -1,71 +1,58 @@
 package com.tasks.example.server;
 
-
-import com.tasks.example.client.Client;
 import com.tasks.example.entity.Student;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-
+import org.mockito.Mockito;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.nio.ByteBuffer;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 import static org.mockito.Mockito.*;
 
 public class ServerTest {
-    private static final Logger log = Logger.getLogger(ServerTest.class.getName());
+    private Server testServer;
+    private final ServerSocketChannel serverSocketChannel = Mockito.mock(ServerSocketChannel.class);
+    private final Student student = new Student("Sanya", 19, "TSHNU");
+    private final SelectionKey acceptKey = Mockito.mock(SelectionKey.class);
+    private final SelectionKey readKey = Mockito.mock(SelectionKey.class);
 
-    @Test
-    public void verifySetUp() throws IOException {
-        Server mockServer = spy(new Server());
-        ExecutorService service = Executors.newFixedThreadPool(1);
-
-        Future<?> server = service.submit(new Runnable() {
-            @Override
-            public void run() {
-                mockServer.run();
-            }
-        });
-        service.shutdown();
-        verify(mockServer).run();
-        verify(mockServer).setUp();
+    @Before
+    public void setUp() throws IOException {
+        SocketChannel client = Mockito.mock(SocketChannel.class);
+        when(serverSocketChannel.accept()).thenReturn(client);
+        this.testServer = Mockito.spy(Server.class);
+        when(acceptKey.readyOps()).thenReturn(SelectionKey.OP_ACCEPT);
+        when(readKey.readyOps()).thenReturn(SelectionKey.OP_READ);
     }
 
+   @Test
+    public void testReadingObject() throws IOException, ClassNotFoundException {
+       ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+       ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream);
+       oos.writeObject(student);
+       oos.close();
+       ByteBuffer buffer = ByteBuffer.wrap(byteArrayOutputStream.toByteArray());
+       Serializable studentReceived = testServer.readObject(buffer);
+       Assert.assertEquals(studentReceived, student);
+   }
+
+   @Test
+    public void testSuccessfulResponse() throws IOException {
+        SocketChannel client = Mockito.mock(SocketChannel.class);
+        testServer.respond(true, client);
+        verify(client).write(ByteBuffer.wrap("Received student".getBytes()));
+   }
+
     @Test
-    public void testRegisterAndRespond() throws InterruptedException, IOException {
-        Server mockServer = spy(new Server());
-
-        ExecutorService service = Executors.newFixedThreadPool(2);
-
-        Future<?> server = service.submit(new Runnable() {
-            @Override
-            public void run() {
-                mockServer.run();
-            }
-        });
-
-        Thread.sleep(500);
-
-        Student student = new Student("Igor", 20, "KPI");
-
-        Future<?> client = service.submit(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    new Client().run(student);
-                } catch (IOException e) {
-                    log.log(Level.SEVERE, "Exception: ", e);
-                }
-            }
-        });
-
-        service.shutdown();
-
-        verify(mockServer).run();
-        verify(mockServer).setUp();
-        verify(mockServer, atLeastOnce()).processKeys();
-        verify(mockServer).register();
+    public void testUnuccessfulResponse() throws IOException {
+        SocketChannel client = Mockito.mock(SocketChannel.class);
+        testServer.respond(false, client);
+        verify(client).write(ByteBuffer.wrap("Something went wrong".getBytes()));
     }
 }

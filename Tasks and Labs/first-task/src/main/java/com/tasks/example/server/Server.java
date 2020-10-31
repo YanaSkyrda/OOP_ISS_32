@@ -1,9 +1,8 @@
 package com.tasks.example.server;
-
-import com.tasks.example.entity.Student;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
@@ -20,8 +19,6 @@ public class Server {
     private static final Logger log = Logger.getLogger(Server.class.getName());
     private Selector selector;
     private ServerSocketChannel serverSocketChannel;
-    private static ByteBuffer buffer;
-    private static Student student;
 
     public static void main(String[] args) {
         new Server().run();
@@ -35,10 +32,7 @@ public class Server {
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
     }
 
-    public Server(){
-        student = new Student();
-        buffer = ByteBuffer.allocate(1024);
-    }
+    public Server(){}
 
     public void run() {
         try{
@@ -49,7 +43,7 @@ public class Server {
         }
     }
 
-    protected void processKeys() throws IOException {
+    public void processKeys() throws IOException {
         while (true){
             selector.select();
             Set<SelectionKey> selectedKeys = selector.selectedKeys();
@@ -59,7 +53,6 @@ public class Server {
                 if(selectionKey.isAcceptable()){
                     register();
                 }
-
                 if(selectionKey.isReadable()){
                     deserializeAndRespond(selectionKey);
                 }
@@ -68,35 +61,51 @@ public class Server {
         }
     }
 
-    protected void register() throws IOException {
-        System.out.println("Connection accepted");
+    public void register() throws IOException {
+        log.info("Connection accepted");
         SocketChannel client = serverSocketChannel.accept();
         client.configureBlocking(false);
         client.register(selector, SelectionKey.OP_READ);
     }
 
-    protected void deserializeAndRespond(SelectionKey selectionKey) throws IOException {
+    public void deserializeAndRespond(SelectionKey selectionKey) throws IOException {
         SocketChannel client = (SocketChannel) selectionKey.channel();
-        client.read(buffer);
-        ObjectInputStream objectInputStream;
+        Serializable clientObject;
+        boolean received = false;
 
-        try(ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buffer.array())){
-            objectInputStream = new ObjectInputStream(byteArrayInputStream);
-            student = (Student) objectInputStream.readObject();
-            buffer.clear();
-
-            buffer = ByteBuffer.wrap("Receive".getBytes());
-
-            System.out.println("Received: ");
-            System.out.println(student.toString());
-
-            client.write(buffer);
-            buffer.clear();
+        try{
+            ByteBuffer buffer = readToBuffer(client);
+            clientObject = readObject(buffer);
+            received = true;
+            log.info(clientObject.toString());
         } catch (ClassNotFoundException ex) {
             log.log(Level.SEVERE, "Exception: ", ex);
-        } finally {
-            client.close();
-            System.out.println("Client disconnected");
         }
+        respond(received, client);
+        client.close();
+    }
+
+    protected void respond(boolean received, SocketChannel client) {
+        try {
+            if(received) {
+                client.write(ByteBuffer.wrap("Received student".getBytes()));
+            } else {
+                client.write(ByteBuffer.wrap("Something went wrong".getBytes()));
+            }
+        } catch (IOException e) {
+            log.log(Level.SEVERE, "Exception: ", e);
+        }
+    }
+
+    ByteBuffer readToBuffer(SocketChannel client) throws IOException {
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
+        client.read(buffer);
+        return buffer;
+    }
+
+    Serializable readObject(ByteBuffer buffer) throws IOException, ClassNotFoundException {
+        buffer.rewind();
+        ObjectInputStream reader = new ObjectInputStream(new ByteArrayInputStream(buffer.array()));
+        return (Serializable) reader.readObject();
     }
 }
