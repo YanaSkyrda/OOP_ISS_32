@@ -1,6 +1,9 @@
+package com.university;
+
+import com.university.List.MySkipList;
+
 public class Main {
     public static void main(String[] args) {
-        //SkipList skipList = new SkipList(16);
         MySkipList skipList = new MySkipList(16);
 
         skipList.add(5);
@@ -15,8 +18,6 @@ public class Main {
         skipList.add(522);
         skipList.add(112);
         skipList.add(3323);
-
-        //skipList.add(2);
 
         System.out.println(skipList.contains(511));
 
