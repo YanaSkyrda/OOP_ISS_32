@@ -1,3 +1,7 @@
+package com.university.List;
+
+import com.university.Utils.Utils;
+
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicMarkableReference;
 
@@ -29,7 +33,7 @@ public class MySkipList {
     final AtomicInteger size;
     final int maxLevel;
 
-    MySkipList(int maxLevel){
+    public MySkipList(int maxLevel){
         this.currentListLevel = new AtomicInteger(0);
         this.size = new AtomicInteger(0);
         this.maxLevel = maxLevel;
@@ -39,8 +43,6 @@ public class MySkipList {
             headerNode.next[level] = header;
         }
     }
-
-    public int size() { return size.get();}
 
     public boolean contains (int inputValue) {
         AtomicMarkableReference<Node> currentListElement = this.header;
@@ -74,29 +76,9 @@ public class MySkipList {
     }
 
     public boolean add(Integer inputValue){
-        AtomicMarkableReference<Node> currentListElement = this.header;
-        AtomicMarkableReference<Node> previousListElement = this.header;
-        Node currentNode = currentListElement.getReference();
-
         Node[] update = new Node[maxLevel];
+        Node currentNode = formUpdateArray(update, inputValue);
         int levels = currentListLevel.get();
-        for(int level = levels - 1; level >= 0; level--) {
-            currentListElement = currentNode.next[level];
-            currentNode = currentListElement.getReference();
-
-            while (currentNode.value < inputValue) {
-                previousListElement = currentListElement;
-                currentListElement = currentNode.next[level];
-                currentNode = currentListElement.getReference();
-            }
-            update[level] = previousListElement.getReference();
-
-            currentListElement = previousListElement;
-            currentNode = currentListElement.getReference();
-        }
-
-        currentListElement = currentNode.next[0];
-        currentNode = currentListElement.getReference();
 
         if(currentNode.value == inputValue) {
             return false;
@@ -117,6 +99,25 @@ public class MySkipList {
                     new AtomicMarkableReference<>(newNode, true);
 
             for (int level = 0; level < levels; level++) {
+
+                //if we are on the zero level and see deletion mark we reform the update array again
+                if(update[level].markedForRemoval && level == 0){
+                    return add(inputValue);
+                }
+
+                //if we are on the level that greater then zero and see deletion mark simply return
+                //consider it as success adding.
+                if(update[level].markedForRemoval){
+                    return true;
+                }
+
+                //if we want to add and delete the same key and add function sees the deletion func
+                if(level > 0){
+                    if(update[level - 1].next[level - 1].getReference().markedForRemoval){
+                        return true;
+                    }
+                }
+
                 newNode.next[level] = update[level].next[level];
                 //Node beforeNode = update[level].next[level].getReference();
                 //update[level].next[level].attemptMark(beforeNode, true);
@@ -127,34 +128,13 @@ public class MySkipList {
 
             return true;
         }
-
-
     }
 
     public boolean remove(Integer inputValue){
-        AtomicMarkableReference<Node> currentListElement = this.header;
-        AtomicMarkableReference<Node> previousListElement = this.header;
-        Node currentNode = currentListElement.getReference();
-
         Node[] update = new Node[maxLevel];
+        Node currentNode = formUpdateArray(update, inputValue);
         int levels = currentListLevel.get();
-        for(int level = levels - 1; level >= 0; level--) {
-            currentListElement = currentNode.next[level];
-            currentNode = currentListElement.getReference();
 
-            while (currentNode.value < inputValue) {
-                previousListElement = currentListElement;
-                currentListElement = currentNode.next[level];
-                currentNode = currentListElement.getReference();
-            }
-            update[level] = previousListElement.getReference();
-
-            currentListElement = previousListElement;
-            currentNode = currentListElement.getReference();
-        }
-
-        currentListElement = currentNode.next[0];
-        currentNode = currentListElement.getReference();
 
         if (currentNode.value == inputValue) {
             currentNode.markedForRemoval = true;
@@ -209,5 +189,40 @@ public class MySkipList {
         out.append("]");
 
         return out.toString();
+    }
+
+    private Node formUpdateArray(Node[] update, Integer inputValue){
+        AtomicMarkableReference<Node> currentListElement = this.header;
+        AtomicMarkableReference<Node> previousListElement;
+        Node currentNode = currentListElement.getReference();
+
+        for(int level = currentListLevel.get() - 1; level >= 0; level--) {
+            previousListElement = currentListElement;       //
+            currentListElement = currentNode.next[level];
+            currentNode = currentListElement.getReference();
+
+            while (currentNode.value < inputValue) {
+                if(currentNode.markedForRemoval){
+                    unlink(previousListElement.getReference(), level);
+                    return formUpdateArray(update, inputValue);
+                }
+                previousListElement = currentListElement;
+                currentListElement = currentNode.next[level];
+                currentNode = currentListElement.getReference();
+            }
+            update[level] = previousListElement.getReference();
+
+            currentListElement = previousListElement;
+            currentNode = currentListElement.getReference();
+        }
+
+        currentListElement = currentNode.next[0];
+        currentNode = currentListElement.getReference();
+
+        return currentNode;
+    }
+
+    private void unlink(Node previousElement, int level){
+        previousElement.next[level] = previousElement.next[level].getReference().next[level];
     }
 }

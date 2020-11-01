@@ -1,3 +1,5 @@
+package com.university.Utils;
+
 import java.util.Random;
 
 public class Utils {
