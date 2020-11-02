@@ -1,0 +1,2 @@
+1)Added the addition check, that tests whether the order is right in the list.
+  Added it in all unit tests.
