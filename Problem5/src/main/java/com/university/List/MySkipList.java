@@ -6,12 +6,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicMarkableReference;
 
 public class MySkipList {
-    class Node {
+    public class Node {
         final int value;
         final int towerLevel;
         final AtomicMarkableReference<Node>[] next;
 
         boolean markedForRemoval;
+
+        public AtomicMarkableReference<Node>[] getNext() {
+            return next;
+        }
+
+        public int getValue() {
+            return value;
+        }
 
         @SuppressWarnings("unchecked")
         public Node(int value, int towerLevel, int maxLevel) {
@@ -42,6 +50,14 @@ public class MySkipList {
         for (int level = 0; level < maxLevel; level++) {
             headerNode.next[level] = header;
         }
+    }
+
+    public int size() {
+        return size.get();
+    }
+
+    public AtomicMarkableReference<Node> getHeader() {
+        return header;
     }
 
     public boolean contains (int inputValue) {
@@ -135,10 +151,10 @@ public class MySkipList {
         Node currentNode = formUpdateArray(update, inputValue);
         int levels = currentListLevel.get();
 
-
         if (currentNode.value == inputValue) {
             currentNode.markedForRemoval = true;
-            for (int level = 0; level < levels; level++) {
+            //for (int level = 0; level < levels; level++) {
+            for (int level = levels - 1; level >= 0; level--) {
                 update[level].next[level] = currentNode.next[level];
                 if (update[level].next[level] == null) {
                     update[level].next[level] = header;
@@ -148,17 +164,8 @@ public class MySkipList {
             size.decrementAndGet();
 
             //delete excess levels of the tower
-            int oldLevels = levels;
             while (levels > 1 && header.getReference().next[levels] == header) {
                 levels = currentListLevel.decrementAndGet();
-            }
-
-            for (int level = 0; level < oldLevels; level++) {
-                AtomicMarkableReference<Node> link = update[level].next[level];
-                Node temp;
-                do {
-                    temp = link.getReference();
-                } while (! link.attemptMark(temp, true));
             }
 
             return true;
@@ -166,7 +173,6 @@ public class MySkipList {
 
         return false;
     }
-
 
     @Override
     public String toString() {

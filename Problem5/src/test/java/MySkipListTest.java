@@ -3,6 +3,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.concurrent.atomic.AtomicMarkableReference;
+
 public class MySkipListTest {
 
     MySkipList skipList;
@@ -25,6 +27,22 @@ public class MySkipListTest {
         skipList.add(3323);
     }
 
+    private boolean checkListOrder(){
+        AtomicMarkableReference<MySkipList.Node> prev = skipList.getHeader();
+        prev = prev.getReference().getNext()[0];
+        AtomicMarkableReference<MySkipList.Node> curr = prev;
+        curr = curr.getReference().getNext()[0];
+
+        for(int i = 0; i < skipList.size() - 1; i++){
+            if(prev.getReference().getValue() >= curr.getReference().getValue()){
+                return false;
+            }
+            prev = curr;
+            curr = curr.getReference().getNext()[0];
+        }
+        return true;
+    }
+
     @Test
     public void contains_TEST(){
         Assert.assertTrue(skipList.contains(1));
@@ -43,6 +61,8 @@ public class MySkipListTest {
         Assert.assertFalse(skipList.contains(0));
         Assert.assertFalse(skipList.contains(32321));
         Assert.assertFalse(skipList.contains(145312));
+
+        Assert.assertTrue(checkListOrder());
     }
 
     @Test
@@ -54,6 +74,8 @@ public class MySkipListTest {
         for(int i = 0; i < 100; i++){
             Assert.assertFalse(skipList.add(200 + i));
         }
+
+        Assert.assertTrue(checkListOrder());
     }
 
     @Test
@@ -69,6 +91,8 @@ public class MySkipListTest {
         for(int i = 0; i < 100; i++){
             Assert.assertFalse(skipList.remove(200 + i));
         }
+
+        Assert.assertTrue(checkListOrder());
     }
 
     @Test
@@ -93,7 +117,7 @@ public class MySkipListTest {
             Assert.assertTrue(skipList.contains(200 + i));
         }
 
-        System.out.println(skipList.toString());
+        Assert.assertTrue(checkListOrder());
     }
 
     @Test
@@ -123,7 +147,7 @@ public class MySkipListTest {
             Assert.assertFalse(skipList.contains(200 + i));
         }
 
-        System.out.println(skipList.toString());
+        Assert.assertTrue(checkListOrder());
     }
 
     @Test
@@ -148,6 +172,6 @@ public class MySkipListTest {
             Assert.assertFalse(skipList.contains(200 + i));
         }
 
-        System.out.println(skipList.toString());
+        Assert.assertTrue(checkListOrder());
     }
 }
