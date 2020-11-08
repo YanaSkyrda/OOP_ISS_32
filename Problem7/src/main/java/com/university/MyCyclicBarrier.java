@@ -9,20 +9,30 @@ public class MyCyclicBarrier {
     private final int parties;
     private final Runnable barrierAction;
 
-
-
-    MyCyclicBarrier(int parties){
+    public MyCyclicBarrier(int parties){
         this.parties = parties;
         this.waitingParties = 0;
         this.broken = false;
         this.barrierAction = null;
     }
 
-    MyCyclicBarrier(int parties, Runnable barrierAction){
+    public MyCyclicBarrier(int parties, Runnable barrierAction){
         this.parties = parties;
         this.waitingParties = 0;
         this.broken = false;
         this.barrierAction = barrierAction;
+    }
+
+    public boolean isBroken() {
+        return broken;
+    }
+
+    public int getWaitingParties() {
+        return waitingParties;
+    }
+
+    public int getParties() {
+        return parties;
     }
 
     synchronized public void await() throws InterruptedException, BrokenBarrierException {
@@ -46,12 +56,5 @@ public class MyCyclicBarrier {
             }
 
         }
-    }
-
-    public void reset(){
-        broken = true;
-        waitingParties = 0;
-        notifyAll();
-        broken = false;
     }
 }

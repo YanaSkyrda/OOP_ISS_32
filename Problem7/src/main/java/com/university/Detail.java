@@ -17,11 +17,19 @@ public class Detail implements Runnable{
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public void run() {
         synchronized (this){
             System.out.println(this.name + " is being prepared...");
             try {
+                if(myCyclicBarrier == null){
+                    return;
+                }
+
                 myCyclicBarrier.await();
             } catch (InterruptedException | BrokenBarrierException e) {
                 e.printStackTrace();

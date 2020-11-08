@@ -17,6 +17,10 @@ public class Rocket {
         details = new ArrayList<>();
     }
 
+    public ArrayList<Detail> getDetails() {
+        return details;
+    }
+
     public void setMyCyclicBarrier(MyCyclicBarrier myCyclicBarrier) {
         this.myCyclicBarrier = myCyclicBarrier;
     }
