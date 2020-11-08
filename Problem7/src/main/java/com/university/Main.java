@@ -1,7 +1,7 @@
 package com.university;
 
 import java.util.concurrent.BrokenBarrierException;
-
+import java.util.concurrent.CyclicBarrier;
 
 public class Main {
     public static void main(String[] args) throws BrokenBarrierException, InterruptedException {
@@ -11,16 +11,11 @@ public class Main {
         rocket1.setMyCyclicBarrier(myCyclicBarrier);
         rocket1.launchRocket();
 
-        System.out.println();
-
         Rocket rocket2 = new Rocket();
-        Runnable test2 = rocket2::printDetails;
-        myCyclicBarrier = new MyCyclicBarrier(5, test2);
+        Runnable barrierAction2 = rocket2::printDetails;
+        myCyclicBarrier = new MyCyclicBarrier(5, barrierAction2);
         rocket2.setMyCyclicBarrier(myCyclicBarrier);
         rocket2.launchRocket();
-
-
-
 
     }
 }
