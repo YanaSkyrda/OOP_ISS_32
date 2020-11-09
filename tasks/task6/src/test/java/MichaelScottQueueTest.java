@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class MichaelScottQueueTest {
     static Logger log = Logger.getLogger(MichaelScottQueue.class);
@@ -23,17 +23,17 @@ class MichaelScottQueueTest {
     }
 
     @Test
-    void enqueueDequeueManyThreadsTest() {
+    void enqueueDequeueValuesFromManyThreadsTest() {
         queue = new MichaelScottQueue<>();
-        enqueue10Threads();
-        dequeue10Threads();
+        enqueueValuesFromManyThreads();
+        dequeueValuesFromManyThreads();
         for (int i = 0; i < 5000; i++) {
             assertTrue(valuePresent[i]);
         }
         assertNull(queue.dequeue());
     }
     @Test
-    void enqueueDequeTest() {
+    void queueMustContainValuesFromSetTest() {
         CyclicBarrier barrier = new CyclicBarrier(3);
         Set<Integer> set = new HashSet<>();
         set.add(50);
@@ -63,10 +63,10 @@ class MichaelScottQueueTest {
         }
         assertTrue(set.contains(queue.dequeue()));
         assertTrue(set.contains(queue.dequeue()));
-        assertTrue(!set.contains(queue.dequeue()));
+        assertFalse(set.contains(queue.dequeue()));
     }
 
-    private void enqueue10Threads() {
+    private void enqueueValuesFromManyThreads() {
         Thread[] threads = new Thread[10];
         for (int j = 0; j < 10; j++) {
             int leftBound = 500 * j;
@@ -87,7 +87,7 @@ class MichaelScottQueueTest {
         }
     }
 
-    private void dequeue10Threads() {
+    private void dequeueValuesFromManyThreads() {
         Thread[] threads = new Thread[10];
         for (int j = 0; j < 10; j++) {
             int leftBound = 500 * j;
