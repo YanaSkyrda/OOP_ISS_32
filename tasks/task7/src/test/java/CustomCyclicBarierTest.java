@@ -27,14 +27,12 @@ public class CustomCyclicBarierTest {
     }
 
     @Test
-    void shouldReachBarrierAndMakeFlagTrue() throws InterruptedException, BrokenBarrierException {
+    void shouldReachBarrier() throws InterruptedException, BrokenBarrierException {
 
         startNewThread();
         startNewThread();
         startNewThread();
         cyclicBarrier.await();
-
-
         assertTrue(barrierReached);
     }
 
@@ -44,7 +42,6 @@ public class CustomCyclicBarierTest {
         startNewThread();
         startNewThread();
         Thread.sleep(1000);
-
         assertFalse(barrierReached);
         assertEquals(1, cyclicBarrier.getNumberWaiting());
     }
@@ -56,7 +53,6 @@ public class CustomCyclicBarierTest {
         startNewThread();
         startNewThread();
         Thread.sleep(1000);
-
         assertTrue(barrierReached);
         assertEquals(3, cyclicBarrier.getNumberWaiting());
     }
@@ -74,10 +70,7 @@ public class CustomCyclicBarierTest {
 
         startNewThread();
         startNewThread();
-
         cyclicBarrier.await();
-
-
         assertTrue(barrierReached);
         assertEquals(3, cyclicBarrier.getThreadsAmount());
     }
@@ -86,9 +79,7 @@ public class CustomCyclicBarierTest {
     void shouldReturnThatNotBrokenWhenBarrierNotReached() throws InterruptedException {
 
         startNewThread();
-        synchronized (this) {
-            this.wait(1500);
-        }
+
 
         assertFalse(barrierReached);
         assertFalse(cyclicBarrier.isBroken());
@@ -103,18 +94,5 @@ public class CustomCyclicBarierTest {
 
         assertTrue(barrierReached);
         assertFalse(cyclicBarrier.isBroken());
-    }
-
-    @Test
-    void shouldReturnThat3ThreadsAwaitingAfterReset() throws InterruptedException {
-
-        startNewThread();
-        startNewThread();
-        Thread.sleep(1000);
-
-        cyclicBarrier.reset();
-
-        assertFalse(cyclicBarrier.isBroken());
-
     }
 }
