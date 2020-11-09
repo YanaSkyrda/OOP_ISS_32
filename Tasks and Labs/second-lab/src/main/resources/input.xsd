@@ -1,0 +1,47 @@
+<!--XML Scheme-->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://xqsm.com.ua/pratice7"
+            xmlns:tns="http://xqsm.com.ua/pratice7">
+
+  <xsd:element name="Medicine">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Drug" type="tns:Drug" maxOccurs="unbounded" minOccurs="1"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:complexType name="Drug">
+    <xsd:sequence>
+      <xsd:element name="Id" type="xsd:int"/>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="Pharm" type="xsd:string"/>
+      <xsd:element name="Group">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Antibiotics"/>
+            <xsd:enumeration value="Sedative"/>
+            <xsd:enumeration value="Vitamins"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:sequence>
+        <xsd:element name="Analogs" type="xsd:string"/>
+      </xsd:sequence>
+      <xsd:sequence>
+        <xsd:element name="Version" type="tns:Version"/>
+      </xsd:sequence>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Version">
+    <xsd:sequence>
+      <xsd:element name="Type" type="xsd:string"/>
+      <xsd:element name="Certificate" type="xsd:int"/>
+      <xsd:element name="Package" type="xsd:string"/>
+      <xsd:element name="Dosage" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

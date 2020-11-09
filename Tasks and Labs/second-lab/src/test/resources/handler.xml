@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Medicine>
+    <Drug>
+        <Id>13726</Id>
+        <Name>Citramon</Name>
+        <Pharm>Darnitsa</Pharm>
+        <Group>Sedative</Group>
+        <Analogs>None</Analogs>
+        <Version>
+            <Type>Tablets</Type>
+            <Certificate>2020</Certificate>
+            <Package>plastic</Package>
+            <Dosage>1.5</Dosage>
+        </Version>
+    </Drug>
+</Medicine>
