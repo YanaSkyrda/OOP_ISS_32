@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CustomReentrantLockTests {
-    CustomReentrantLock lock;
+class CustomReentrantLockTests {
+    private CustomReentrantLock lock;
     @BeforeEach
     void init() {
         lock = new CustomReentrantLock();
@@ -35,7 +35,7 @@ public class CustomReentrantLockTests {
     }
 
     @Test
-    public void shouldLockAndReleaseLockSameAmountOfTimes() throws InterruptedException {
+    void shouldLockAndReleaseLockSameAmountOfTimes() throws InterruptedException {
         //Given
         Thread exampleThread = startNewThread();
         //When
@@ -46,7 +46,7 @@ public class CustomReentrantLockTests {
     }
 
     @Test
-    public void shouldReturnFalseWhenTryLockBecauseOfTwoLocksAndOneUnlock() {
+    void shouldReturnFalseWhenTryLockBecauseOfTwoLocksAndOneUnlock() {
         //Given
         //When
         lock.lock();
@@ -59,7 +59,7 @@ public class CustomReentrantLockTests {
     }
 
     @Test
-    public void svhouldReturnFalseWhenTryLockBecauseOfTwoLocksAndOneUnlock() {
+    void shouldReleaseLockBecauseOfInterrupt() {
         //Given
         lock.lock();
         Thread exampleThread = startNewThreadInterruptible();
