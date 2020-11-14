@@ -3,6 +3,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -138,5 +139,27 @@ class CustomCyclicBarrierTests {
         //Then
         assertFalse(cyclicBarrier.isBroken());
         assertEquals(3, cyclicBarrier.getNumberWaiting());
+    }
+
+    @Test
+    void shouldBrokeBarrierBecauseOfInterrupt() throws InterruptedException {
+        //Given
+        Thread exampleThread = startNewThread();
+        //When
+        exampleThread.interrupt();
+        //Then
+        exampleThread.join();
+        assertTrue(cyclicBarrier.isBroken());
+    }
+
+    @Test
+    void shouldThrowBrokenBarrierExceptionOnAwaitAfterInterrupt() throws InterruptedException {
+        //Given
+        Thread exampleThread = startNewThread();
+        //When
+        exampleThread.interrupt();
+        //Then
+        exampleThread.join();
+        assertThrows(BrokenBarrierException.class, () -> cyclicBarrier.await());
     }
 }
