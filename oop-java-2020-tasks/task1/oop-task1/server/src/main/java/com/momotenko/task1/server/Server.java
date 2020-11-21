@@ -9,27 +9,30 @@ import java.nio.ByteBuffer;
 import java.nio.channels.*;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Server {
     private static Selector selector;
     private static ServerSocketChannel serverSocketChannel;
     private static ByteBuffer buffer;
-    private static Server instance;
-
+    private volatile SelectionKey key;
+    private volatile boolean running = false;
 
     public static void main(String[] argc) throws IOException {
-        ServerController controller = new ServerController();
+        ServerController controller = new ServerController("localhost", 4040);
         controller.run();
     }
 
-    private Server() {
+    public Server(String hostname,int port) {
         try {
             selector = Selector.open();
             serverSocketChannel = ServerSocketChannel.open();
-            serverSocketChannel.bind(new InetSocketAddress("localhost", 4040));
+            serverSocketChannel.bind(new InetSocketAddress(hostname, port));
             serverSocketChannel.configureBlocking(false);
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
             buffer = ByteBuffer.allocate(1024);
+            running = true;
         } catch (ClosedChannelException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -37,34 +40,43 @@ public class Server {
         }
     }
 
+    //TODO: logs
     public void run() {
-        try {
-            while (true) {
-                selector.select();
-                Set<SelectionKey> selectedKeys = selector.selectedKeys();
-                Iterator<SelectionKey> iterator = selectedKeys.iterator();
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        executorService.submit(()->{
+            try {
+                while (running) {
+                    selector.select();
+                    Set<SelectionKey> selectedKeys = selector.selectedKeys();
+                    Iterator<SelectionKey> iterator = selectedKeys.iterator();
 
-                while (iterator.hasNext()) {
-                    SelectionKey key = iterator.next();
+                    while (iterator.hasNext()) {
+                        key = iterator.next();
 
-                    if (key.isAcceptable()) {
-                        register(selector, serverSocketChannel);
+                        if (key.isAcceptable()) {
+                            register(selector, serverSocketChannel);
+                        }
+
+                        if (key.isReadable()) {
+                            answer(buffer);
+                        }
+
+                        iterator.remove();
                     }
-
-                    if (key.isReadable()) {
-                        answer(buffer, key);
-                    }
-
-                    iterator.remove();
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        });
 
+        executorService.shutdown();
     }
 
-    private boolean answer(ByteBuffer buffer, SelectionKey key) throws IOException {
+    public void stop(){
+        running = false;
+    }
+
+    public boolean answer(ByteBuffer buffer) throws IOException {
         SocketChannel client = (SocketChannel) key.channel();
         ByteArrayInputStream byteArrayInputStream;
         ObjectInputStream objectInput;
@@ -94,18 +106,10 @@ public class Server {
         }
     }
 
-    private void register(Selector selector, ServerSocketChannel serverSocketChannel) throws IOException {
+    protected void register(Selector selector, ServerSocketChannel serverSocketChannel) throws IOException {
         SocketChannel client = serverSocketChannel.accept();
         System.out.println("Client connected");
         client.configureBlocking(false);
         client.register(selector, SelectionKey.OP_READ);
-    }
-
-    public static Server start() throws IOException {
-        if (instance == null) {
-            instance = new Server();
-        }
-
-        return instance;
     }
 }

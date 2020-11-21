@@ -45,6 +45,12 @@
             <artifactId>mockito-core</artifactId>
             <version>3.5.13</version>
         </dependency>
+        <dependency>
+            <groupId>com.momotenko.oop-task1</groupId>
+            <artifactId>client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

@@ -10,17 +10,16 @@ import java.nio.channels.SocketChannel;
 
 public class Client {
     public static void main(String[] argc) throws IOException {
-        ClientController clientController = new ClientController();
+        ClientController clientController = new ClientController("localhost", 4040);
         clientController.run();
     }
 
     private static SocketChannel clientSocketChannel;
     private static ByteBuffer buffer;
-    private static Client instance;
 
-    private Client() {
+    public Client(String hostname, int port) {
         try {
-            clientSocketChannel = openSocketChannel(new InetSocketAddress("localhost", 4040));
+            clientSocketChannel = SocketChannel.open(new InetSocketAddress(hostname, port));
             buffer = ByteBuffer.allocate(1024);
             System.out.println("Connected to the server");
         } catch (IOException e) {
@@ -28,19 +27,7 @@ public class Client {
         }
     }
 
-    public SocketChannel openSocketChannel (InetSocketAddress address) throws IOException {
-        return SocketChannel.open(address);
-    }
-
-    public static Client start() {
-        if (instance == null) {
-            instance = new Client();
-        }
-
-        return instance;
-    }
-
-    public static void stop() {
+    public void stop() {
         try {
             clientSocketChannel.close();
         } catch (IOException e) {
@@ -65,7 +52,7 @@ public class Client {
             clientSocketChannel.write(buffer);
             buffer.clear();
             clientSocketChannel.read(inputBuffer);
-            //TODO: check response
+
             System.out.println("Server response: ");
             response = new String(inputBuffer.array()).trim();
             System.out.println(response);

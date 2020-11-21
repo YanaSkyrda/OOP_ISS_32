@@ -11,11 +11,18 @@ public class ClientController {
     private ClientView view = new ClientView();
     private Delivery delivery;
     private Client client;
+    private String hostname;
+    private int port;
+
+    public ClientController(String hostname, int port){
+        this.hostname = hostname;
+        this.port = port;
+    }
 
     public void run() {
-        client = Client.start();
+        client = new Client(hostname,port);
         handleCommands();
-        Client.stop();
+        client.stop();
     }
 
     private void handleCommands(){
@@ -35,7 +42,7 @@ public class ClientController {
                     editDelivery();
                     break;
                 case 4:
-                    sendDelivery();
+                    System.out.println(client.sendMessage(delivery));;
                     break;
                 case 5:
                     return;
@@ -100,9 +107,5 @@ public class ClientController {
                     break;
             }
         }
-    }
-
-    private void sendDelivery() {
-         System.out.println(client.sendMessage(delivery).toString());
     }
 }

@@ -2,17 +2,18 @@ package com.momotenko.task1.server.controller;
 
 import com.momotenko.task1.server.Server;
 
-import java.io.IOException;
-
 public class ServerController {
     private Server server;
+    private String hostname;
+    private int port;
+
+    public ServerController(String hostname, int port){
+        this.hostname = hostname;
+        this.port = port;
+    }
 
     public void run() {
-        try {
-            server = Server.start();
-            server.run();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        server = new Server(hostname, port);
+        server.run();
     }
 }
