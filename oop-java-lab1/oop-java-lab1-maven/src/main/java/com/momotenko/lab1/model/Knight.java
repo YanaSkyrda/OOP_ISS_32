@@ -41,7 +41,7 @@ public class Knight {
     }
 
     /** The function returns true if addition was successful and false vise versa */
-    private boolean addAmmunition(Ammunition toAdd){
+    public boolean addAmmunition(Ammunition toAdd){
         if (!checkIfPresentAmmunition(toAdd.getType())){
             ammunition.add(toAdd);
             return true;
@@ -51,7 +51,7 @@ public class Knight {
     }
 
     /** The function replaces ammunition if such piece already exists */
-    private void replaceAmmunition(Ammunition toReplace){
+    public void replaceAmmunition(Ammunition toReplace){
         String type = toReplace.getType();
 
         for (int i = 0, size = ammunition.size(); i < size; ++i){
@@ -63,9 +63,11 @@ public class Knight {
     }
 
     /** Gear up some piece of ammunition */
-    public void equipAmmunition(Ammunition toEquip){
+    public void equipAmmunition(Ammunition toEquip, boolean ask){
         if (addAmmunition(toEquip)){
-            if (view.askIfSure("replace current ammunition with a new piece")){
+            if (ask && view.askIfSure("replace current ammunition with a new piece")){
+                replaceAmmunition(toEquip);
+            }else{
                 replaceAmmunition(toEquip);
             }
         }

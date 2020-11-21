@@ -83,43 +83,43 @@ public class AmmunitionController {
         switch (command){
             case 1:
                 //helmet
-                knight.equipAmmunition(new Helmet(name, weight, price));
+                knight.equipAmmunition(new Helmet(name, weight, price),true);
                 break;
             case 2:
                 //chestplate
-                knight.equipAmmunition(new Chestplate(name, weight, price));
+                knight.equipAmmunition(new Chestplate(name, weight, price),true);
                 break;
             case 3:
                 //gloves
-                knight.equipAmmunition(new Gloves(name, weight, price));
+                knight.equipAmmunition(new Gloves(name, weight, price),true);
                 break;
             case 4:
                 //pants
-                knight.equipAmmunition(new Pants(name, weight, price));
+                knight.equipAmmunition(new Pants(name, weight, price),true);
                 break;
             case 5:
                 //boots
-                knight.equipAmmunition(new Boots(name, weight, price));
+                knight.equipAmmunition(new Boots(name, weight, price),true);
                 break;
             case 6:
                 //sword
-                knight.equipAmmunition(new Sword(name, weight, price));
+                knight.equipAmmunition(new Sword(name, weight, price),true);
                 break;
             case 7:
                 //spear
-                knight.equipAmmunition(new Spear(name, weight, price));
+                knight.equipAmmunition(new Spear(name, weight, price),true);
                 break;
             case 8:
                 //bow
-                knight.equipAmmunition(new Bow(name, weight, price));
+                knight.equipAmmunition(new Bow(name, weight, price),true);
                 break;
             case 9:
                 //arrow
-                knight.equipAmmunition(new Arrow(name, weight, price));
+                knight.equipAmmunition(new Arrow(name, weight, price),true);
                 break;
             case 10:
                 //shield
-                knight.equipAmmunition(new Shield(name, weight, price));
+                knight.equipAmmunition(new Shield(name, weight, price),true);
                 break;
             default:
                 return;

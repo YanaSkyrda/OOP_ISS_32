@@ -1,8 +1,8 @@
-package com.momotenko.lab1;
+package com.momotenko.lab1.model.entity;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.momotenko.lab1.model.entity.Ammunition;
+import com.momotenko.lab1.model.entity.utils.AmmunitionArgumentProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;

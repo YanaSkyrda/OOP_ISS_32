@@ -1,6 +1,5 @@
-package com.momotenko.lab1;
+package com.momotenko.lab1.model.entity;
 
-import com.momotenko.lab1.model.entity.Ammunition;
 import com.momotenko.lab1.model.Knight;
 import com.momotenko.lab1.model.entity.clothes.*;
 import com.momotenko.lab1.model.entity.weapons.Sword;
@@ -9,12 +8,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class for model and knight
  */
-public class ModelKnightTest {
+public class KnightTest {
     /** Adding and getting back ammunition of the knight test */
     @Test
     @DisplayName("Knight test for get/add ammunition")
@@ -25,26 +24,25 @@ public class ModelKnightTest {
         Ammunition sword = new Sword("strong", 3.5,21.4);
         Ammunition pants = new Pants("square pants",0.25,14.5);
 
-        assertTrue(knight.getAmmunition().equals(new ArrayList<>()));
+        assertEquals(new ArrayList<>(), knight.getAmmunition());
 
-        assertTrue(knight.addAmmunition(helm) == true);
+        assertTrue(knight.addAmmunition(helm));
 
-        assertTrue(knight.addAmmunition(helm) == false);
+        assertFalse(knight.addAmmunition(helm));
 
         knight.replaceAmmunition(helm1);
 
-        assertTrue(knight.getAmmunition().size() == 1);
-        assertTrue(knight.getAmmunition().get(0).equals(helm1));
+        assertEquals(knight.getAmmunition().size(), 1);
+        assertEquals(helm1, knight.getAmmunition().get(0));
 
-        assertTrue(knight.calculateCost() == 1.1);
+        assertEquals(knight.calculateCost(), 1.1);
 
         knight.addAmmunition(sword);
         knight.addAmmunition(pants);
 
-        assertTrue(knight.calculateCost()
-                == (sword.getPrice() + pants.getPrice() + helm1.getPrice()));
+        assertEquals((sword.getPrice() + pants.getPrice() + helm1.getPrice()), knight.calculateCost());
 
-        assertTrue(knight.getAmmunition().size() == 3);
+        assertEquals(knight.getAmmunition().size(), 3);
     }
 
     /** Testing function which are not getter nor setters.
@@ -67,27 +65,27 @@ public class ModelKnightTest {
                 + boots.getPrice()
                 + sword.getPrice();
 
-        AmmunitionModel model = new AmmunitionModel();
-        model.equipAmmunition(helmet);
-        model.equipAmmunition(chestplate);
+        Knight model = new Knight();
+        model.equipAmmunition(helmet,false);
+        model.equipAmmunition(chestplate,false);
 
-        assertTrue(model.getAmmunition().size() == 2);
+        assertEquals(model.getAmmunition().size(), 2);
 
-        model.equipAmmunition(gloves);
-        model.equipAmmunition(pants);
-        model.equipAmmunition(boots);
-        model.equipAmmunition(sword);
+        model.equipAmmunition(gloves,false);
+        model.equipAmmunition(pants,false);
+        model.equipAmmunition(boots,false);
+        model.equipAmmunition(sword,false);
 
-        assertTrue(model.calculateCost() == cost);
+        assertEquals(cost, model.calculateCost());
 
-        ArrayList<Ammunition> ammunition = model.sortByWeight();
-        assertTrue(ammunition.get(0).equals(pants));
-        assertTrue(ammunition.get(ammunition.size()-1).equals(sword));
+        ArrayList<Ammunition> ammunition = model.sortAmmunitionByWeight();
+        assertEquals(pants, ammunition.get(0));
+        assertEquals(sword, ammunition.get(ammunition.size() - 1));
 
         ArrayList<Ammunition> ammunitionByPriceRange
                 = model.getAmmunitionByPriceRange(10.0,1000.0);
 
-        assertTrue(ammunitionByPriceRange.size() == 3);
+        assertEquals(ammunitionByPriceRange.size(), 3);
         assertTrue(ammunitionByPriceRange.contains(chestplate));
         assertTrue(ammunitionByPriceRange.contains(pants));
         assertTrue(ammunitionByPriceRange.contains(boots));

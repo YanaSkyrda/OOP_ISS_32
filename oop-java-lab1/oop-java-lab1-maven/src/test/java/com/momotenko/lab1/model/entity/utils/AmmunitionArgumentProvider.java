@@ -1,4 +1,4 @@
-package com.momotenko.lab1;
+package com.momotenko.lab1.model.entity.utils;
 
 import com.momotenko.lab1.model.entity.clothes.*;
 import com.momotenko.lab1.model.entity.weapons.*;
