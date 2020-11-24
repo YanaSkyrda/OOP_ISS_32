@@ -2,7 +2,7 @@ package com.university;
 
 import java.util.concurrent.BrokenBarrierException;
 
-public class Detail implements Runnable{
+public class Detail implements Runnable {
 
     private final MyCyclicBarrier myCyclicBarrier;
     private final String name;
