@@ -38,7 +38,7 @@ public class Rocket {
         setUpDetails();
 
         for(Detail detail : details){
-            wait(Utils.generateTimeWait());
+            wait(Utils.generateTimeWait());     //random time
             Thread tempThread = new Thread(detail);
             tempThread.start();
         }

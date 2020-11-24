@@ -50,11 +50,10 @@ public class MyCyclicBarrier {
         } else {
             try {
                 wait();
-            } catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 this.broken = true;
                 throw e;
             }
-
         }
     }
 }
