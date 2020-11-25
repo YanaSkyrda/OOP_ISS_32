@@ -35,10 +35,6 @@ public class CustomThreadPool implements Executor {
         return stillWorking;
     }
 
-    public int getCurrentTasksAmount() {
-        return tasksQueue.size();
-    }
-
     public final class Worker implements Runnable {
         @Override
         public void run() {
