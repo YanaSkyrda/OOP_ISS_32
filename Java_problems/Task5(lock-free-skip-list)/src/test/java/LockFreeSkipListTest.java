@@ -73,4 +73,27 @@ class LockFreeSkipListTest {
         assertTrue(list.contains(7));
         assertFalse(list.contains(3));
     }
+
+    @Test
+    void shouldCorrectlyDeleteAndRemoveElementsInSameTime() throws InterruptedException {
+        //Given
+        List<Thread> threads = new ArrayList<>();
+        threads.add(insertFromDifferentThread(3));
+        for (Thread thread : threads) {
+            thread.join();
+        }
+        //When
+        threads.clear();
+        threads.add(removeInDifferentThread(3));
+        threads.add(insertFromDifferentThread(5));
+        threads.add(insertFromDifferentThread(7));
+        threads.add(removeInDifferentThread(4));
+        for (Thread thread : threads) {
+            thread.join();
+        }
+        //Then
+        assertTrue(list.contains(5));
+        assertTrue(list.contains(7));
+        assertFalse(list.contains(3));
+    }
 }
