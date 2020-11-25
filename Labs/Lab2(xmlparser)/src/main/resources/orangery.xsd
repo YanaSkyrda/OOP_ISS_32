@@ -1,0 +1,98 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="targetClasses"
+           xmlns:orangeryns="targetClasses"
+           elementFormDefault="qualified">
+
+    <xs:element name="Orangery">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="flower" type="orangeryns:Flower" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="Flower">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="soil" type="orangeryns:Soil"/>
+            <xs:element name="origin" type="orangeryns:Country"/>
+            <xs:element name="visualParameters" type="orangeryns:VisualParameters" />
+            <xs:element name="growingTips" type="orangeryns:GrowingTips" />
+            <xs:element name="multiplying" type="orangeryns:Multiplying"/>
+        </xs:sequence>
+        <xs:attribute name="code" type="xs:integer"/>
+    </xs:complexType>
+
+    <xs:simpleType name="Soil">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PODZOLIC"/>
+            <xs:enumeration value="SOIL"/>
+            <xs:enumeration value="SODPODZOLIC"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Country">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="UKRAINE"/>
+            <xs:enumeration value="GERMANY"/>
+            <xs:enumeration value="NETHERLANDS"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="GrowingTips">
+        <xs:sequence>
+            <xs:element name="temperature" type="xs:integer"/>
+            <xs:element name="lightloving" type="xs:boolean"/>
+            <xs:element name = "watering" type="orangeryns:WateringAmount"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="Multiplying">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="LEAVES"/>
+            <xs:enumeration value="STALKS"/>
+            <xs:enumeration value="SEEDS"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WateringAmount">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="VisualParameters">
+        <xs:sequence>
+            <xs:element name="stalkColor" type="orangeryns:StalkColor"/>
+            <xs:element name="leavesColor" type="orangeryns:LeavesColor"/>
+            <xs:element name = "averageSize" type="orangeryns:FlowerSize"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="FlowerSize">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="450"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="StalkColor">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="GREEN"/>
+            <xs:enumeration value="YELLOW"/>
+            <xs:enumeration value="BROWN"/>
+            <xs:enumeration value="PURPLE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="LeavesColor">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="GREEN"/>
+            <xs:enumeration value="YELLOW"/>
+            <xs:enumeration value="BROWN"/>
+            <xs:enumeration value="ORANGE"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

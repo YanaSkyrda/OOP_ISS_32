@@ -1,0 +1,35 @@
+<tar:Orangery xmlns:tar="targetClasses">
+  <!--Zero or more repetitions:-->
+  <tar:flower code="532">
+    <tar:name>Lily</tar:name>
+    <tar:soil>PODZOLIC</tar:soil>
+    <tar:origin>GERMANY</tar:origin>
+    <tar:visualParameters>
+      <tar:stalkColor>GREEN</tar:stalkColor>
+      <tar:leavesColor>YELLOW</tar:leavesColor>
+      <tar:averageSize>34</tar:averageSize>
+    </tar:visualParameters>
+    <tar:growingTips>
+      <tar:temperature>15</tar:temperature>
+      <tar:lightloving>true</tar:lightloving>
+      <tar:watering>89</tar:watering>
+    </tar:growingTips>
+    <tar:multiplying>STALKS</tar:multiplying>
+  </tar:flower>
+    <tar:flower code="342">
+        <tar:name>Rose</tar:name>
+        <tar:soil>SODPODZOLIC</tar:soil>
+        <tar:origin>NETHERLANDS</tar:origin>
+        <tar:visualParameters>
+            <tar:stalkColor>GREEN</tar:stalkColor>
+            <tar:leavesColor>GREEN</tar:leavesColor>
+            <tar:averageSize>70</tar:averageSize>
+        </tar:visualParameters>
+        <tar:growingTips>
+            <tar:temperature>18</tar:temperature>
+            <tar:lightloving>true</tar:lightloving>
+            <tar:watering>80</tar:watering>
+        </tar:growingTips>
+        <tar:multiplying>SEEDS</tar:multiplying>
+    </tar:flower>
+</tar:Orangery>

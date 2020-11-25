@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Orangery>
+    <Flower code="125">
+        <name>flower0</name>
+        <soil>PODZOLIC</soil>
+        <origin>UKRAINE</origin>
+        <visualParameters>
+            <stalkColor>GREEN</stalkColor>
+            <leavesColor>GREEN</leavesColor>
+            <averageSize>34</averageSize>
+        </visualParameters>
+        <growingTips>
+            <temperature>0</temperature>
+            <lightloving>true</lightloving>
+            <watering>35</watering>
+        </growingTips>
+        <multiplying>LEAVES</multiplying>
+    </Flower>
+    <Flower code="126">
+        <name>flower1</name>
+        <soil>SOIL</soil>
+        <origin>GERMANY</origin>
+        <visualParameters>
+            <stalkColor>YELLOW</stalkColor>
+            <leavesColor>YELLOW</leavesColor>
+        </visualParameters>
+        <growingTips>
+            <temperature>3</temperature>
+            <lightloving>true</lightloving>
+            <watering>36</watering>
+        </growingTips>
+        <multiplying>STALKS</multiplying>
+    </Flower>
+    <Flower code="127">
+        <name>flower2</name>
+        <soil>SODPODZOLIC</soil>
+        <origin>NETHERLANDS</origin>
+        <visualParameters>
+            <stalkColor>BROWN</stalkColor>
+            <leavesColor>BROWN</leavesColor>
+            <averageSize>36</averageSize>
+        </visualParameters>
+        <growingTips>
+            <temperature>6</temperature>
+            <lightloving>true</lightloving>
+            <watering>37</watering>
+        </growingTips>
+        <multiplying>SEEDS</multiplying>
+    </Flower>
+</Orangery>
