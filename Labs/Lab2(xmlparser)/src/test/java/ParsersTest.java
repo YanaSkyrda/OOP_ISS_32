@@ -8,7 +8,7 @@ import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ParsersTest {
+class ParsersTest {
     private OrangerySAXParser saxParser = new OrangerySAXParser();
     private OrangeryStAXParser staxParser = new OrangeryStAXParser();
     private OrangeryDOMParser domParser = new OrangeryDOMParser();

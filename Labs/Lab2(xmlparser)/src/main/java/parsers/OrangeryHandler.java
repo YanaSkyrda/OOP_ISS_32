@@ -62,7 +62,7 @@ public class OrangeryHandler extends DefaultHandler {
         setField(qName);
     }
 
-    Flower lastFlower() {
+    private Flower lastFlower() {
         List<Flower> flowers = orangery.getFlower();
         int indexOfLast = flowers.size() - 1;
         return flowers.get(indexOfLast);

@@ -24,10 +24,13 @@ public class OrangeryDOMParser extends XMLParser {
         return document;
     }
 
-    private void setValueByTagName(Element element, String tagName) {
-        this.orangeryHandler.setElementValue(element.getElementsByTagName(tagName)
-                .item(0).getTextContent());
-        this.orangeryHandler.setField(tagName);
+    private static String getChildValue(Element element, String name) {
+        Element child = (Element) element.getElementsByTagName(name).item(0);
+        if (child == null) {
+            return "";
+        }
+        Node node = child.getFirstChild();
+        return node.getNodeValue();
     }
 
     @Override
@@ -40,20 +43,24 @@ public class OrangeryDOMParser extends XMLParser {
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
 
-                    this.orangeryHandler.setField("flower", element.getAttribute("code"));
-                    this.orangeryHandler.setField("visualParameters", null);
-                    this.orangeryHandler.setField("growingTips", null);
-
-                    setValueByTagName(element, "name");
-                    setValueByTagName(element, "origin");
-                    setValueByTagName(element, "soil");
-                    setValueByTagName(element, "multiplying");
-                    setValueByTagName(element, "leavesColor");
-                    setValueByTagName(element, "stalkColor");
-                    setValueByTagName(element, "averageSize");
-                    setValueByTagName(element, "watering");
-                    setValueByTagName(element, "temperature");
-                    setValueByTagName(element, "lightloving");
+                    orangeryHandler.setField(element.getNodeName(),
+                            element.getAttributes().item(0).getNodeValue());
+                    NodeList childNodes = element.getChildNodes();
+                    for (int j = 0; j < childNodes.getLength(); j++) {
+                        if (childNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
+                            Element child = (Element) childNodes.item(j);
+                            orangeryHandler.setElementValue(getChildValue(element, child.getNodeName()));
+                            orangeryHandler.setField(child.getNodeName(), null);
+                            NodeList childChildNodes = child.getChildNodes();
+                            for (int k = 0; k < childChildNodes.getLength(); k++) {
+                                if (childChildNodes.item(k).getNodeType() == Node.ELEMENT_NODE) {
+                                    Element childChild = (Element) childChildNodes.item(k);
+                                    orangeryHandler.setElementValue(getChildValue(child, childChild.getNodeName()));
+                                    orangeryHandler.setField(childChild.getNodeName());
+                                }
+                            }
+                        }
+                    }
                 }
             }
 

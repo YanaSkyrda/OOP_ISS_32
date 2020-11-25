@@ -7,8 +7,8 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 
-public class XMLHelperTests {
-    Orangery orangery = new Orangery();
+class XMLHelperTests {
+    private Orangery orangery = new Orangery();
 
     void createOrangery() {
         for (int i = 0; i < 3; i++) {

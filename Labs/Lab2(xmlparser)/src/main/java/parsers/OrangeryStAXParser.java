@@ -4,6 +4,7 @@ import javax.xml.namespace.QName;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.File;
@@ -13,26 +14,6 @@ import java.io.FileNotFoundException;
 public class OrangeryStAXParser extends XMLParser {
     private static final java.util.logging.Logger log = java.util.logging.Logger
             .getLogger(OrangeryStAXParser.class.getName());
-    private XMLEventReader reader;
-
-    private boolean checkIfTagIsComplexType(StartElement startElement) throws XMLStreamException {
-        String startElementName = startElement.getName().getLocalPart();
-        if (startElement.getName().getLocalPart().equals("Orangery")) {
-            XMLEvent currEvent = reader.nextEvent();
-            this.orangeryHandler.setField(currEvent.asStartElement().getName().getLocalPart(),
-                    currEvent.asStartElement().getAttributeByName(new QName("code")).getValue());
-            return true;
-        } else if (startElementName.equals("flower")) {
-            this.orangeryHandler.setField(startElementName,
-                    startElement.getAttributeByName(new QName("code")).getValue());
-            return true;
-        } else if (startElementName.equals("visualParameters")
-                || startElementName.equals("growingTips")) {
-            this.orangeryHandler.setField(startElementName, null);
-            return true;
-        }
-        return false;
-    }
 
     private void setSimpleTagValue(XMLEvent currEvent, StartElement startElement) {
         if (currEvent.isCharacters()) {
@@ -46,19 +27,25 @@ public class OrangeryStAXParser extends XMLParser {
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
 
         try {
-            reader = xmlInputFactory.createXMLEventReader(new FileInputStream(XMLFile));
+            XMLEventReader reader = xmlInputFactory.createXMLEventReader(new FileInputStream(XMLFile));
 
             while (reader.hasNext()) {
                 XMLEvent currEvent = reader.nextEvent();
                 if (currEvent.isStartElement()) {
                     StartElement startElement = currEvent.asStartElement();
-                    if (checkIfTagIsComplexType(startElement)) {
-                        continue;
-                    }
 
-                    currEvent = reader.nextEvent();
-                    setSimpleTagValue(currEvent, startElement);
-                    this.orangeryHandler.setField(startElement.getName().getLocalPart(), null);
+                    XMLEvent nextEvent = reader.peek();
+                    if (nextEvent.isCharacters()) {
+                        setSimpleTagValue(nextEvent, startElement);
+                        this.orangeryHandler.setField(startElement.getName().getLocalPart());
+                        reader.nextEvent();
+                    } else {
+                        String attribute = null;
+                        if (startElement.getAttributes().hasNext()) {
+                            attribute = ((Attribute) startElement.getAttributes().next()).getValue();
+                        }
+                        this.orangeryHandler.setField(startElement.getName().getLocalPart(), attribute);
+                    }
                 }
             }
 
