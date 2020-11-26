@@ -5,7 +5,7 @@ import android.graphics.Paint;
 
 public class Figure {
     private String color;
-    private String state = "default";
+    private String state = "DEFAULT";
     private Paint paint;
 
     private static int errorColor = Color.rgb(0, 250, 0);
@@ -34,13 +34,13 @@ public class Figure {
 
     public Paint updatePaint() {
         switch (color) {
-            case "white":
+            case "WHITE":
                 paint.setColor(whiteNormal);
                 break;
-            case "black":
+            case "BLACK":
                 paint.setColor(blackNormal);
                 break;
-            default: // можна потім убрать і поставить брейк
+            default:
                 paint.setColor(errorColor);
         }
         return paint;
