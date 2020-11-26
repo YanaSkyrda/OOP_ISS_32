@@ -1,51 +1,86 @@
 package com.game.checkersgame.view;
-import com.game.checkersgame.models.*;
+import com.game.checkersgame.controller.GameController;
+import com.game.checkersgame.utils.TouchHandler;
+
 import android.content.Context;
 import android.graphics.*;
-import android.graphics.Color;
-import android.os.Build;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import androidx.annotation.RequiresApi;
+
+import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+
+import static java.util.concurrent.Executors.newFixedThreadPool;
 
 public class MainView extends View {
 
+    private ExecutorService executor = newFixedThreadPool(5);
 
-    private int fieldSize = 8;
-    private int cellSize;
-
-    private Cell blackCell;
-    private Cell whiteCell;
+    private static final int FIELD_SIZE = 8;
+    private GameController fieldController;
+    private Context context;
+    private Future botFuture;
 
     public MainView(Context context) {
         super(context);
+        this.context = context;
+        fieldController = new GameController(FIELD_SIZE, this);
 
-        blackCell = new Cell("BLACK");
-        whiteCell = new Cell("WHITE");
+        assignTouchListener();
+        startBotThread();
+
     }
 
-    private void drawGrid(int columns, int rows, Canvas canvas) {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                if ((i + j) % 2 == 0) {
-                    drawCell(blackCell, j, i, canvas);
-                } else
-                    drawCell(whiteCell, j, i, canvas);
+    private void startBotThread() {
+        botFuture = executor.submit(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    fieldController.startBotCycle();
+                } catch (Exception e) {
+                    Thread.currentThread().interrupt();
+                }
             }
-        }
+        });
     }
 
-    private void drawCell(Cell cell, int x, int y, Canvas canvas) {
-        cellSize = canvas.getWidth() / fieldSize;
-        canvas.drawRect(x * cellSize, y * cellSize,
-                x * cellSize+cellSize, y * cellSize + cellSize,
-                cell.getPaint());
+    private void assignTouchListener() {
+        setOnTouchListener(new OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                Future touchFuture = executor.submit(new TouchHandler(event, fieldController));
+                try {
+                    touchFuture.get();
+                } catch (Exception e) {
+                    Log.e("Touch exception", Arrays.toString(e.getStackTrace()));
+                    Thread.currentThread().interrupt();
+                }
+                return true;
+            }
+        });
+    }
+
+    public void updateView() {
+        invalidate();
+    }
+
+    public String getStatusOfGame() {
+        return fieldController.getStatusOfGame();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        cellSize = canvas.getWidth() / fieldSize;
-        drawGrid(fieldSize, fieldSize, canvas);
+        fieldController.draw(canvas);
+    }
 
+    public Future getBotFuture() {
+        return botFuture;
+    }
+
+    public GameController getFieldController() {
+        return fieldController;
     }
 }

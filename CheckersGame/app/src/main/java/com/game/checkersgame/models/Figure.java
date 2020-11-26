@@ -5,31 +5,15 @@ import android.graphics.Paint;
 
 public class Figure {
     private String color;
-    private String state = "DEFAULT";
+    private String status = "NORMAL";
     private Paint paint;
 
     private static int errorColor = Color.rgb(0, 250, 0);
-
+    public static final int blackNormal = Color.rgb(210,105,30);
     public  final int whiteNormal = Color.rgb(200, 200, 200);
-    public static final int blackNormal = Color.rgb(230, 20, 20);
-
     public Figure(String checkerColor) {
         color = checkerColor;
         paint = new Paint();
-        paint.setStyle(Paint.Style.FILL);
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-        updatePaint();
     }
 
     public Paint updatePaint() {
@@ -45,4 +29,19 @@ public class Figure {
         }
         return paint;
     }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+        updatePaint();
+    }
+
+
 }

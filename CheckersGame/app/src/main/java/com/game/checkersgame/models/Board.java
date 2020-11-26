@@ -7,22 +7,29 @@ import android.graphics.Canvas;
 public class Board {
     private int fieldSize;
     private int cellSize;
-    private Cell[][] cells;
+    private Cell[][] cellsMatrix;
 
 
     public Board(int fieldSize) {
         this.fieldSize = fieldSize;
         initializeCells(fieldSize, fieldSize);
     }
+    public void unselectAll() {
+        for (Cell[] cellRow : cellsMatrix) {
+            for (Cell cell : cellRow) {
+                cell.setCurrentState("IDLE");
+            }
+        }
+    }
 
     private void initializeCells(int columns, int rows) {
-        cells = new Cell[rows][columns];
+        cellsMatrix = new Cell[rows][columns];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 if ((i + j) % 2 == 0) {
-                    cells[j][i] = new Cell("WHITE");
+                    cellsMatrix[j][i] = new Cell("WHITE");
                 } else
-                    cells[j][i] = new Cell("BLACK");
+                    cellsMatrix[j][i] = new Cell("BLACK");
             }
         }
     }
@@ -36,7 +43,7 @@ public class Board {
     private void drawGrid(int columns, int rows, Canvas canvas) {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                drawCell(cells[j][i], j, i, canvas);
+                drawCell(cellsMatrix[j][i], j, i, canvas);
             }
         }
     }
@@ -51,7 +58,7 @@ public class Board {
     public Cell getCell(Coordinates coords) {
         if (!border(coords))
             return null;
-        return cells[coords.xCoord][coords.yCoord];
+        return cellsMatrix[coords.xCoord][coords.yCoord];
     }
 
     public int getCellSize() {

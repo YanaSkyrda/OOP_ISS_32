@@ -8,7 +8,7 @@ public class Cell {
 
     private Paint paint;
 
-
+    private String currentState = "IDLE";
     public static final int black = Color.rgb(50, 50, 50);
     public static final int white = Color.WHITE;
     public static final int colorActive = Color.rgb(10, 250, 20);
@@ -17,13 +17,20 @@ public class Cell {
         cellColor = color;
         this.paint = new Paint();
 
-        if (color == "BLACK") {
+        if (color.equals("BLACK") ) {
             setColorIdle(black);
-        } else if (color == "WHITE") {
+        } else if (color.equals("WHITE")) {
             setColorIdle(white);
         }
     }
-
+    public void setCurrentState(String currentState) {
+        this.currentState = currentState;
+        if (currentState.equals("IDLE")) {
+            paint.setColor(colorIdle);
+        } else if (currentState.equals("ACTIVE")) {
+            paint.setColor(colorActive);
+        }
+    }
     public int getColorIdle() {
         return colorIdle;
     }
@@ -37,5 +44,7 @@ public class Cell {
         return paint;
     }
 
-
+    public String getCellColor() {
+        return cellColor;
+    }
 }
