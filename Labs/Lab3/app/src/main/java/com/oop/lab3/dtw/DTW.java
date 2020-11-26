@@ -3,33 +3,30 @@ package com.oop.lab3.dtw;
 /** Dynamic Time Warping algorithm **/
 public final class DTW {
 
-    /** Defines the result for a Dynamic Time Warping operation. */
     public static class Result {
-        /* Member Variables. */
-        private final int[][] mWarpingPath;
-        private final double  mDistance;
-        /** Constructor. */
-        public Result(final int[][] pWarpingPath, final double pDistance) {
-            // Initialize Member Variables.
+
+        private int[][] mWarpingPath;
+        private double  mDistance;
+
+        public Result(int[][] pWarpingPath, double pDistance) {
             this.mWarpingPath = pWarpingPath;
             this.mDistance    = pDistance;
         }
-        /* Getters. */
+
+        /* Getters */
         public final int[][] getWarpingPath() { return this.mWarpingPath; }
         public final double     getDistance() { return this.mDistance;    }
     }
 
-    /** Default constructor for a class which implements dynamic time warping. */
     public DTW() { }
 
     public DTW.Result compute(final float[] pSample, final float[] pTemplate) {
-        // Declare Iteration Constants.
+
         final int lN = pSample.length;
         final int lM = pTemplate.length;
-        // Ensure the samples are valid.
+
         if(lN == 0 || lM == 0) {
-            // Assert a bad result.
-            return new DTW.Result(new int[][]{ /* No path data. */ }, Double.NaN);
+            return new DTW.Result(new int[][]{}, Double.NaN);
         }
         // Define the Scalar Qualifier.
         int lK = 1;
@@ -39,8 +36,8 @@ public final class DTW {
         final double[][] lL            = new double[lN][lM];
         // Declare the Global Distances.
         final double[][] lG            = new double[lN][lM];
-        // Declare the MinimaBuffer.
-        final double[]   lMinimaBuffer = new double[3];
+        // Declare the MinBuffer.
+        final double[]   lMinBuffer = new double[3];
         // Declare iteration variables.
         int i, j;
         // Iterate the Sample.
@@ -72,39 +69,31 @@ public final class DTW {
             }
         }
 
-        // Update iteration varaibles.
         i = lWarpingPath[lK - 1][0] = (lN - 1);
         j = lWarpingPath[lK - 1][1] = (lM - 1);
 
         // Whilst there are samples to process...
         while ((i + j) != 0) {
-            // Handle the offset.
-            if(i == 0) {
-                // Decrement the iteration variable.
-                j -= 1;
-            }
-            else if(j == 0) {
-                // Decrement the iteration variable.
-                i -= 1;
-            }
+
+            if(i == 0) { j -= 1; }
+            else if(j == 0) { i -= 1; }
             else {
-                // Update the contents of the MinimaBuffer.
-                lMinimaBuffer[0] = lG[i - 1][j];
-                lMinimaBuffer[1] = lG[i][j - 1];
-                lMinimaBuffer[2] = lG[i - 1][j - 1];
+                // Update the contents of the MinBuffer.
+                lMinBuffer[0] = lG[i - 1][j];
+                lMinBuffer[1] = lG[i][j - 1];
+                lMinBuffer[2] = lG[i - 1][j - 1];
                 // Calculate the Index of the Minimum.
-                final int lMinimumIndex = this.getMinimumIndex(lMinimaBuffer);
-                // Declare booleans.
+                final int lMinimumIndex = this.getMinimumIndex(lMinBuffer);
+
                 final boolean lMinIs0 = (lMinimumIndex == 0);
                 final boolean lMinIs1 = (lMinimumIndex == 1);
                 final boolean lMinIs2 = (lMinimumIndex == 2);
-                // Update the iteration components.
+
                 i -= (lMinIs0 || lMinIs2) ? 1 : 0;
                 j -= (lMinIs1 || lMinIs2) ? 1 : 0;
             }
-            // Increment the qualifier.
+
             lK++;
-            // Update the Warping Path.
             lWarpingPath[lK - 1][0] = i;
             lWarpingPath[lK - 1][1] = j;
         }
@@ -114,43 +103,31 @@ public final class DTW {
     }
 
     /** Changes the order of the warping path, in increasing order. */
-    private int[][] reverse(final int[][] pPath, final int pK) {
-        // Allocate the Path.
-        final int[][] lPath = new int[pK][2];
-        // Iterate.
+    private int[][] reverse(int[][] pPath, int pK) {
+
+        int[][] lPath = new int[pK][2];
         for(int i = 0; i < pK; i++) {
-            // Iterate.
-            for (int j = 0; j < 2; j++) {
-                // Update the Path.
-                lPath[i][j] = pPath[pK - i - 1][j];
-            }
+            // Update the Path.
+            System.arraycopy(pPath[pK - i - 1], 0, lPath[i], 0, 2);
         }
-        // Return the Allocated Path.
         return lPath;
     }
 
-    /** Computes a distance between two points. */
+    /** Distance between two points. */
     protected double getDistanceBetween(double p1, double p2) {
-        // Calculate the square error.
-        return Math.pow((p1 - p2),2);
+        return Math.pow((p1 - p2), 2);
     }
 
     /** Finds the index of the minimum element from the given array. */
     protected final int getMinimumIndex(final double[] pArray) {
-        // Declare iteration variables.
         int    lIndex = 0;
         double lValue = pArray[0];
-        // Iterate the Array.
         for(int i = 1; i < pArray.length; i++) {
-            // .Is the current value smaller?
             if (pArray[i] < lValue){
-                // Update the search metrics.
                 lValue = pArray[i];
                 lIndex = i;
             }
-
         }
-        // Return the Index.
         return lIndex;
     }
 
