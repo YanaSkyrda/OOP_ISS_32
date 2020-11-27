@@ -14,8 +14,8 @@ public final class DTW {
         }
 
         /* Getters */
-        public final int[][] getWarpingPath() { return this.mWarpingPath; }
-        public final double     getDistance() { return this.mDistance;    }
+        public int[][] getWarpingPath() { return this.mWarpingPath; }
+        public double     getDistance() { return this.mDistance;    }
     }
 
     public DTW() { }
@@ -38,13 +38,10 @@ public final class DTW {
         final double[][] lG            = new double[lN][lM];
         // Declare the MinBuffer.
         final double[]   lMinBuffer = new double[3];
-        // Declare iteration variables.
+
         int i, j;
-        // Iterate the Sample.
         for(i = 0; i < lN; i++) {
-            // Fetch the Sample.
             final float lSample = pSample[i];
-            // Iterate the Template.
             for(j = 0; j < lM; j++) {
                 // Calculate the Distance between the Sample and the Template for this Index.
                 lL[i][j] = this.getDistanceBetween(lSample, pTemplate[j]);

@@ -33,21 +33,19 @@ import com.oop.lab3.dtw.DTW;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    /* Empty Description. */
-    private static final Description DESCRIPTION_NULL = new Description() { { this.setText(""); }};
-
-    /* Chart Constants. */
+    /* Constants */
     private static final int    LENGTH_CHART_HISTORY  = 1000;
-    private static final double EPS                   = 1;
     private static final int    AVERAGE_WINDOW_LENGTH = 1;
     private static final int    DELAY_SENSOR          = SensorManager.SENSOR_DELAY_FASTEST;
+    private static final double EPS                   = 1;
+    private static final Description DESCRIPTION_NULL = new Description() { { this.setText(""); }};
 
-    /* Member Variables. */
+    /* Member Variables */
     private EMode         mMode;
     private boolean       mResponsive;
     private SensorManager mSensorManager;
 
-    /* Feedback. */
+    /* Feedback */
     private RelativeLayout mFeedbackLayout;
     private ImageView      mFeedbackView;
     private RelativeLayout mObscureLayout;
@@ -60,27 +58,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Switch         mModeSwitch;
     private Button         mStartButton;
 
-    /* Graphs. */
+    /* Graphs */
     private LineChart mLineAcc;
     private LineChart mLineTrain;
     private LineChart mLineRecognition;
 
-    /* Data. */
+    /* Data */
     private LineData  mAccData;
     private LineData  mTrainData;
     private LineData  mRecognitionData;
 
-    /* Datasets. */
+    /* Datasets */
     private LineDataSet[] mAcceleration;
     private LineDataSet[] mTraining;
     private LineDataSet[] mRecognition;
 
-    /* Chart Managers. */
+    /* Chart Managers */
     private LineChartManager mAccChartManager;
     private LineChartManager mTrainChartManager;
     private LineChartManager mRecognitionChartManager;
 
-    /* History Lists. */
+    /* History Lists */
     private List<List<Float>> mTrainingHistory;
     private List<List<Float>> mRecognitionHistory;
 
@@ -90,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         /** Defines when the app is recording motion data. */
         TRAINING,
         /** Defines when the app is attempting to recognize motion data. */
-        RECOGNITION;
+        RECOGNITION
     }
 
     /** Abstracts graph updates. */
@@ -107,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         public LineChartManager(final LineChart pLineChart,
                                 final int pWindow,
                                 final LineDataSet ... pDataSets) {
-            // Initialize Member Variables.
             this.mLineChart = pLineChart;
             this.mDataSets  = pDataSets;
             this.mWindow    = pWindow;
@@ -117,38 +114,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         /** Updates the Chart. */
         public final void onUpdateChart(final float ... pVertical) {
-            // Increment the Offset.
             this.setOffset(this.getOffset() + 1);
-            // Buffer the Averages.
             for(int i = 0; i < pVertical.length; i++) {
-                // Accumulate.
                 this.getBuffer()[i] += pVertical[i];
             }
-            // Have we reached the window length?
             if(this.getOffset() % this.getWindow() == 0) {
-                // Perform an aggregated update.
                 this.onAggregateUpdate(this.getBuffer());
-                // Clear the Buffer.
                 Arrays.fill(this.getBuffer(), 0.0f);
             }
         }
 
         /** Called when the number of samples displayed on the graph have satisfied the window size. */
         public void onAggregateUpdate(final float[] pAggregate) {
-            // Update the chart.
             for(int i = 0; i < this.getDataSets().length; i++) {
-                // Calculate the Average.
-                final float       lAverage      = this.getBuffer()[i] / this.getWindow();
-                // Fetch the DataSet.
-                final LineDataSet lLineDataSet  = this.getDataSets()[i];
-                // Write this Value to the Aggregate for subclasses.
+                float       lAverage      = this.getBuffer()[i] / this.getWindow();
+                LineDataSet lLineDataSet  = this.getDataSets()[i];
                 pAggregate[i] = lAverage;
-                // Remove the oldest element.
                 lLineDataSet.removeFirst();
-                // Buffer the Average.
                 lLineDataSet.addEntry(new Entry(this.getOffset(), lAverage));
             }
-            // Invalidate the Graph. (Ensure it is redrawn!)
             this.getLineChart().invalidate();
         }
 
@@ -179,25 +163,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
-
     /** Converts a List of Floats into a primitive equivalent. */
     private static float[] primitive(final List<Float> pList) {
-        // Declare the Array.
         final float[] lT = new float[pList.size()];
-        // Iterate the List.
         for(int i = 0; i < pList.size(); i++) {
-            // Buffer the Element.
             lT[i] = pList.get(i);
         }
-        // Return the Array.
         return lT;
     }
 
     /** Colors an Array of DataSets. */
     private static void color(final LineDataSet[] pLineDataSets, final int[] pColor) {
-        // Iterate.
         for(int i = 0; i < pLineDataSets.length; i++) {
-            // Update the color of the LineDataSet.
             MainActivity.color(pLineDataSets[i], pColor[i]);
         }
     }
@@ -205,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     /** Colors a LineDataSet. */
     private static void color(final LineDataSet pLineDataSet, final int pColor) {
         // Update the Colors.
-        pLineDataSet.setColor(pColor);
+        pLineDataSet.setColor(Color.TRANSPARENT);
         pLineDataSet.setCircleHoleColor(pColor);
         pLineDataSet.setCircleColor(pColor);
     }
@@ -241,8 +218,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         this.mTrainData       = new LineData();
         this.mRecognitionData = new LineData();
         // Allocate the histories
-        this.mTrainingHistory    = new ArrayList<>(Arrays.asList( new ArrayList<Float>(), new ArrayList<Float>(), new ArrayList<Float>() ));
-        this.mRecognitionHistory = new ArrayList<>(Arrays.asList( new ArrayList<Float>(), new ArrayList<Float>(), new ArrayList<Float>() ));
+        this.mTrainingHistory    = new ArrayList<>(Arrays.asList( new ArrayList<>(), new ArrayList<>(), new ArrayList<>() ));
+        this.mRecognitionHistory = new ArrayList<>(Arrays.asList( new ArrayList<>(), new ArrayList<>(), new ArrayList<>() ));
 
         // Allocate the Acceleration
         this.mAcceleration = new LineDataSet[] { new LineDataSet(null, "X"), new LineDataSet(null, "Y"), new LineDataSet(null, "Z") };
@@ -271,13 +248,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         this.getLineTrain().setDescription(MainActivity.DESCRIPTION_NULL);
         this.getLineRecognition().setDescription(MainActivity.DESCRIPTION_NULL);
 
-
         // Initialize chart data.
         MainActivity.this.onInitializeData(this.getAcceleration());
         MainActivity.this.onInitializeData(this.getTraining());
         MainActivity.this.onInitializeData(this.getRecognition());
 
-            // Register the LineDataSets.
+        // Register the LineDataSets.
         for(LineDataSet lLineDataSet : this.getAcceleration()) {         this.getAccData().addDataSet(lLineDataSet); }
         for(LineDataSet lLineDataSet : this.getTraining())     {       this.getTrainData().addDataSet(lLineDataSet); }
         for(LineDataSet lLineDataSet : this.getRecognition())  { this.getRecognitionData().addDataSet(lLineDataSet); }
@@ -292,15 +268,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         MainActivity.color(this.getTraining(),     new int[]{ Color.RED, Color.GREEN, Color.BLUE });
         MainActivity.color(this.getRecognition(),  new int[]{ Color.RED, Color.GREEN, Color.BLUE });
 
-        // Declare the LineChartManager.
         this.mAccChartManager         = new LineChartManager(this.getLineAcc(),         MainActivity.AVERAGE_WINDOW_LENGTH, this.getAcceleration());
-        // Declare the Training and Recognition update handling.
         this.mTrainChartManager       = new LineChartManager(this.getLineTrain(),       MainActivity.AVERAGE_WINDOW_LENGTH, this.getTraining()) { @Override public final void onAggregateUpdate(final float[] pAggregate) {
             // Update the graph. (This actually manipulates the buffer to compensate for averaging.)
             super.onAggregateUpdate(pAggregate);
-            // Iterate the Averages.
             for(int i = 0; i < pAggregate.length; i++) {
-                // Buffer the Value.
                 MainActivity.this.getTrainingHistory().get(i).add(pAggregate[i]);
             }
         } };
@@ -308,105 +280,75 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         this.mRecognitionChartManager = new LineChartManager(this.getLineRecognition(), MainActivity.AVERAGE_WINDOW_LENGTH, this.getRecognition()) { @Override public final void onAggregateUpdate(final float[] pAggregate) {
             // Update the graph. (Compute the averages and store the result in the aggregate.)
             super.onAggregateUpdate(pAggregate);
-            // Iterate the Averages.
             for(int i = 0; i < pAggregate.length; i++) {
-                // Buffer the Value.
                 MainActivity.this.getRecognitionHistory().get(i).add(pAggregate[i]);
             }
         } };
 
-        // Define the startup mode.
         this.mMode          = EMode.TRAINING;
-        // Define whether we're going to start processing motion data
         this.mResponsive    = false;
-        // Fetch the SensorManager.
         this.mSensorManager = (SensorManager)this.getSystemService(SENSOR_SERVICE);
         // Listen for clicks on the Mode switch.
         this.getModeSwitch().setOnCheckedChangeListener((pCompoundButton, pIsChecked) -> {
-            // Update the training state.
             MainActivity.this.setMode(pIsChecked ? EMode.RECOGNITION : EMode.TRAINING);
-            // Update the title and description.
             MainActivity.this.getModeTitle().setText(pIsChecked ? R.string.mode_recognition      : R.string.mode_training);
             MainActivity.this.getModeDescription().setText(pIsChecked ? R.string.mode_recognition_desc : R.string.mode_training_desc);
         });
 
-        // Handle the ObscureLayout.
         this.getObscureLayout().setOnTouchListener((pView, pMotionEvent) -> {
-            // Whilst the ObscureLayout is visible, obscure all touch data.
             return MainActivity.this.getObscureLayout().getVisibility() == View.VISIBLE;
         });
 
-        // Listen for Touch Events on the FeedbackLayout.
+        // Listen for Touch Events on Button.
         this.getStartButton().setOnTouchListener((pView, pMotionEvent) -> {
             // Handle the MotionEvent.
             switch(pMotionEvent.getActionMasked()) {
                 /* When the user touches down on the graphs... */
                 case MotionEvent.ACTION_DOWN : {
-                    // Disable the Switch.
                     MainActivity.this.getModeSwitch().setEnabled(false);
-                    // Handle the Mode.
                     switch(MainActivity.this.getMode()) {
                         case TRAINING     : {
-                            // Reset the Training History.
                             for(final List<Float> lTraining : MainActivity.this.getTrainingHistory()) {
-                                // Clear the Training List.
                                 lTraining.clear();
                             }
-                            // Reset the Training Chart.
                             MainActivity.this.getTrainChartManager().setOffset(0);
-                            // Re-initialize the Training Data.
                             MainActivity.this.onInitializeData(MainActivity.this.getTraining());
-                            // Assert that we're recording.
                             MainActivity.this.onFeedbackRecording();
                         } break;
                         case RECOGNITION  : {
                             // Reset the Recognition History.
                             for(final List<Float> lRecognition : MainActivity.this.getRecognitionHistory()) {
-                                // Clear the Recognition List.
                                 lRecognition.clear();
                             }
-                            // Reset the Recognition Chart.
                             MainActivity.this.getRecognitionChartManager().setOffset(0);
-                            // Re-initialize the Recognition Data.
                             MainActivity.this.onInitializeData(MainActivity.this.getRecognition());
-                            // Assert that we're listening.
                             MainActivity.this.onFeedbackRecognition();
                         } break;
                     }
-                    // Assert that we're now responsive.
                     MainActivity.this.setResponsive(true);
                 } break;
                 /* Once the user has stopped touching the graphs... */
                 case MotionEvent.ACTION_UP   : {
-                    // We're no longer responsive.
                     MainActivity.this.setResponsive(false);
-                    // Hide the FeedbackLayout.
                     MainActivity.this.onHideFeedback();
-                    // Handle the Mode.
                     switch(MainActivity.this.getMode()) {
                         case TRAINING     : {
 
                         } break;
                         case RECOGNITION  : {
-                            // Ensure the ObscureLayout is visible.
                             MainActivity.this.getObscureLayout().setVisibility(View.VISIBLE);
-                            // Launch an AsyncTask.
                             @SuppressLint("SetTextI18n") Runnable lAsyncTask = () -> {
-                                // Declare the Averages.
                                 final double[] lAverages = new double[3];
                                 // Declare the Dynamic Time Warping Algorithm.
                                 final DTW      lDTW      = new DTW();
-                                // Iterate the Histories.
                                 for(int i = 0; i < 3; i++) {
-                                    // Fetch the Primitive Histories for this Axis.
                                     final float[] lTraining    = MainActivity.primitive(MainActivity.this.getTrainingHistory().get(i));
                                     final float[] lRecognition = MainActivity.primitive(MainActivity.this.getRecognitionHistory().get(i));
                                     // Calculate the distance using Dynamic Time Warping.
                                     lAverages[i] = lDTW.compute(lRecognition, lTraining).getDistance();
                                 }
-                                // Linearize execution on the UI Thread.
+
                                 MainActivity.this.runOnUiThread(() -> {
-                                    // Allow the layout to be interacted with again.
                                     MainActivity.this.getObscureLayout().setVisibility(View.GONE);
                                     // Print the Result.
                                     boolean isNice = true;
@@ -422,9 +364,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                                     getYResult().setText(String.valueOf(lAverages[1]));
                                     getZResult().setText(String.valueOf(lAverages[2]));
                                 });
-                                // Satisfy the compiler.
                             };
-                            // Execute the AsyncTask.
                             ExecutorService executor = Executors.newFixedThreadPool(4);
                             executor.execute(lAsyncTask);
                         } break;
@@ -433,10 +373,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     MainActivity.this.getModeSwitch().setEnabled(true);
                 } break;
             }
-            // Consume all touch data.
             return true;
         });
-        // Hide the Feedback Layout.
         this.onHideFeedback();
     }
 
@@ -444,16 +382,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private void onInitializeData(final LineDataSet[] pDataSet) {
         // Ensure the DataSets are empty.
         for(final LineDataSet lLineDataSet : pDataSet) {
-            // Clear the DataSet.
             lLineDataSet.clear();
         }
-        // Initialize the Acceleration Charts.
+
         for(int i = 0; i < MainActivity.LENGTH_CHART_HISTORY; i++) {
-            // Allocate a the default Entry.
             final Entry lEntry = new Entry(i, 0);
-            // Iterate the DataSets.
             for(final LineDataSet lLineDataSet : pDataSet) {
-                // Buffer the Entry.
                 lLineDataSet.addEntry(lEntry);
             }
         }
