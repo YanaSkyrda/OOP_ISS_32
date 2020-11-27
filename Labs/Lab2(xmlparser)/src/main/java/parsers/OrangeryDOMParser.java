@@ -37,7 +37,7 @@ public class OrangeryDOMParser extends XMLParser {
     public void parse(File XMLFile) {
         try {
             Document document = setupDocument(XMLFile);
-            NodeList nodesList = document.getElementsByTagName("flower");
+            NodeList nodesList = document.getElementsByTagName(orangeryHandler.getName());
             for (int i = 0; i < nodesList.getLength(); i++) {
                 Node node = nodesList.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {

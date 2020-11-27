@@ -72,6 +72,10 @@ public class OrangeryHandler extends DefaultHandler {
         return orangery;
     }
 
+    public String getName() {
+        return "flower";
+    }
+
     void setField(String qName) {
         switch (qName) {
             case CODE:
