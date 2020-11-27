@@ -9,9 +9,9 @@ public class Cell {
     private Paint paint;
 
     private String currentState = "IDLE";
-    public static final int black = Color.rgb(50, 50, 50);
-    public static final int white = Color.WHITE;
-    public static final int colorActive = Color.rgb(10, 250, 20);
+    public int black = Color.rgb(50, 50, 50);
+    public int white = Color.WHITE;
+    public int colorActive = Color.rgb(10, 250, 20);
 
     public Cell(String color) {
         cellColor = color;
@@ -46,5 +46,8 @@ public class Cell {
 
     public String getCellColor() {
         return cellColor;
+    }
+    public String getCurrentState() {
+        return currentState;
     }
 }
