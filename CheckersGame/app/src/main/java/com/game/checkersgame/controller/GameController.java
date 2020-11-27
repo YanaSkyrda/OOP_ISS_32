@@ -15,56 +15,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameController {
-    public static final String playerSide = "WHITE";
+    public static final String playerSide = "BLACK";
     private MainView caller;
     private int fieldSize;
 
-    private Board desk;
+    private Board board;
+
+    public void setCheckers(Figures checkers) {
+        this.checkers = checkers;
+    }
+
     private Figures checkers;
 
     private Figure selected;
-    private String gameState = "WHITE";
+
+
+    private String gameState = "BLACK";
     private volatile boolean playerBeatRow = false;
     private List<Coordinates> availableCoords = new ArrayList<>();
     private Coordinates lastPosition;
 
-    private int botDelay = 0;
+    private int botDelay = 250;
 
-    GameController(int fieldSize) {
+    public GameController(int fieldSize) {
         this.fieldSize = fieldSize;
         caller = null;
-        desk = new Board(fieldSize);
+        board = new Board(fieldSize);
         checkers = new Figures(fieldSize);
     }
 
     public GameController(int fieldSize, MainView caller) {
         this.fieldSize = fieldSize;
         this.caller = caller;
-        desk = new Board(fieldSize);
+        board = new Board(fieldSize);
         checkers = new Figures(fieldSize);
     }
 
     public void draw(Canvas canvas) {
-        desk.draw(canvas);
+        board.draw(canvas);
         checkers.draw(canvas);
-    }
-
-
-    public void startBotCycle() {
-        while (!Thread.currentThread().isInterrupted()) {
-            if (gameState.equals(other(playerSide))) {
-                if (!playerBeatRow) {
-                    startBotTurn();
-                    reverseState();
-                    updateQueens();
-                }
-            }
-        }
     }
 
     public void activatePlayer(float x, float y) {
         if (gameState.equals(playerSide)) {
-            Coordinates tapCoords = Utils.toCoords(x, y, fieldSize, desk.getCellSize());
+            Coordinates tapCoords = Utils.toCoords(x, y, fieldSize, board.getCellSize());
 
             if (selected == null) {
                 trySelect(tapCoords);
@@ -101,7 +95,17 @@ public class GameController {
 
         }
     }
-
+    public void startBotCycle() {
+        while (!Thread.currentThread().isInterrupted()) {
+            if (gameState.equals(other(playerSide))) {
+                if (!playerBeatRow) {
+                    startBotTurn();
+                    reverseState();
+                    updateQueens();
+                }
+            }
+        }
+    }
     public void startBotTurn() {
         boolean botBeatRow = false;
         Coordinates checkerCoords = CheckerBot.chooseChecker(checkers, other(playerSide), botDelay);
@@ -169,7 +173,7 @@ public class GameController {
         if (coords == null)
             return;
         unselectAll();
-        Cell cell = desk.getCell(coords);
+        Cell cell = board.getCell(coords);
         Figure checker = checkers.getChecker(coords);
 
         if (cell != null && checker != null &&
@@ -185,7 +189,7 @@ public class GameController {
     private void trySelectBeatable(Coordinates coords) {
         if (coords == null)
             return;
-        Cell cell = desk.getCell(coords);
+        Cell cell = board.getCell(coords);
         Figure checker = checkers.getChecker(coords);
 
         if (cell != null && checker != null &&
@@ -212,7 +216,7 @@ public class GameController {
     private void unselectAll() {
         selected = null;
         availableCoords.clear();
-        desk.unselectAll();
+        board.unselectAll();
     }
 
     private void showAvailable(Figure checker) {
@@ -231,13 +235,13 @@ public class GameController {
         if (checker == null)
             return true;
         availableCoords.clear();
-        desk.unselectAll();
+        board.unselectAll();
         return false;
     }
 
     private void setActiveToAvailable() {
         for (Coordinates coords : availableCoords) {
-            desk.getCell(coords).setCurrentState("ACTIVE");
+            board.getCell(coords).setCurrentState("ACTIVE");
         }
     }
 
@@ -251,10 +255,60 @@ public class GameController {
         if (checkers.count("WHITE") == 0)
             return "Black won";
         if (checkers.checkIfDraw(gameState))
-            return "DRAW";
+            return "Draw";
         if (gameState.equals("WHITE")) {
             return "White turn";
         } else return "Black turn";
+    }
+    public static String getPlayerSide() {
+        return playerSide;
+    }
+
+    public MainView getCaller() {
+        return caller;
+    }
+
+    public int getFieldSize() {
+        return fieldSize;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public Figures getCheckers() {
+        return checkers;
+    }
+
+    public Figure getSelected() {
+        return selected;
+    }
+
+    public String getGameState() {
+        return gameState;
+    }
+
+    public boolean isPlayerBeatRow() {
+        return playerBeatRow;
+    }
+
+    public List<Coordinates> getAvailableCoords() {
+        return availableCoords;
+    }
+
+    public Coordinates getLastPosition() {
+        return lastPosition;
+    }
+
+    public int getBotDelay() {
+        return botDelay;
+    }
+
+    public void setBotDelay(int botDelay) {
+        this.botDelay = botDelay;
+    }
+    public void setGameState(String gameState) {
+        this.gameState = gameState;
     }
 
 }
