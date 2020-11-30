@@ -2,17 +2,20 @@ package com.university;
 
 import com.university.gem.Gem;
 import com.university.parser.DOMParser;
+import com.university.parser.GemHandler;
 import com.university.parser.SAXParser;
 import com.university.parser.StAXParser;
 import com.university.validator.Validator;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.util.List;
 
+
 public class Main {
-    public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
+    public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException, XMLStreamException {
 
         System.out.println(Validator.validateDocument("Gem.xml", "Gem.xsd"));
         System.out.println(Validator.validateDocument("Gem.xml"));

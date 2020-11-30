@@ -19,10 +19,10 @@ public class SAXParser {
         List<Gem> gemList = new ArrayList<>();
         try {
             javax.xml.parsers.SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-            SAXHandler handler = new SAXHandler();
+            GemHandler handler = new GemHandler();
             parser.parse(fileName, handler);
 
-            gemList = handler.getNotes();
+            gemList = handler.obtainResult();
             Collections.sort(gemList);
         } catch (Exception e) {
             e.printStackTrace();

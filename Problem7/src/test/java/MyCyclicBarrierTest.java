@@ -26,7 +26,8 @@ public class MyCyclicBarrierTest {
             };
             Thread temp = new Thread(tempRun);
             temp.start();
-            wait(50);
+            wait(150);
+            //temp.join();
             Assert.assertFalse(myCyclicBarrier.isBroken());
             Assert.assertEquals(myCyclicBarrier.getWaitingParties(), i % 5);
             Assert.assertEquals(myCyclicBarrier.getParties(), 5);

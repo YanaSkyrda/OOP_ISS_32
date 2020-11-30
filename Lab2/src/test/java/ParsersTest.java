@@ -6,10 +6,10 @@ import com.university.parser.StAXParser;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +56,7 @@ public class ParsersTest {
     }
 
     @Test
-    public void saxParser_TEST() throws ParserConfigurationException, SAXException, IOException {
+    public void saxParser_TEST() {
         List<Gem> gemListActual = SAXParser.parseXML("Gem.xml");
 
         Assert.assertEquals(gemList.size(), gemListActual.size());
@@ -73,7 +73,7 @@ public class ParsersTest {
     }
 
     @Test
-    public void staxParser_TEST() throws ParserConfigurationException, SAXException, IOException {
+    public void staxParser_TEST() throws IOException, XMLStreamException {
         List<Gem> gemListActual = StAXParser.parseXML("Gem.xml");
 
         Assert.assertEquals(gemList.size(), gemListActual.size());
