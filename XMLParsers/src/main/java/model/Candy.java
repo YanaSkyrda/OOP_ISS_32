@@ -5,10 +5,16 @@ import java.util.List;
 
 public class Candy {
     private String name;
-    private Integer id;
+    private String id;
+    private Integer energy;
     private List<Types> types = new ArrayList<>();
     private Value value;
     private List<Component> components = new ArrayList<>();
+
+
+
+
+
     public String getName() {
         return name;
     }
@@ -17,11 +23,11 @@ public class Candy {
         this.name = name;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -49,6 +55,12 @@ public class Candy {
         this.components = components;
     }
 
+    public Integer getEnergy() {
+        return energy;
+    }
 
+    public void setEnergy(Integer energy) {
+        this.energy = energy;
+    }
 
 }
