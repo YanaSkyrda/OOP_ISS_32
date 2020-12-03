@@ -12,7 +12,7 @@ import java.util.Map;
 public class CandyHandler extends DefaultHandler {
 
     private String elementValue;
-    private List<Candy> listOfCandies ;
+    private List<Candy> listOfCandies = new ArrayList<>() ;
     public List<Candy> getCandies() {
         return listOfCandies;
     }
@@ -32,7 +32,7 @@ public class CandyHandler extends DefaultHandler {
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
         switch (qName) {
             case XMLElements.CANDY:
                 Candy candy = new Candy();
@@ -56,7 +56,7 @@ public class CandyHandler extends DefaultHandler {
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(String uri, String localName, String qName) {
         switch (qName) {
             case XMLElements.ID:
                 getLastCandy().setId(elementValue);
@@ -97,13 +97,15 @@ public class CandyHandler extends DefaultHandler {
                 getLastCandy().setValue(value);
                 break;
             case XMLElements.COMPONENT:
-                Component ingredient = new Component();
+                Component component = new Component();
                 String amount = attributes.get("amount");
-                ingredient.setAmount(Integer.valueOf(amount));
-                String measurment = attributes.get("measurment");
-                ingredient.setTypeOfMeasure(measurment);
-                ingredient.setName(content);
-                getLastCandy().getComponents().add(ingredient);
+
+                component.setAmount(Integer.valueOf(amount));
+                String measurment = attributes.get("typeOfMeasure");
+
+                component.setTypeOfMeasure(measurment);
+                component.setName(content);
+                getLastCandy().getComponents().add(component);
                 break;
             case XMLElements.ID:
                 getLastCandy().setId(content);
