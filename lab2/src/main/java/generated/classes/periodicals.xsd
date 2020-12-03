@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            elementFormDefault="qualified">
+
+    <xs:element name="Paper">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="periodicals" type="Periodical" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Periodical">
+        <xs:sequence>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="type" type="Type"/>
+            <xs:element name="monthly" type="xs:boolean"/>
+            <xs:element name="characteristics" type="Characteristics"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+
+    <xs:simpleType name="Type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="NEWSPAPER"/>
+            <xs:enumeration value="MAGAZINE"/>
+            <xs:enumeration value="BOOKLET"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Characteristics">
+        <xs:sequence>
+            <xs:element name="colorful" type="xs:boolean"/>
+            <xs:element name="pageAmount" type="xs:unsignedInt"/>
+            <xs:element name="glossy" type="xs:boolean" minOccurs="0"/>
+            <xs:element name="subscribable" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
