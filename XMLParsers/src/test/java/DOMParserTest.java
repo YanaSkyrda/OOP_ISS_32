@@ -18,7 +18,7 @@ public class DOMParserTest {
     @Test
     void parse() throws NullPointerException {
         DOMParser parser = new DOMParser();
-        File file = new File("/Users/mykolamedynsky/Desktop/oop-java/OOP_ISS_32/XMLParsers/src/main/resources/candy.xml");
+        File file = new File("src/main/resources/candy.xml");
         List<Candy> candies = parser.parse(file);
         Candy candy = candies.get(0);
         assertEquals(candy.getValue().getCarbohydrates(), 50);

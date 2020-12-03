@@ -18,7 +18,7 @@ public class XMLSAXParserTest {
     @Test
     void parse() throws IOException, SAXException, ParserConfigurationException {
         XMLSAXParser parser = new XMLSAXParser();
-        File file = new File("/Users/mykolamedynsky/Desktop/oop-java/OOP_ISS_32/XMLParsers/src/main/resources/candy.xml");
+        File file = new File("src/main/resources/candy.xml");
         List<Candy> candies = parser.parse(file);
         Candy candy = candies.get(0);
         assertEquals(candy.getValue().getCarbohydrates(), 50);
