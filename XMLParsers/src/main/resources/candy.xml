@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<CandyCollection>
+
+
+    <Candy>
+        <id>rewqrfds</id>
+        <name>Kek</name>
+        <energy>1345</energy>
+        <types>
+            <type>CHOCOLATE</type>
+
+        </types>
+        <components>
+            <component amount="10" typeOfMeasure="g">Sugar</component>
+            <component amount="100" typeOfMeasure="ml">Water</component>
+            <component amount="20" typeOfMeasure="ml">Oil</component>
+            <component amount="50" typeOfMeasure="g">Cacao</component>
+        </components>
+        <value>
+            <proteins>10</proteins>
+            <fats>40</fats>
+            <carbohydrates>50</carbohydrates>
+        </value>
+
+    </Candy>
+</CandyCollection>
