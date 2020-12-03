@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Paper>
+    <periodicals>
+        <title>Silski visti</title>
+        <type>NEWSPAPER</type>
+        <monthly>true</monthly>
+        <characteristics>
+            <colorful>false</colorful>
+            <pageAmount>6</pageAmount>
+            <subscribable>true</subscribable>
+        </characteristics>
+    </periodicals>
+    <periodicals>
+        <title>Maxim</title>
+        <type>MAGAZINE</type>
+        <monthly>true</monthly>
+        <characteristics>
+            <colorful>true</colorful>
+            <pageAmount>30</pageAmount>
+            <glossy>true</glossy>
+            <subscribable>true</subscribable>
+        </characteristics>
+    </periodicals>
+    <periodicals>
+        <title>Big Ben Brochure</title>
+        <type>BOOKLET</type>
+        <monthly>true</monthly>
+        <characteristics>
+            <colorful>false</colorful>
+            <pageAmount>2</pageAmount>
+            <glossy>true</glossy>
+        </characteristics>
+    </periodicals>
+</Paper>
