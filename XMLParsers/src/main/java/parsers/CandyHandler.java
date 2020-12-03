@@ -88,9 +88,17 @@ public class CandyHandler extends DefaultHandler {
 
     public void setField(String qName, String content, Map<String ,String> attributes) {
         switch (qName) {
+
+
             case XMLElements.CANDY:
                 Candy candy = new Candy();
                 listOfCandies.add(candy);
+                break;
+            case XMLElements.NAME:
+                getLastCandy().setName(content);
+                break;
+            case XMLElements.ID:
+                getLastCandy().setId(content);
                 break;
             case XMLElements.VALUE:
                 Value value = new Value();
@@ -107,12 +115,7 @@ public class CandyHandler extends DefaultHandler {
                 component.setName(content);
                 getLastCandy().getComponents().add(component);
                 break;
-            case XMLElements.ID:
-                getLastCandy().setId(content);
-                break;
-            case XMLElements.NAME:
-                getLastCandy().setName(content);
-                break;
+
             case XMLElements.ENERGY:
                 getLastCandy().setEnergy(Integer.valueOf(content));
                 break;
