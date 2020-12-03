@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         initChart(recognitionChart, findViewById(R.id.recognition_chart));
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        setFeedbackButtonListener();
+        setGestureInputListener();
         onStopTrackingGesture();
     }
 
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void setFeedbackButtonListener() {
+    private void setGestureInputListener() {
         gestureInputTracker.setOnTouchListener((view, motionEvent) -> {
             if (motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN) {
                 modeSwitch.setEnabled(false);
