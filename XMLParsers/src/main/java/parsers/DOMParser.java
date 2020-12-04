@@ -21,14 +21,14 @@ public class DOMParser {
             DocumentBuilder documentBuilder = factory.newDocumentBuilder();
             Document document = documentBuilder.parse(xml);
             document.getDocumentElement().normalize();
-            Element root = document.getDocumentElement();
-            CandyHandler candiesHandler = new CandyHandler();
-            NodeList candiesNodesList = root.getElementsByTagName(candiesHandler.getName());
+            Element rootNode = document.getDocumentElement();
+            CandyHandler candyHandler = new CandyHandler();
+            NodeList candiesNodesList = rootNode.getElementsByTagName(candyHandler.getName());
             for (int candiesNode = 0; candiesNode < candiesNodesList.getLength(); candiesNode++) {
                 Element candyElement = (Element) candiesNodesList.item(candiesNode);
-                traverseNodes(candyElement,candiesHandler);
+                traverseNodes(candyElement,candyHandler);
             }
-            return candiesHandler.getCandies();
+            return candyHandler.getCandies();
         } catch (Exception e) {
             e.getStackTrace();
         }
