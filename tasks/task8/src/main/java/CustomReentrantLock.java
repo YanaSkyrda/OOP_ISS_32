@@ -1,42 +1,51 @@
 public class CustomReentrantLock {
     private int countOfWaitingThreads = 0;
-    private Thread lockedThread;
+    private Thread lockedThread = null;
 
+    private final Object obj = new Object();
+    public void lock() {
+        synchronized (obj) {
+            if (countOfWaitingThreads == 0) {
+                lockedThread = Thread.currentThread();
+                countOfWaitingThreads++;
+            }
+            else if (countOfWaitingThreads > 0 && lockedThread == Thread.currentThread()) {
+                countOfWaitingThreads++;
+            }
+            else {
+                while (countOfWaitingThreads > 0) {
+                    try {
+                        //System.out.println(Thread.currentThread().getName() + " is waiting");
+                        obj.wait();
 
-    public synchronized void lock() {
-        if (countOfWaitingThreads == 0) {
-            lockedThread = Thread.currentThread();
-            countOfWaitingThreads++;
-        }
-        else if (lockedThread != Thread.currentThread()) {
-            while (lockedThread != Thread.currentThread()) {
-                try {
-                    System.out.println(Thread.currentThread().getName() + " is waiting");
-                    wait();
-                    countOfWaitingThreads++;
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
                 }
-                catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                countOfWaitingThreads++;
                 lockedThread = Thread.currentThread();
             }
-        } else {
-            countOfWaitingThreads++;
         }
+
     }
 
 
 
-    public synchronized void unlock()  throws IllegalMonitorStateException{
-        if (countOfWaitingThreads == 0) {
-            throw new IllegalMonitorStateException();
-        }
-        countOfWaitingThreads--;
+    public void unlock()  throws IllegalMonitorStateException{
+        synchronized (obj) {
+            if (countOfWaitingThreads == 0) {
+                throw new IllegalMonitorStateException();
+            }
+            countOfWaitingThreads--;
 
 
-        if (countOfWaitingThreads == 0) {
-            notify();
+            if (countOfWaitingThreads == 0) {
+                obj.notify();
+            }
         }
+
 
     }
 
