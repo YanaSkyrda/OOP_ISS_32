@@ -3,66 +3,70 @@ import java.util.Set;
 
 public class CustomPhaser {
 
-    private volatile int parties;
-    private volatile int partiesAwait;
-    private volatile int phase;
+    private int parties = 0;
+    private int partiesAwait = 0;
 
+    public int getPhase() {
+        return phase;
+    }
+
+    private int phase = 0;
+    public CustomPhaser() {
+        this(0);
+    }
     public CustomPhaser(int parties) {
         this.parties = parties;
         this.partiesAwait = parties;
-        this.phase = 0;
     }
 
-    public synchronized int register() {
+    int register() {
         parties++;
         partiesAwait++;
         return phase;
     }
 
-    public synchronized int arrive() {
-        partiesAwait--;
-
-        if (partiesAwait == 0) {
-            partiesAwait = parties;
-            this.notifyAll();
-        }
-
-        return phase;
-    }
-
-    public int arriveAndAwaitAdvance() {
-        int currentPhase = this.phase;
+    int arrive() {
+        int currentPhase = phase;
         synchronized (this) {
             partiesAwait--;
-
-            while (partiesAwait > 0 && partiesAwait != parties) {
-                try {
-                    this.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            if (partiesAwait == 0) {
+                notifyAll();
+                partiesAwait = parties;
+                phase = currentPhase + 1;
             }
-
-            partiesAwait = parties;
-            phase = currentPhase + 1;
-            this.notifyAll();
-
-            return this.phase;
         }
+        return phase;
     }
-
-    public synchronized int arriveAndDeregister() {
+    int arriveAndDeregister() {
         partiesAwait--;
         parties--;
-        if (this.partiesAwait == 0) {
-            this.partiesAwait = parties;
-            this.notifyAll();
+        int currentPhase = phase;
+        synchronized (this) {
+            if (partiesAwait == 0) {
+                phase = currentPhase + 1;
+                notifyAll();
+                partiesAwait = parties;
+                return -1;
+            }
         }
-
-        return this.phase;
+        return phase + 1;
     }
-
-    int getPhase() {
+    int arriveAndAwaitAdvance() {
+        partiesAwait--;
+        int currPhase = phase;
+        synchronized (this) {
+            while (partiesAwait > 0) {
+                try {
+                    this.wait();
+                } catch (InterruptedException ignored) {
+                }
+            }
+        }
+        partiesAwait = parties;
+        phase = currPhase + 1;
+        synchronized (this) {
+            notifyAll();
+        }
         return phase;
     }
 }
