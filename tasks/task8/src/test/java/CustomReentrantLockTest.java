@@ -23,7 +23,7 @@ public class CustomReentrantLockTest {
         });
 
         Thread thread2 = new Thread(() -> {
-            for(int i=0;i<n;i++) {
+            for(int i = 0 ; i < n; i++) {
                 customReentrantLock.lock();
 
                 Counter.counter--;
