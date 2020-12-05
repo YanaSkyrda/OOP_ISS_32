@@ -40,7 +40,7 @@ public class StAXParser {
             }
 
             if(xmlEvent.isEndElement()) {
-                handler.parseXMLEventFinish(xmlEvent);
+                    handler.parseXMLEventFinish(xmlEvent);
             }
         }
 

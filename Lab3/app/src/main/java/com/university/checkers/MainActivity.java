@@ -8,7 +8,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.university.checkers.checkers.Board;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -18,16 +23,28 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.color_picker, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            String resultOfTheGame = bundle.getString("result");
+            if(resultOfTheGame != null) {
+                TextView resultText = (TextView)findViewById(R.id.result);
+                resultText.setText(resultOfTheGame);
+            }
+        }
+
     }
 
     public void buttonClick(View v){
         //Intent intent = new Intent("android.intent.action.CheckersActivity");
         Intent intent = new Intent(this, CheckersActivity.class);
+        intent.putExtra("side", spinner.getSelectedItem().toString().toLowerCase());
         startActivity(intent);
     }
 
