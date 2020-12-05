@@ -9,19 +9,19 @@ import parsers.test.utils.ParserTestArgumentsProvider;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
-    private ObjectFactory objectFactory= new ObjectFactory();
-    private Periodical periodical = objectFactory.createPeriodical();
-    private Characteristics characteristics = objectFactory.createCharacteristics();
+    private static ObjectFactory objectFactory= new ObjectFactory();
+    private static Periodical periodical = objectFactory.createPeriodical();
+    private static Characteristics characteristics = objectFactory.createCharacteristics();
 
-    Paper toCheck = objectFactory.createPaper();
+    public static Paper toCheck = objectFactory.createPaper();
 
 
-    void reset(){
+    static void reset(){
         periodical = objectFactory.createPeriodical();
         characteristics= objectFactory.createCharacteristics();
     }
 
-    private ParserTest(){
+    static{
         characteristics.setColorful(true);
         characteristics.setPageAmount(4);
         characteristics.setGlossy(true);
