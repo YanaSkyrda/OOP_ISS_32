@@ -1,8 +1,7 @@
 package parsers;
 
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
-import generated.classes.*;
+import generated.classes.Paper;
+import generated.classes.Periodical;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -14,20 +13,18 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 
-public class DOMParser {
-    private static final Logger logger = LoggerFactory.getLogger(DOMParser.class);
-
-    private HashMap<String, String> values = new HashMap<>();
-    private ObjectBuilder objectBuilder;
-
+public class DOMParser extends AbstractParser{
     public static void main(String[] args) {
-        DOMParser domParser = new DOMParser("src/main/resources/periodicals.xml");
+        DOMParser domParser = new DOMParser();
+        Paper result = domParser.parseXML("src/main/resources/periodicals.xml");
+        for (Periodical i : result.getPeriodicals()){
+            System.out.println(i);
+        }
     }
 
-    public DOMParser(String filename) {
+    @Override
+    public Paper parseXML(String filename) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -50,26 +47,23 @@ public class DOMParser {
                     NodeList glossyParse = element.getElementsByTagName("glossy");
                     NodeList subscribableParse = element.getElementsByTagName("subscribable");
 
-                    values.put("title", element.getElementsByTagName("title").item(0).getTextContent());
-                    values.put("type", element.getElementsByTagName("type").item(0).getTextContent());
-                    values.put("monthly", element.getElementsByTagName("monthly").item(0).getTextContent());
-                    values.put("colorful", element.getElementsByTagName("colorful").item(0).getTextContent());
-                    values.put("pageAmount", element.getElementsByTagName("pageAmount").item(0).getTextContent());
+                    data.put("title", element.getElementsByTagName("title").item(0).getTextContent());
+                    data.put("type", element.getElementsByTagName("type").item(0).getTextContent());
+                    data.put("monthly", element.getElementsByTagName("monthly").item(0).getTextContent());
+                    data.put("colorful", element.getElementsByTagName("colorful").item(0).getTextContent());
+                    data.put("pageAmount", element.getElementsByTagName("pageAmount").item(0).getTextContent());
 
                     if (glossyParse.getLength() != 0) {
-                        values.put("glossy", glossyParse.item(0).getTextContent());
+                        data.put("glossy", glossyParse.item(0).getTextContent());
                     }
                     if (subscribableParse.getLength() != 0) {
-                        values.put("subscribable", subscribableParse.item(0).getTextContent());
+                        data.put("subscribable", subscribableParse.item(0).getTextContent());
                     }
                 }
 
-                objectBuilder.addPaper(values);
+                objectBuilder.addPaper(data);
             }
 
-            for (Periodical i : objectBuilder.getPaper().getPeriodicals()){
-                System.out.println(i);
-            }
         } catch (ParserConfigurationException e) {
             logger.error("Error occurred in parser configuration");
         } catch (SAXException e) {
@@ -77,9 +71,8 @@ public class DOMParser {
         } catch (IOException e) {
             logger.error("Major parsing error");
         }
+
+        return getObject();
     }
 
-    public List<Periodical> getObject() {
-        return objectBuilder.getPaper().getPeriodicals();
-    }
 }
