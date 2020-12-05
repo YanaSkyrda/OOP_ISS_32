@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Paper>
+    <periodicals>
+        <title>Kharkiv city tour</title>
+        <type>BOOKLET</type>
+        <monthly>false</monthly>
+        <characteristics>
+            <colorful>true</colorful>
+            <pageAmount>4</pageAmount>
+            <glossy>true</glossy>
+        </characteristics>
+    </periodicals>
+    <periodicals>
+        <title>Playboy</title>
+        <type>MAGAZINE</type>
+        <monthly>true</monthly>
+        <characteristics>
+            <colorful>true</colorful>
+            <pageAmount>30</pageAmount>
+            <glossy>true</glossy>
+            <subscribable>true</subscribable>
+        </characteristics>
+    </periodicals>
+    <periodicals>
+        <title>New Your Times</title>
+        <type>NEWSPAPER</type>
+        <monthly>false</monthly>
+        <characteristics>
+            <colorful>false</colorful>
+            <pageAmount>8</pageAmount>
+            <subscribable>true</subscribable>
+        </characteristics>
+    </periodicals>
+</Paper>
