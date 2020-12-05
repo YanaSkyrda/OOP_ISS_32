@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Objects;
 
 
 /**
@@ -179,5 +180,22 @@ public class Periodical {
                 ", characteristics=" + characteristics +
                 ", id='" + id + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Periodical that = (Periodical) o;
+        return monthly == that.monthly &&
+                Objects.equals(title, that.title) &&
+                type == that.type &&
+                Objects.equals(characteristics, that.characteristics) &&
+                Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, type, monthly, characteristics, id);
     }
 }

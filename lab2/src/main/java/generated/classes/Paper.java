@@ -4,6 +4,7 @@ package generated.classes;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -76,5 +77,18 @@ public class Paper {
         return "Paper{" +
                 "periodicals=" + periodicals +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Paper paper = (Paper) o;
+        return Objects.equals(periodicals, paper.periodicals);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(periodicals);
     }
 }

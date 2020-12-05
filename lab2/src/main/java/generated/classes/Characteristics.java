@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import java.util.Objects;
 
 
 /**
@@ -132,5 +133,21 @@ public class Characteristics {
                 ((glossy != null) ? ", glossy=" + glossy : "")+
                 ((subscribable != null) ? ", subscribable=" + subscribable : "") +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Characteristics that = (Characteristics) o;
+        return colorful == that.colorful &&
+                pageAmount == that.pageAmount &&
+                Objects.equals(glossy, that.glossy) &&
+                Objects.equals(subscribable, that.subscribable);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(colorful, pageAmount, glossy, subscribable);
     }
 }
