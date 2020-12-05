@@ -1,7 +1,6 @@
 package parsers;
 
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
+import java.util.logging.Logger;
 import generated.classes.ObjectFactory;
 import generated.classes.Paper;
 import parsers.utils.ObjectBuilder;
@@ -9,7 +8,7 @@ import parsers.utils.ObjectBuilder;
 import java.util.HashMap;
 
 public abstract class AbstractParser {
-    static final Logger logger = LoggerFactory.getLogger(DOMParser.class);
+    static final Logger logger = Logger.getLogger(DOMParser.class.getName());
 
     HashMap<String, String> data = new HashMap<>();
     ObjectBuilder objectBuilder = new ObjectBuilder();

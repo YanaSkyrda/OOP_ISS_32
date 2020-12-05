@@ -67,11 +67,11 @@ public class DOMParser extends AbstractParser{
             }
 
         } catch (ParserConfigurationException e) {
-            logger.error("Error occurred in parser configuration");
+            logger.info("Error occurred in parser configuration");
         } catch (SAXException e) {
-            logger.error("Parsing error");
+            logger.info("Parsing error");
         } catch (IOException e) {
-            logger.error("Major parsing error");
+            logger.info("Major parsing error");
         }
 
         return getObject();

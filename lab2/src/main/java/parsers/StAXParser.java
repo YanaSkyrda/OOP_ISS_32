@@ -3,7 +3,6 @@ package parsers;
 import generated.classes.Paper;
 import generated.classes.Periodical;
 
-import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -12,7 +11,6 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 
 public class StAXParser extends AbstractParser{
     Periodical tempPeriodical = objectFactory.createPeriodical();
@@ -74,9 +72,9 @@ public class StAXParser extends AbstractParser{
 
 
         } catch (XMLStreamException e) {
-            logger.error("Stream problems");
+            logger.info("Stream problems");
         } catch (FileNotFoundException e) {
-            logger.error("File wasn't found");
+            logger.info("File wasn't found");
         }
 
         return getObject();

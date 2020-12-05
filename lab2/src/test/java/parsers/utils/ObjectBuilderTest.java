@@ -1,6 +1,5 @@
 package parsers.utils;
 
-import generated.classes.Type;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import parsers.ParserTest;
