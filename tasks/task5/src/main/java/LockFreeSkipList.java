@@ -112,35 +112,6 @@ public class LockFreeSkipList {
         }
     }
 
-    public void print()
-    {
-        for(int level = maxheight; level >= 0; level--)
-        {
-            System.out.print(level);
-            boolean[] temp = {false};
-            Node curr = head;
-            Node after = curr.next[level].get(temp);
-            while(after != null)
-            {
-                System.out.print(Integer.toString(curr.getdata()) + ' ');
-                int flag = 0;
-                while(temp[0] && after != null)
-                {
-                    flag = 1;
-                    curr = after;
-                    after = after.next[level].get(temp);
-                }
-                if(flag == 0)
-                {
-                    after = after.next[level].get(temp);
-                }
-            }
-            System.out.println();
-
-        }
-    }
-
-
     public boolean add(int value)
     {
 
@@ -149,17 +120,13 @@ public class LockFreeSkipList {
         Node[] succs = new Node[maxheight+1];
         while(true)
         {
-
             boolean present = find(value,preds,succs);
-
-
             if(present)
             {
                 return false;
             }
             else
             {
-
                 Node curr = new Node(value,highestlevel);
                 for(int level = 0; level <= highestlevel; level++)
                 {

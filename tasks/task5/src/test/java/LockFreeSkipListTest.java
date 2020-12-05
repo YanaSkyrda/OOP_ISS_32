@@ -39,29 +39,33 @@ public class LockFreeSkipListTest {
     void addItemFromMultipleThreadsTest() throws InterruptedException {
         List<Thread> threads = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++) {
-            threads.add(insertionThread(i));
-        }
+        threads.add(insertionThread(0));
+        threads.add(insertionThread(100));
+        threads.add(insertionThread(200));
+
+
         for (Thread thread: threads) {
             thread.join();
         }
 
-        assertTrue(list.contains(1));
-        assertTrue(list.contains(2));
-        assertTrue(list.contains(3));
+       for (int i = 0; i < 300; i++) {
+           assertTrue(list.contains(i));
+       }
     }
 
     @Test
     void removingInCycleTest() throws InterruptedException {
         List<Thread> threads = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++) {
-            threads.add(insertionThread(i));
-        }
+        threads.add(insertionThread(0));
+        threads.add(insertionThread(100));
+        threads.add(insertionThread(200));
 
-        for (int i = 0; i < 5; i++) {
-            threads.add(removingThread(i));
-        }
+        threads.add(removingThread(0));
+        threads.add(removingThread(100));
+        threads.add(removingThread(200));
+
+
 
         for (Thread thread: threads) {
             thread.join();
@@ -72,17 +76,21 @@ public class LockFreeSkipListTest {
 
 
     }
-    Thread insertionThread(int value) {
+    Thread insertionThread(int n) {
         Thread thread = new Thread(() -> {
-            list.add(value);
+            for (int i = n; i < n + 100; i++) {
+                list.add(i);
+            }
         });
         thread.start();
         return thread;
     }
 
-    Thread removingThread(int element) {
+    Thread removingThread(int n) {
         Thread thread = new Thread(() -> {
-            list.remove(element);
+            for (int i = n; i < n + 100; i++) {
+                list.remove(i);
+            }
         });
         thread.start();
         return thread;
