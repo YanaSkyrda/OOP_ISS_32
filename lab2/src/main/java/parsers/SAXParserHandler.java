@@ -1,6 +1,5 @@
 package parsers;
 
-import com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl;
 import generated.classes.*;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -34,6 +33,10 @@ public class SAXParserHandler extends DefaultHandler {
         for (Periodical i : result.getPeriodicals()){
             System.out.println(i);
         }
+    }
+
+    public SAXParserHandler(){
+        objectBuilder.resetID();
     }
 
     public Paper getObject(){

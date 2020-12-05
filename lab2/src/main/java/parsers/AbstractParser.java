@@ -4,11 +4,9 @@ import com.sun.org.slf4j.internal.Logger;
 import com.sun.org.slf4j.internal.LoggerFactory;
 import generated.classes.ObjectFactory;
 import generated.classes.Paper;
-import generated.classes.Periodical;
 import parsers.utils.ObjectBuilder;
 
 import java.util.HashMap;
-import java.util.List;
 
 public abstract class AbstractParser {
     static final Logger logger = LoggerFactory.getLogger(DOMParser.class);
@@ -17,6 +15,9 @@ public abstract class AbstractParser {
     ObjectBuilder objectBuilder = new ObjectBuilder();
     ObjectFactory objectFactory = new ObjectFactory();
 
+    public AbstractParser(){
+        objectBuilder.resetID();
+    }
 
     public Paper getObject() {
         return objectBuilder.getPaper();

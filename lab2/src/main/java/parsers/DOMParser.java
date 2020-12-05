@@ -42,6 +42,8 @@ public class DOMParser extends AbstractParser{
 
             for (int i = 0, length = nodeList.getLength(); i < length; ++i) {
                 tempNode = nodeList.item(i);
+                data.clear();
+
                 if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) tempNode;
                     NodeList glossyParse = element.getElementsByTagName("glossy");

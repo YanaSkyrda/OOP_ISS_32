@@ -39,4 +39,8 @@ public class ObjectBuilder {
         paper.sort();
         return paper;
     }
+
+    public void resetID(){
+        counter = 0;
+    }
 }
