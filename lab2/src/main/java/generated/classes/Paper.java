@@ -66,4 +66,10 @@ public class Paper {
         return this.periodicals;
     }
 
+    @Override
+    public String toString() {
+        return "Paper{" +
+                "periodicals=" + periodicals +
+                '}';
+    }
 }

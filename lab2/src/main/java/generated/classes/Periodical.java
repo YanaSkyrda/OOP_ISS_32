@@ -170,4 +170,14 @@ public class Periodical {
         this.id = value;
     }
 
+    @Override
+    public String toString() {
+        return "Periodical{" +
+                "title='" + title + '\'' +
+                ", type=" + type +
+                ", monthly=" + monthly +
+                ", characteristics=" + characteristics +
+                ", id='" + id + '\'' +
+                '}';
+    }
 }

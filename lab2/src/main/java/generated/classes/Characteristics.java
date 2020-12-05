@@ -124,4 +124,13 @@ public class Characteristics {
         this.subscribable = value;
     }
 
+    @Override
+    public String toString() {
+        return "Characteristics{" +
+                "colorful=" + colorful +
+                ", pageAmount=" + pageAmount +
+                ((glossy != null) ? ", glossy=" + glossy : "")+
+                ((subscribable != null) ? ", subscribable=" + subscribable : "") +
+                '}';
+    }
 }
