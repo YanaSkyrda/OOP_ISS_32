@@ -6,10 +6,8 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="id">
-                                <xs:simpleType>
-                                    <xs:restriction base="xs:ID">
-                                        <xs:pattern value="([a-z])+"/>
-                                    </xs:restriction>
+                                <xs:simpleType id="ID">
+                                    <xs:restriction base="xs:NCName"/>
                                 </xs:simpleType>
                             </xs:element>
                             <xs:element type="xs:string" name="name"/>
