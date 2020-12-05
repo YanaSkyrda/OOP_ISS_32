@@ -36,6 +36,7 @@ public class ObjectBuilder {
     }
 
     public Paper getPaper(){
+        paper.sort();
         return paper;
     }
 }

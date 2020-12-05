@@ -2,6 +2,7 @@
 package generated.classes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -64,6 +65,10 @@ public class Paper {
             periodicals = new ArrayList<Periodical>();
         }
         return this.periodicals;
+    }
+
+    public void sort(){
+        Collections.sort(periodicals,new PeriodicalTitleComparator());
     }
 
     @Override
