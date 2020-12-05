@@ -37,7 +37,8 @@ public class ParsersTest {
         gemList.add(gem1);
         gemList.add(gem2);
     }
-
+    
+    //purpose of the method (name)
     @Test
     public void domParser_TEST() throws ParserConfigurationException, SAXException, IOException {
         List<Gem> gemListActual = DOMParser.parseXML("Gem.xml");
@@ -56,7 +57,7 @@ public class ParsersTest {
     }
 
     @Test
-    public void saxParser_TEST() {
+    public void saxParser_TEST() throws ParserConfigurationException, SAXException, IOException {
         List<Gem> gemListActual = SAXParser.parseXML("Gem.xml");
 
         Assert.assertEquals(gemList.size(), gemListActual.size());
