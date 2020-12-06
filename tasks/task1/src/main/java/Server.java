@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class Server extends Thread implements Runnable {
-    private static final int PORT = 4004;
+    private static final int PORT = 9000;
     private int sessionsCount = 0;
     private ServerSocketChannel serverSocket;
     private Selector selector;
@@ -140,6 +140,11 @@ public class Server extends Thread implements Runnable {
 
     private boolean writeObjectToFile(Serializable device) {
         try {
+            Device d = (Device) device;
+            System.out.println("Name: " + d.name);
+            System.out.println("Width: " + d.width);
+            System.out.println("Height: " + d.height);
+
             FileOutputStream writer = new FileOutputStream("output.txt", true);
             writer.write(device.toString().getBytes());
             writer.write('\n');
