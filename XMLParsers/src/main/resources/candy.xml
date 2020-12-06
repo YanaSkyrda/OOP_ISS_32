@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <CandyCollection>
     <Candy>
-        <id>lol</id>
-        <name>Kek</name>
+        <id>dsafvdsa</id>
+        <name>Roshen</name>
         <energy>50</energy>
         <types>
             <type>CHOCOLATE</type>
@@ -18,4 +18,23 @@
             <carbohydrates>50</carbohydrates>
         </value>
     </Candy>
+    <Candy>
+        <id>fdsafdsdfd</id>
+        <name>Svitoch</name>
+        <energy>50</energy>
+        <types>
+            <type>CHOCOLATE</type>
+        </types>
+        <components>
+            <component amount="10" typeOfMeasure="g">Salt</component>
+            <component amount="10" typeOfMeasure="g">Cacao</component>
+            <component amount="10" typeOfMeasure="ml">Whiskey</component>
+        </components>
+        <value>
+            <proteins>50</proteins>
+            <fats>50</fats>
+            <carbohydrates>50</carbohydrates>
+        </value>
+    </Candy>
+
 </CandyCollection>

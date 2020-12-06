@@ -13,7 +13,12 @@ public class XMLElements {
     public static final String PROTEINS = "proteins";
     public static final String FATS = "fats";
     public static final String CARBONHYDRATES = "carbohydrates";
-
+    public static final String AMOUNT = "amount";
+    public static final String TYPEOFMEASURE = "typeOfMeasure";
+    public static final String NameOfFirstCandy = "Roshen";
+    public static final String NameOfSecondCandy = "Svitoch";
+    public static final String IDOfFirstCandy = "dsafvdsa";
+    public static final String IDOfSecondCandy = "fdsafdsdfd";
 
 
 }

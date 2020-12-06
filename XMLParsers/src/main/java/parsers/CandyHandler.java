@@ -106,12 +106,12 @@ public class CandyHandler extends DefaultHandler {
                 break;
             case XMLElements.COMPONENT:
                 Component component = new Component();
-                String amount = attributes.get("amount");
+                String amount = attributes.get(XMLElements.AMOUNT);
 
                 component.setAmount(Integer.valueOf(amount));
-                String measurment = attributes.get("typeOfMeasure");
+                String typeOfMeasure = attributes.get(XMLElements.TYPEOFMEASURE);
 
-                component.setTypeOfMeasure(measurment);
+                component.setTypeOfMeasure(typeOfMeasure);
                 component.setName(content);
                 getLastCandy().getComponents().add(component);
                 break;

@@ -21,7 +21,7 @@ public class StAXParser {
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
         XMLEventReader reader;
 
-        CandyHandler candiesHandler = new CandyHandler();
+        CandyHandler candнHandler = new CandyHandler();
         reader = xmlInputFactory.createXMLEventReader(new FileInputStream(xml));
 
         while (reader.hasNext()) {
@@ -47,18 +47,15 @@ public class StAXParser {
                     Map<String, String> attributeMap = new HashMap<>();
 
                     for(Attribute attribute: attributes) {
-                        attributeMap.put(
-                                attribute.getName().getLocalPart(),
-                                attribute.getValue()
-                        );
+                        attributeMap.put(attribute.getName().getLocalPart(), attribute.getValue());
                     }
-                    candiesHandler.setField(name, nextEvent.asCharacters().getData(), attributeMap);
+                    candнHandler.setField(name, nextEvent.asCharacters().getData(), attributeMap);
                 }
             }
         }
 
 
-        return candiesHandler.getCandies();
+        return candнHandler.getCandies();
     }
 
 }
