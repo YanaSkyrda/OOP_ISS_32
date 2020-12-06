@@ -41,7 +41,7 @@ public class ServerTest {
     }
 
     @Test
-    void shouldReceiveObject() {
+    void receiveObjectTest() {
         setSelectionKeys.add(readableSelectionKey);
         doNothing().when(server).receiveObject(readableSelectionKey);
         server.checkSelectionKeys(setSelectionKeys);
@@ -49,7 +49,7 @@ public class ServerTest {
     }
 
     @Test
-    void shouldReadObject() throws IOException, ClassNotFoundException {
+    void readObjectTest() throws IOException, ClassNotFoundException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream writer = new ObjectOutputStream(byteArrayOutputStream);
         writer.writeObject(device);
@@ -61,14 +61,14 @@ public class ServerTest {
     }
 
     @Test
-    void shouldSendResponseAboutSuccessfulReceiving() throws IOException {
+    void successfulReceivingTest() throws IOException {
         SocketChannel client = Mockito.mock(SocketChannel.class);
         server.sendResponse(true, client);
         verify(client).write(ByteBuffer.wrap("Device successfully received".getBytes()));
     }
 
     @Test
-    void shouldSendResponseAboutUnsuccessfulReceiving() throws IOException {
+    void unsuccessfulReceivingTest() throws IOException {
         SocketChannel client = Mockito.mock(SocketChannel.class);
         server.sendResponse(false, client);
         verify(client).write(ByteBuffer.wrap("Sorry, something went wrong".getBytes()));
