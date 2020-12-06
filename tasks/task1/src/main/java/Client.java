@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 
 public class Client extends Thread {
     private SocketChannel client;
-    private ByteBuffer buffer;
+    public ByteBuffer buffer;
     private Device device;
 
     Client() {}
@@ -18,24 +18,27 @@ public class Client extends Thread {
         this.client = client;
     }
 
-    private String sendToServer() throws IOException {
+    public void sendToServer() throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ObjectOutputStream writer = new ObjectOutputStream(byteArrayOutputStream);
+        writer.writeObject(device);
+        writer.close();
+        buffer = ByteBuffer.wrap(byteArrayOutputStream.toByteArray());
+        client.write(buffer);
+    }
+
+    public String sendAndGetResponse() throws IOException {
         try {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            ObjectOutputStream writer = new ObjectOutputStream(byteArrayOutputStream);
-            writer.writeObject(device);
-            writer.close();
-            buffer = ByteBuffer.wrap(byteArrayOutputStream.toByteArray());
-            client.write(buffer);
+            sendToServer();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("The object is not send");
             return "ERROR";
         }
-        String response = getResponse();
-        return response;
+        return getResponse();
     }
 
-    String getResponse() throws IOException {
+    public String getResponse() throws IOException {
         buffer = ByteBuffer.allocate(1024);
         client.read(buffer);
         buffer.rewind();
@@ -44,7 +47,7 @@ public class Client extends Thread {
     @Override
     public void run() {
         try {
-            String response = sendToServer();
+            String response = sendAndGetResponse();
             if (response.equals("ERROR")) {
                 System.out.println("Sending was failed. Object wasn't sent.");
             } else {

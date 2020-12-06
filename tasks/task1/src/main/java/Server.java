@@ -5,7 +5,7 @@ import java.nio.channels.*;
 import java.util.Iterator;
 import java.util.Set;
 
-public class Server extends Thread implements Runnable {
+public class Server extends Thread  {
     private static final int PORT = 9000;
     private int sessionsCount = 0;
     private ServerSocketChannel serverSocket;
@@ -26,21 +26,22 @@ public class Server extends Thread implements Runnable {
     }
 
     void checkSelectionKeys(Set<SelectionKey> selectionKeys) {
-        Iterator<SelectionKey> keysIter = selectionKeys.iterator();
+//        Iterator<SelectionKey> keysIter = selectionKeys.iterator();
+//
+//        while (keysIter.hasNext()) {
+//            SelectionKey key = keysIter.next();
+//
+//            if (key.isAcceptable()) {
+//                acceptClient();
+//            }
+//
+//            if (key.isReadable()) {
+//                receiveObject(key);
+//            }
+//
+//            keysIter.remove();
+//        }
 
-        while (keysIter.hasNext()) {
-            SelectionKey key = keysIter.next();
-
-            if (key.isAcceptable()) {
-                acceptClient();
-            }
-
-            if (key.isReadable()) {
-                receiveObject(key);
-            }
-
-            keysIter.remove();
-        }
     }
 
     @Override
@@ -84,7 +85,7 @@ public class Server extends Thread implements Runnable {
     void sendResponse(boolean objectSuccessfullyWritten, SocketChannel client) {
         try {
             if (objectSuccessfullyWritten) {
-                client.write(ByteBuffer.wrap("Cat successfully received".getBytes()));
+                client.write(ByteBuffer.wrap("Device successfully received".getBytes()));
             } else {
                 client.write(ByteBuffer.wrap("Sorry, something went wrong".getBytes()));
             }
