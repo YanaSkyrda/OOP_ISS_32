@@ -2,71 +2,54 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CustomPhaser {
-
-    private int parties = 0;
-    private int partiesAwait = 0;
-
-    public int getPhase() {
-        return phase;
-    }
-
     private int phase = 0;
-    public CustomPhaser() {
-        this(0);
-    }
-    public CustomPhaser(int parties) {
-        this.parties = parties;
-        this.partiesAwait = parties;
+
+    private Set<Thread> registeredThreads = new HashSet<>();
+    private Set<Thread> arrivedThreads = new HashSet<>();
+
+    public Set<Thread> getRegisteredThreads() {
+        return registeredThreads;
     }
 
-    int register() {
-        parties++;
-        partiesAwait++;
-        return phase;
+    public Set<Thread> getArrivedThreads() {
+        return arrivedThreads;
     }
 
-    int arrive() {
-        int currentPhase = phase;
+    public void register() {
         synchronized (this) {
-            partiesAwait--;
-            if (partiesAwait == 0) {
-                notifyAll();
-                partiesAwait = parties;
-                phase = currentPhase + 1;
-            }
+            registeredThreads.add(Thread.currentThread());
         }
-        return phase;
     }
-    int arriveAndDeregister() {
-        partiesAwait--;
-        parties--;
-        int currentPhase = phase;
+
+    public void arriveAndAwaitAdvance() {
         synchronized (this) {
-            if (partiesAwait == 0) {
-                phase = currentPhase + 1;
-                notifyAll();
-                partiesAwait = parties;
-                return -1;
+            int currentPhase = phase;
+            if(!registeredThreads.contains(Thread.currentThread())) {
+                return;
             }
-        }
-        return phase + 1;
-    }
-    int arriveAndAwaitAdvance() {
-        partiesAwait--;
-        int currPhase = phase;
-        synchronized (this) {
-            while (partiesAwait > 0) {
+            arrivedThreads.add(Thread.currentThread());
+            while(registeredThreads.size() > arrivedThreads.size() && currentPhase == phase) {
                 try {
                     this.wait();
-                } catch (InterruptedException ignored) {
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
+            if(currentPhase == phase) {
+                arrivedThreads.clear();
+                phase++;
+                this.notifyAll();
+            }
         }
-        partiesAwait = parties;
-        phase = currPhase + 1;
+    }
+
+    public void arriveAndDeregister() {
         synchronized (this) {
-            notifyAll();
+            registeredThreads.remove(Thread.currentThread());
+            this.notifyAll();
         }
+    }
+    public int getPhase() {
         return phase;
     }
 }
