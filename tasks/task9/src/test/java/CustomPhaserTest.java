@@ -1,67 +1,40 @@
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CustomPhaserTest {
-    CustomPhaser phaser;
-    int phase = 0;
-    @BeforeEach
-    void init() {
+    public CustomPhaser phaser;
+
+    @Test
+    void tests() throws InterruptedException {
         phaser = new CustomPhaser();
-    }
-
-    Thread newThread() {
-        Thread thread = new Thread(() -> {
-            phaser.register();
-            phase = phaser.arrive();
-        });
-        thread.start();
-        return thread;
-    }
-
-    Thread newThreadWithAwait() {
-        Thread thread = new Thread(() -> {
-            phaser.register();
-            phase = phaser.arriveAndAwaitAdvance();
-        });
-        thread.start();
-        return thread;
-    }
-
-    Thread deregisterThread() {
-        Thread thread = new Thread(() -> {
-            phaser.register();
-            phase = phaser.arriveAndDeregister();
-        });
-        thread.start();
-        return thread;
-    }
-
-    @Test
-    void mustReachSecondPhaseWithAwait() throws InterruptedException {
-        newThread();
-        newThreadWithAwait();
-        newThread();
-        assertEquals(1, phase);
-    }
-
-    @Test
-    void mustReachSecondPhase() {
-        newThread();
-        newThread();
-        newThread();
-        assertEquals(1, phase);
-    }
-
-
-    @Test
-    void mustReachThirdPhaseWithDeregister() {
+        Thread t1 = createThread();
+        Thread t2 = createThread();
         phaser.register();
-        phaser.arrive();
-        deregisterThread();
-        deregisterThread();
-        phase = phaser.arrive();
-        assertEquals(2, phase);
+        t1.start();
+        t2.start();
+        Thread.sleep(100);
+        assertEquals(0, phaser.getPhase());
+        phaser.arriveAndAwaitAdvance();
+
+        assertEquals(1, phaser.getPhase());
+
+        phaser.arriveAndAwaitAdvance();
+        assertEquals(2, phaser.getPhase());
+
+        phaser.arriveAndAwaitAdvance();
+        assertNotEquals(4, phaser.getPhase());
+
+        phaser.arriveAndDeregister();
+        assertEquals(0, phaser.getRegisteredThreads().size());
     }
+
+    Thread createThread() {
+        return new Thread(() -> {
+            phaser.register();
+            phaser.arriveAndAwaitAdvance();
+            phaser.arriveAndDeregister();
+        });
+    }
+
 }
