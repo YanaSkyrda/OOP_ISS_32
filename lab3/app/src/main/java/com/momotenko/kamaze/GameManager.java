@@ -1,7 +1,6 @@
 package com.momotenko.kamaze;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -68,13 +67,20 @@ public class GameManager extends GestureDetector.SimpleOnGestureListener {
         }
         player.goTo(stepX, stepY);
 
-        if (player.getPoint().equals(exit.getPoint())){
-            mazeSize += 2;
-            create();
-        }
+        checkFinish();
 
         view.invalidate();
         return super.onFling(e1, e2, velocityX, velocityY);
+    }
+
+    public boolean checkFinish(){
+        if (player.getPoint().equals(exit.getPoint())){
+            mazeSize += 2;
+            create();
+            return true;
+        }
+
+        return false;
     }
 
     public void draw(Canvas canvas) {

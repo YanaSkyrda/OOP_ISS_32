@@ -3,14 +3,10 @@ package com.momotenko.kamaze;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Picture;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.util.Log;
-import android.util.Pair;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
