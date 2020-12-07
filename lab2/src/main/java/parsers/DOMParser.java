@@ -2,10 +2,7 @@ package parsers;
 
 import generated.classes.Paper;
 import generated.classes.Periodical;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 import parsers.utils.ObjectBuilder;
 
@@ -23,6 +20,17 @@ public class DOMParser extends AbstractParser{
         }
     }
 
+    private void parseElementsRecursive(Node element, TagsHandler handler,ObjectBuilder objectBuilder)  {
+       handler.add(element.getNodeName(), element.getTextContent(),objectBuilder);
+
+        NodeList children = element.getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {
+            Node child = children.item(i);
+            if (child.getNodeType() == Node.ELEMENT_NODE)
+                parseElementsRecursive(child, handler,objectBuilder);
+        }
+    }
+    
     @Override
     public Paper parseXML(String filename) {
         try {
@@ -30,51 +38,20 @@ public class DOMParser extends AbstractParser{
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(filename);
             Node rootNode = document.getDocumentElement();
-
-            if (rootNode.getNodeName() != "Paper") {
-                throw new SAXException();
-            }
-
+            TagsHandler tagsHandler = new TagsHandler() ;
             objectBuilder = new ObjectBuilder();
-
-            NodeList nodeList = document.getElementsByTagName("periodicals");
-            Node tempNode;
-
-            for (int i = 0, length = nodeList.getLength(); i < length; ++i) {
-                tempNode = nodeList.item(i);
-                data.clear();
-
-                if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element = (Element) tempNode;
-                    NodeList glossyParse = element.getElementsByTagName("glossy");
-                    NodeList subscribableParse = element.getElementsByTagName("subscribable");
-
-                    data.put("title", element.getElementsByTagName("title").item(0).getTextContent());
-                    data.put("type", element.getElementsByTagName("type").item(0).getTextContent());
-                    data.put("monthly", element.getElementsByTagName("monthly").item(0).getTextContent());
-                    data.put("colorful", element.getElementsByTagName("colorful").item(0).getTextContent());
-                    data.put("pageAmount", element.getElementsByTagName("pageAmount").item(0).getTextContent());
-
-                    if (glossyParse.getLength() != 0) {
-                        data.put("glossy", glossyParse.item(0).getTextContent());
-                    }
-                    if (subscribableParse.getLength() != 0) {
-                        data.put("subscribable", subscribableParse.item(0).getTextContent());
-                    }
-                }
-
-                objectBuilder.addPaper(data);
-            }
+            parseElementsRecursive(rootNode, tagsHandler, objectBuilder);
+            tagsHandler.flush(objectBuilder);
 
         } catch (ParserConfigurationException e) {
             logger.info("Error occurred in parser configuration");
         } catch (SAXException e) {
             logger.info("Parsing error");
         } catch (IOException e) {
-            logger.info("Major parsing error");
+            logger.info ("Major parsing error");
         }
 
         return getObject();
     }
-
+    
 }
