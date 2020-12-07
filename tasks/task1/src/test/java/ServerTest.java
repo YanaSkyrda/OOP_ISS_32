@@ -33,6 +33,13 @@ public class ServerTest {
     }
 
     @Test
+    void successfulReceivingTest() throws IOException {
+        SocketChannel client = Mockito.mock(SocketChannel.class);
+        server.sendResponse(true, client);
+        verify(client).write(ByteBuffer.wrap("Device successfully received".getBytes()));
+    }
+
+    @Test
     void acceptClientTest() {
         setSelectionKeys.add(acceptableSelectionKey);
         doNothing().when(server).acceptClient();
@@ -60,17 +67,4 @@ public class ServerTest {
         assertEquals(receivedDevice.name, device.name);
     }
 
-    @Test
-    void successfulReceivingTest() throws IOException {
-        SocketChannel client = Mockito.mock(SocketChannel.class);
-        server.sendResponse(true, client);
-        verify(client).write(ByteBuffer.wrap("Device successfully received".getBytes()));
-    }
-
-    @Test
-    void unsuccessfulReceivingTest() throws IOException {
-        SocketChannel client = Mockito.mock(SocketChannel.class);
-        server.sendResponse(false, client);
-        verify(client).write(ByteBuffer.wrap("Sorry, something went wrong".getBytes()));
-    }
 }

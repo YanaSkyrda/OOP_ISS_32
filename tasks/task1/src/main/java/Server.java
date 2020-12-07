@@ -11,36 +11,31 @@ public class Server extends Thread  {
     private ServerSocketChannel serverSocket;
     private Selector selector;
 
-    Server() {}
+    Server(){}
     public Server(ServerSocketChannel serverSocketChannel, Selector selector) throws IOException {
         this.serverSocket = serverSocketChannel;
         this.selector = selector;
     }
 
-    public static int getPORT() {
-        return PORT;
-    }
 
     public int getSessionsCount() {
         return sessionsCount;
     }
 
     void checkSelectionKeys(Set<SelectionKey> selectionKeys) {
-//        Iterator<SelectionKey> keysIter = selectionKeys.iterator();
-//
-//        while (keysIter.hasNext()) {
-//            SelectionKey key = keysIter.next();
-//
-//            if (key.isAcceptable()) {
-//                acceptClient();
-//            }
-//
-//            if (key.isReadable()) {
-//                receiveObject(key);
-//            }
-//
-//            keysIter.remove();
-//        }
+        for (SelectionKey key: selectionKeys) {
+
+
+            if (key.isAcceptable()) {
+                acceptClient();
+            }
+
+            if (key.isReadable()) {
+                receiveObject(key);
+            }
+
+           selectionKeys.remove(key);
+        }
 
     }
 
@@ -111,7 +106,7 @@ public class Server extends Thread  {
     private void closeClientConnection(SocketChannel client) {
         try {
             client.close();
-            System.out.println("One client disconnected");
+            System.out.println("Client disconnected");
             sessionsCount--;
         } catch (IOException e) {
             System.out.println("Can't close client channel");
@@ -145,6 +140,7 @@ public class Server extends Thread  {
             System.out.println("Name: " + d.name);
             System.out.println("Width: " + d.width);
             System.out.println("Height: " + d.height);
+
 
             FileOutputStream writer = new FileOutputStream("output.txt", true);
             writer.write(device.toString().getBytes());

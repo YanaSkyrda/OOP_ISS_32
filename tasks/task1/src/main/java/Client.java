@@ -11,7 +11,6 @@ public class Client extends Thread {
     public ByteBuffer buffer;
     private Device device;
 
-    Client() {}
     public Client(SocketChannel client, Device device) {
         this.buffer = ByteBuffer.allocate(1024);
         this.device = device;

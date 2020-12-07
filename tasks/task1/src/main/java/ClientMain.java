@@ -6,7 +6,7 @@ import java.nio.channels.SocketChannel;
 
 public class ClientMain {
     private static Device createDevice() throws IOException {
-        System.out.println("It's time to create your device");
+        System.out.println("Create your device");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter name: ");
         String name = reader.readLine();
