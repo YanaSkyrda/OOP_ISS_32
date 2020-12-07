@@ -6,14 +6,14 @@ import generated.classes.Periodical;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.EndElement;
+import javax.xml.stream.events.Characters;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class StAXParser extends AbstractParser{
-    Periodical tempPeriodical = objectFactory.createPeriodical();
+    TagsHandler tagsHandler = new TagsHandler();
 
     public static void main(String[] args) {
         StAXParser stAXParser = new StAXParser();
@@ -34,42 +34,18 @@ public class StAXParser extends AbstractParser{
                 XMLEvent xmlEvent = xmlEventReader.nextEvent();
                 if(xmlEvent.isStartElement()){
                     StartElement startElement = xmlEvent.asStartElement();
-                    if (startElement.getName().getLocalPart().equalsIgnoreCase("periodicals")){
-                        tempPeriodical = objectFactory.createPeriodical();
-                        data.clear();
-                    }else if(startElement.getName().getLocalPart().equalsIgnoreCase("title")){
-                        xmlEvent =xmlEventReader.nextEvent();
-                        data.put("title", xmlEvent.asCharacters().getData());
-                    }else if(startElement.getName().getLocalPart().equalsIgnoreCase("type")){
-                        xmlEvent = xmlEventReader.nextEvent();
-                        data.put("type",xmlEvent.asCharacters().getData());
-                    }else if(startElement.getName().getLocalPart().equalsIgnoreCase("monthly")){
-                        xmlEvent = xmlEventReader.nextEvent();
-                        data.put("monthly",xmlEvent.asCharacters().getData());
-                    }else if(startElement.getName().getLocalPart().equalsIgnoreCase("colorful")){
-                        xmlEvent = xmlEventReader.nextEvent();
-                        data.put("colorful",xmlEvent.asCharacters().getData());
-                    }else if(startElement.getName().getLocalPart().equalsIgnoreCase("pageAmount")){
-                        xmlEvent = xmlEventReader.nextEvent();
-                        data.put("pageAmount",xmlEvent.asCharacters().getData());
-                    }else if(startElement.getName().getLocalPart().equalsIgnoreCase("glossy")){
-                        xmlEvent = xmlEventReader.nextEvent();
-                        data.put("glossy",xmlEvent.asCharacters().getData());
-                    }else if(startElement.getName().getLocalPart().equalsIgnoreCase("subscribable")){
-                        xmlEvent = xmlEventReader.nextEvent();
-                        data.put("subscribable",xmlEvent.asCharacters().getData());
-                    }
-                }
+                    String qName = startElement.getName().toString();
 
-                if (xmlEvent.isEndElement()){
-                    EndElement endElement = xmlEvent.asEndElement();
-
-                    if (endElement.getName().getLocalPart().equalsIgnoreCase("periodicals")){
-                        objectBuilder.addPaper(data);
+                    xmlEvent = xmlEventReader.peek();
+                    if (xmlEvent != null && xmlEvent.isCharacters()) {
+                        Characters characters = xmlEventReader.nextEvent().asCharacters();
+                        System.out.println(qName + " " + characters.getData());
+                        tagsHandler.add(qName,characters.getData(),objectBuilder);
                     }
                 }
             }
 
+            tagsHandler.flush(objectBuilder);
 
         } catch (XMLStreamException e) {
             logger.info("Stream problems");
