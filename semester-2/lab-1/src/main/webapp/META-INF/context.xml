@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+    <Resource name="jdbc/aero"
+              auth="Container"
+              type="javax.sql.DataSource"
+              factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+              validationQuery="SELECT 1"
+              validationInterval="30000"
+              username="postgres"
+              password="admin"
+              driverClassName="org.postgresql.Driver"
+              url="jdbc:postgresql://localhost:8081/aero?useSSL=false&amp;useUnicode=yes&amp;characterEncoding=UTF-8&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC"
+              removeAbandoned="true"
+              removeAbandonedTimeout="30"
+              maxActive="15"
+              maxIdle="3"/>
+
+</Context>
