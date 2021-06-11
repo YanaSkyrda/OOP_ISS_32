@@ -6,10 +6,7 @@ import model.flight.Flight;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +25,31 @@ public class FlightDaoImpl implements FlightDao {
 
     @Override
     public Optional<Flight> create(Flight entity) {
+        ResultSet set;
+        try {
+            PreparedStatement statement = connection.prepareStatement(bundle.getString("flight.create"),
+                    Statement.RETURN_GENERATED_KEYS);
+
+            statement.setInt(1, entity.getPrice());
+            statement.setInt(2, entity.getPriceOfBaggage());
+            statement.setInt(3, entity.getPriceOfPriorityRegister());
+            statement.setInt(4, entity.getNumberOfSeats());
+            statement.setString(5, entity.getDepartureCountry());
+            statement.setString(6, entity.getArrivalCountry());
+            statement.setString(7, entity.getDepartureTime());
+            statement.setString(8, entity.getArrivalTime());
+            statement.executeUpdate();
+
+            set = statement.getGeneratedKeys();
+            if (set.next()) {
+                entity.setId(set.getLong("id"));
+            }
+            return Optional.of(entity);
+
+
+        } catch (SQLException e) {
+            logger.warn("Ticket can`t be created: {}", e.getMessage());
+        }
         return Optional.empty();
     }
 

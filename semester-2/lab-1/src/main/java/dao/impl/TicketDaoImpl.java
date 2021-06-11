@@ -152,7 +152,6 @@ public class TicketDaoImpl implements TicketDao {
     @Override
     public void close() throws SQLException {
         connection.close();
-
     }
 
 

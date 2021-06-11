@@ -15,7 +15,7 @@ import java.io.IOException;
 
 @WebServlet(name = "admin", value = "/admin")
 public class AdminServlet extends HttpServlet {
-    static final Logger logger = LogManager.getLogger(LoginServlet.class);
+    static final Logger logger = LogManager.getLogger(AdminServlet.class);
     private final TicketsService ticketsService = new TicketsService();
 
     @Override

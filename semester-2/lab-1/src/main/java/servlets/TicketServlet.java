@@ -16,7 +16,7 @@ import java.util.List;
 
 @WebServlet(name = "ticket", value = "/ticket")
 public class TicketServlet extends HttpServlet {
-    static final Logger logger = LogManager.getLogger(LoginServlet.class);
+    static final Logger logger = LogManager.getLogger(TicketServlet.class);
     private final TicketsService ticketsService = new TicketsService();
 
     @Override
