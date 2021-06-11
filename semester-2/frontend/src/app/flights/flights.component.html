@@ -1,0 +1,98 @@
+<header>
+  <nav class="top-menu">
+    <ul class="menu-main">
+      <li class="right-item"><a href="/flight" (click)="app.showStatistics = false; app.showAccounting = false; app.showFlights = true;">Flights</a></li>
+      <li class="right-item"><a href="/ticket" (click)="app.showStatistics = true; app.showAccounting = false; app.showFlights = false;">Statistics</a></li>
+      <li class="right-item"><a href="/accountingstats" (click)="app.showAccounting = true; app.showStatistics = false; app.showFlights = false;">Accounting statistics</a></li>   </ul>
+  </nav>
+</header>
+<h2 class="title">All available flights: </h2>
+<div class="container">
+  <div class="right-block">
+    <div class="left-block">
+      <a href="/flights/1?field=price&direction=asc"></a>
+      <a href="/flights/1?field=price&direction=desc'}"></a>
+    </div>
+    <div>
+      <div class="card-side" *ngFor="let flight of flights; let i=index ">
+        <div class="card-content">
+          <div class="text-content">
+            <h3 class="card-title"> {{flight.id}}</h3>
+            <h4 class="price-title"> Departure from: {{flight.departureCountry}}</h4>
+            <h4 class="price-title"> Arrival to: {{flight.arrivalCountry}}</h4>
+            <h4 class="price-title"> Departure time: {{flight.departureTime}}</h4>
+            <h4 class="price-title"> Arrival time: {{flight.arrivalTime}}</h4>
+            <h4 class="price-title">Price: {{flight.price}}</h4>
+            <h4 class="price-title">Price of baggage: {{flight.priceOfBaggage}}</h4>
+            <h4 class="price-title">Price of priority register: {{flight.priceOfPriorityRegister}}</h4>
+            <h4 class="price-title"> Number of seats available: {{flight.numberOfSeats}}</h4>
+          </div>
+          <div class="booking-btn">
+            <button class="myBtn" (click)="buyTicket(flight.id)"> Booking
+            </button>
+          </div>
+        </div>
+    </div>
+
+      <h2 class="title"> </h2>
+      <div>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <form [formGroup]="flightsForm" class="main-form first" (ngSubmit)="createNewFlight()"
+                  method="post">
+              <h2>Add new flight </h2>
+              <div class="form-group">
+                <label for="name" class="control-label">Departure from</label>
+                <input id="name" formControlName="departureFrom" class="form-control" type="text"/>
+
+              </div>
+              <div class="form-group">
+                <label for="email" class="control-label">Arrival to</label>
+                <input id="email" formControlName="arrivalTo" class="form-control" type="text"/>
+              </div>
+
+              <div class="form-group">
+                <label for="departureTime" class="control-label">Departure time</label>
+                <input id="departureTime" formControlName="departureTime" class="form-control" type="text"/>
+
+              </div>
+              <div class="form-group">
+                <label for="arrivalTime" class="control-label">Arrival time</label>
+                <input id="arrivalTime" formControlName="arrivalTime" class="form-control" type="text"/>
+              </div>
+
+              <div class="form-group">
+                <label for="password" class="control-label">Number of seats</label>
+                <input id="password" formControlName="number_of_seats" class="form-control" type="number"/>
+              </div>
+
+              <div class="form-group">
+                <label for="price" class="control-label">Price</label>
+                <input id="price" formControlName="price" class="form-control" type="number"/>
+              </div>
+
+              <div class="form-group">
+                <label for="priceBaggage" class="control-label">Price of baggage</label>
+                <input id="priceBaggage" formControlName="priceBaggage" class="form-control" type="number"/>
+              </div>
+
+              <div class="form-group">
+                <label for="pricePriority" class="control-label">Price of priority register</label>
+                <input id="pricePriority" formControlName="pricePriority" class="form-control" type="number"/>
+              </div>
+              <div class="form-group">
+                <button id="button" type="submit" class="btn btn-success">Create
+                </button>
+              </div>
+              <!--        <div th:if="${errorMessage}">-->
+              <!--          <p th:text="${errorMessage}"/>-->
+              <!--        </div>-->
+
+            </form>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+</div>
