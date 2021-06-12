@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'flights', component: FlightsComponent},
   {path: 'ticket', component: TicketsComponent},
   {path: 'admin', component: AdminComponent},
-  {path: '', component: AuthGuard , canActivate: [AuthGuard]},
+  {path: '', component: FlightsComponent , canActivate: [AuthGuard]},
   {path: '**', redirectTo: '' }
 ];
 

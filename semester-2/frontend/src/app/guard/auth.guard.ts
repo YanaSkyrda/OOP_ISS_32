@@ -15,6 +15,18 @@ export class AuthGuard extends KeycloakAuthGuard {
     super(router, keycloak);
   }
 
+  login() {
+
+  }
+
+  isUerAdmin() : Boolean {
+    return this.keycloak.isUserInRole('ADMIN')
+  }
+
+  getUsername() : String {
+    return this.keycloak.getUsername()
+  }
+
   async isAccessAllowed(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean | UrlTree> {

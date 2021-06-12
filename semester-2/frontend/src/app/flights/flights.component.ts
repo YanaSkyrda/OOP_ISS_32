@@ -6,6 +6,7 @@ import {AppComponent} from "../app.component";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Statistic} from "../model/statistic";
 import {formatDate} from "@angular/common";
+import {AuthGuard} from "../guard/auth.guard";
 
 @Component({
   selector: 'app-flights',
@@ -20,7 +21,7 @@ export class FlightsComponent implements OnInit {
   constructor(private flightsService: FlightsService,
               private router: Router,
               private formBuilder: FormBuilder,
-              public app: AppComponent) {
+              public auth: AuthGuard) {
     this.flightsForm = this.formBuilder.group(
       {
         departureFrom: '',

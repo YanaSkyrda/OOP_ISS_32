@@ -1,8 +1,8 @@
 <header>
   <nav class="top-menu">
     <ul class="menu-main">
-      <li class="right-item"><a href="/flight" (click)="app.showStatistics = false; app.showAccounting = false; app.showFlights = true;">Flights</a></li>
-      <li class="right-item"><a href="/ticket" (click)="app.showStatistics = true; app.showAccounting = false; app.showFlights = false;">Statistics</a></li>
+<!--      <li class="right-item"><a href="/flight" (click)="app.showStatistics = false; app.showAccounting = false; app.showFlights = true;">Flights</a></li>-->
+<!--      <li class="right-item"><a href="/ticket" (click)="app.showStatistics = true; app.showAccounting = false; app.showFlights = false;">Statistics</a></li>-->
     </ul>
    </nav>
 </header>
@@ -35,7 +35,7 @@
     </div>
 
       <h2 class="title"> </h2>
-      <div>
+      <div *ngIf="auth.isUerAdmin()">
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
             <form [formGroup]="flightsForm" class="main-form first" (ngSubmit)="createNewFlight()"

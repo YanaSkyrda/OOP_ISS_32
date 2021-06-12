@@ -9,7 +9,7 @@ import {Statistic} from "../model/statistic";
   providedIn: 'root'
 })
 export class FlightsService {
-  url = 'http://localhost:8085/Gradle___com_example___lab_1_1_0_SNAPSHOT_war/flight';
+  url = '/flight';
 
   constructor(private httpClient: HttpClient) {
   }
