@@ -11,7 +11,7 @@ public class UserService {
     public User loginUser(String name, String password) throws Exception {
         User resultOfUser;
         try (UserDao userDao = factoryDao.createUserDao()) {
-            resultOfUser = userDao.findByEmail(name)
+            resultOfUser = userDao.findByUserName(name)
                     .orElseThrow(() -> new RuntimeException("Empty user"));
         }
         if (resultOfUser.getPassword().equals(password))

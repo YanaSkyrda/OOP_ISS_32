@@ -3,10 +3,8 @@ package dao.impl;
 import dao.TicketDao;
 import dao.mapper.TicketMapper;
 import model.flight.Flight;
-import model.flight.FlightBuilder;
 import model.ticket.Status;
 import model.ticket.Ticket;
-import model.user.UserBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,11 +20,11 @@ public class TicketDaoImpl implements TicketDao {
     private final Connection connection;
     private final ResourceBundle bundle = ResourceBundle.getBundle("sql");
     private final TicketMapper ticketMapper = new TicketMapper();
-    private final FlightDaoImpl roomDao;
+    private final FlightDaoImpl flightDao;
 
     public TicketDaoImpl(Connection connection) {
         this.connection = connection;
-        roomDao = new FlightDaoImpl(connection);
+        flightDao = new FlightDaoImpl(connection);
     }
 
     @Override
@@ -40,10 +38,11 @@ public class TicketDaoImpl implements TicketDao {
             statement.setInt(2, entity.getBaggagePrice());
             statement.setBoolean(3, entity.getHavePriorityRegister());
             statement.setInt(4, entity.getPriorityRegisterPrice());
-            statement.setInt(5, entity.getFlightPrice());
-            statement.setString(6, entity.getSeat());
-            statement.setLong(7, entity.getUserByUserId().getId());
-            statement.setString(8, entity.getStatus());
+            statement.setLong(5, entity.getFlightId());
+            statement.setInt(6, entity.getFlightPrice());
+            statement.setString(7, entity.getSeat());
+            statement.setString(8, entity.getUsername());
+            statement.setString(9, entity.getStatus());
             statement.executeUpdate();
 
             set = statement.getGeneratedKeys();
@@ -73,15 +72,7 @@ public class TicketDaoImpl implements TicketDao {
             set = statement.executeQuery();
             while (set.next()) {
                 Ticket ticket = ticketMapper.getTicketFromResultSet(set);
-                ticket.setUserByUserId(new UserBuilder()
-                        .setId(set.getLong("user_id"))
-                        .setEmail(set.getString("email"))
-                        .build());
-                ticket.setFlightId(new FlightBuilder()
-                        .setId(set.getLong("flight_id"))
-                        .setDepartureCountry("departure_country")
-                        .setArrivalCountry("arrival_country")
-                        .build());
+                ticket.setFlightId(set.getLong("flight_id"));
                 ticketList.add(ticket);
             }
         } catch (SQLException e) {
@@ -91,20 +82,16 @@ public class TicketDaoImpl implements TicketDao {
     }
 
     @Override
-    public List<Ticket> findTicketsByUser(Long id) {
+    public List<Ticket> findTicketsByUser(String username) {
         List<Ticket> ticketList = new ArrayList<>();
         ResultSet set;
         try {
             PreparedStatement statement = connection.prepareStatement(bundle.getString("ticket.find_by_user"));
-            statement.setLong(1, id);
+            statement.setString(1, username);
             set = statement.executeQuery();
             while (set.next()) {
                 Ticket ticket = ticketMapper.getTicketFromResultSet(set);
-                ticket.setFlightId(new FlightBuilder()
-                        .setId(set.getLong("flight_id"))
-                        .setDepartureCountry("departure_country")
-                        .setArrivalCountry("arrival_country")
-                        .build());
+                ticket.setFlightId(set.getLong("flight_id"));
                 ticketList.add(ticket);
             }
 
@@ -121,7 +108,7 @@ public class TicketDaoImpl implements TicketDao {
 
             TransactionManager.beginTransaction(connection);
 
-            Flight flight = roomDao.findById(entity.getFlightId().getId());
+            Flight flight = flightDao.findById(entity.getFlightId());
 
             updateTicketByFlightId(flight.getId(), entity.getId());
 

@@ -11,9 +11,7 @@ public class Util {
     public static Ticket buildAdminTicket(HttpServletRequest request) {
 
         return new TicketBuilder()
-                .setFlightId(new FlightBuilder()
-                        .setId(Long.parseLong(request.getParameter("flight_id")))
-                        .build())
+                .setFlightId(Long.parseLong(request.getParameter("flight_id")))
                 .setId(Long.parseLong(request.getParameter("id")))
                 .build();
     }

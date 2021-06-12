@@ -22,17 +22,17 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
+    public Optional<User> findByUserName(String username) {
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(resourceBundle.getString("user.findByEmail"));
-            preparedStatement.setString(1, email);
+            PreparedStatement preparedStatement = connection.prepareStatement(resourceBundle.getString("user.findByUserName"));
+            preparedStatement.setString(1, username);
             ResultSet set = preparedStatement.executeQuery();
             if (set.next())
                 return Optional.of(userMapper.toUserFromResultSet(set));
 
         } catch (SQLException ex) {
-            logger.warn("Could not find user with email address {}: {}", email, ex.getMessage());
+            logger.warn("Could not find user with username {}: {}", username, ex.getMessage());
         }
         return Optional.empty();
     }
@@ -44,10 +44,9 @@ public class UserDaoImpl implements UserDao {
             PreparedStatement preparedStatement =
                     connection.prepareStatement(resourceBundle.getString("user.create"),
                             Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, entity.getEmail());
-            preparedStatement.setString(2, entity.getName());
-            preparedStatement.setString(3, entity.getPassword());
-            preparedStatement.setString(4, "ROLE_USER");
+            preparedStatement.setString(1, entity.getName());
+            preparedStatement.setString(2, entity.getPassword());
+            preparedStatement.setString(3, "ROLE_USER");
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows == 0) {

@@ -14,13 +14,13 @@ public class Ticket {
 
     private Integer priorityRegisterPrice;
 
-    private Flight flightId;
+    private Long flightId;
 
     private Integer flightPrice;
 
     private String seat;
 
-    private User userByUserId;
+    private String username;
 
     private String status;
 
@@ -29,8 +29,8 @@ public class Ticket {
 
     public Ticket(Long id, Boolean haveBaggage, Integer baggagePrice,
                   Boolean havePriorityRegister, Integer priorityRegisterPrice,
-                  Flight flightId, Integer flightPrice, String seat,
-                  User userByUserId, String status) {
+                  Long flightId, Integer flightPrice, String seat,
+                  String username, String status) {
         this.id = id;
         this.haveBaggage = haveBaggage;
         this.baggagePrice = baggagePrice;
@@ -39,7 +39,7 @@ public class Ticket {
         this.flightId = flightId;
         this.flightPrice = flightPrice;
         this.seat = seat;
-        this.userByUserId = userByUserId;
+        this.username = username;
         this.status = status;
     }
 
@@ -83,11 +83,11 @@ public class Ticket {
         this.priorityRegisterPrice = priorityRegisterPrice;
     }
 
-    public Flight getFlightId() {
+    public Long getFlightId() {
         return flightId;
     }
 
-    public void setFlightId(Flight flightId) {
+    public void setFlightId(Long flightId) {
         this.flightId = flightId;
     }
 
@@ -107,12 +107,12 @@ public class Ticket {
         this.seat = seat;
     }
 
-    public User getUserByUserId() {
-        return userByUserId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserByUserId(User userByUserId) {
-        this.userByUserId = userByUserId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getStatus() {

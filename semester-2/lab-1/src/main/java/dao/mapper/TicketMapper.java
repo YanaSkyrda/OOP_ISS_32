@@ -19,6 +19,7 @@ public class TicketMapper {
                 .setFlightPrice(resultSet.getInt("flight_price"))
                 .setSeat(resultSet.getString("seat"))
                 .setStatus(resultSet.getString("status"))
+                .setUsername(resultSet.getString("username"))
                 .build();
     }
 

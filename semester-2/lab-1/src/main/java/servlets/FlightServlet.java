@@ -2,7 +2,6 @@ package servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.flight.Flight;
-import model.ticket.Ticket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.FlightsService;

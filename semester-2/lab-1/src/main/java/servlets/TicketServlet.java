@@ -36,7 +36,7 @@ public class TicketServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         logger.info("Executing ticket post controller");
         try {
-            String s = JsonConverter.jsonBodyFromRequest(req, resp).get("ticket").toString();
+            String s = JsonConverter.jsonBodyFromRequest(req, resp).toString();
             Ticket ticket = ticketsService.createNewTicket(new ObjectMapper()
                     .readValue(s, Ticket.class));
             JsonConverter.makeJsonAnswer(ticket, resp);

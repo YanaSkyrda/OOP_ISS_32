@@ -17,9 +17,9 @@ public class TicketsService {
         }
     }
 
-    public List<Ticket> findAllTicketsByUser(Long id) throws Exception {
+    public List<Ticket> findAllTicketsByUser(String username) throws Exception {
         try (TicketDao ticketDao = factoryDao.createTicketDao()) {
-            return ticketDao.findTicketsByUser(id);
+            return ticketDao.findTicketsByUser(username);
         }
     }
 

@@ -14,13 +14,13 @@ public class TicketBuilder {
 
     private Integer priorityRegisterPrice;
 
-    private Flight flightId;
+    private Long flightId;
 
     private Integer flightPrice;
 
     private String seat;
 
-    private User userByUserId;
+    private String username;
 
     private String status;
 
@@ -49,7 +49,7 @@ public class TicketBuilder {
         return this;
     }
 
-    public TicketBuilder setFlightId(Flight flightId) {
+    public TicketBuilder setFlightId(Long flightId) {
         this.flightId = flightId;
         return this;
     }
@@ -64,8 +64,8 @@ public class TicketBuilder {
         return this;
     }
 
-    public TicketBuilder setUserByUserId(User userByUserId) {
-        this.userByUserId = userByUserId;
+    public TicketBuilder setUsername(String username) {
+        this.username = username;
         return this;
     }
 
@@ -76,6 +76,6 @@ public class TicketBuilder {
 
     public Ticket build() {
         return new Ticket(id, haveBaggage, baggagePrice, havePriorityRegister, priorityRegisterPrice,
-                flightId, flightPrice, seat, userByUserId, status);
+                flightId, flightPrice, seat, username, status);
     }
 }

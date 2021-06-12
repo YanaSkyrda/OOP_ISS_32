@@ -21,8 +21,7 @@ public class CabinetServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         logger.info("Executing cabinet get controller");
         try {
-            List<Ticket> listOfTickets = ticketsService.findAllTicketsByUser(
-                    Long.parseLong(req.getParameter("user")));
+            List<Ticket> listOfTickets = ticketsService.findAllTicketsByUser(req.getParameter("username"));
             JsonConverter.makeJsonAnswer(listOfTickets, resp);
 
         } catch (Exception e) {
