@@ -1,9 +1,8 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {TicketsService} from '../service/tickets.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from "@angular/router";
-import {FlightsService} from "../service/flights.service";
-import {FlightsComponent} from "../flights/flights.component";
+import {AuthGuard} from "../guard/auth.guard";
 import {Flight} from "../model/flight";
 import {AppComponent} from "../app.component";
 
@@ -17,31 +16,46 @@ import {AppComponent} from "../app.component";
 })
 export class TicketsComponent implements OnInit {
   ticketForm: FormGroup;
-  user = 1;
   state = 'PENDING';
-  private ticketsService: TicketsService;
 
-  constructor(private flightsComponent: FlightsComponent,
+  constructor(private ticketsService: TicketsService,
               private formBuilder: FormBuilder,
+              private app: AppComponent,
               private router: Router,
-              public app: AppComponent) {
+              public auth: AuthGuard) {
   }
 
   ngOnInit(): void {
     this.ticketForm = this.formBuilder.group(
       {
-        have_baggage: ['', Validators.required],
-        have_priority_register: ['', Validators.required],
+        baggage: [false],
+        priority: [false],
+        seat: ['Standard']
       }
     );
-    this.flightsComponent.getAllFlights()
   }
 
   buildTicket(): any {
+    console.log(this.app.chosenFlight);
+
+    let baggagePrice = 0
+    if (this.inputs.baggage) {
+        baggagePrice = this.app.chosenFlight.priceOfBaggage
+    }
+
+    let priorityPrice = 0
+    if (this.inputs.priority) {
+      priorityPrice = this.app.chosenFlight.priceOfPriorityRegister
+    }
     const ticket = {
-      have_baggage: this.inputs.have_baggage,
-      have_priority_register: this.inputs.have_priority_register,
-      userByUserId: this.user,
+      have_baggage: this.inputs.baggage,
+      have_priority_register: this.inputs.priority,
+      username: this.auth.getUsername(),
+      flight_id: this.app.chosenFlight.id,
+      flight_price: this.app.chosenFlight.price,
+      baggage_price: baggagePrice,
+      priority_register_price: priorityPrice,
+      seat: this.inputs.seat,
       status: this.state
     };
     console.log(ticket);
@@ -49,15 +63,17 @@ export class TicketsComponent implements OnInit {
   }
 
   get inputs(): any {
-    // @ts-ignore
-    return this.ticketForm.controls;
+    return this.ticketForm.value;
   }
 
-  redirect() {
-    this.router.navigate(['ticket']);
+  redirectToFlights() {
+    this.router.navigate(['/flights']);
   }
 
   createNewTicketByUser(): any {
+    this.state = 'BOOKED';
+    console.log(this.app.chosenFlight);
+    this.redirectToFlights();
     return this.ticketsService.createTicketByUser(this.buildTicket()).subscribe((d: any) => console.log(d));
   }
 

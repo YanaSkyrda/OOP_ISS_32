@@ -37,7 +37,7 @@
       <td class="username">{{i + 1}}</td>
       <td>{{ticket.have_baggage}}</td>
       <td>{{ticket.have_priority_register}}</td>
-      <td *ngIf="ticket.flightId;else elseBlock " class="commenter">{{ticket.flightId.id}}<i
+      <td *ngIf="ticket.flight_id;else elseBlock " class="commenter">{{ticket.flight_id}}<i
         class="fas fa-angle-down"></i>
       </td>
       <ng-template #elseBlock>

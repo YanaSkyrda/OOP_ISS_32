@@ -8,20 +8,19 @@ import {User} from '../model/user';
   providedIn: 'root'
 })
 export class TicketsService {
-  url = 'http://localhost:8085/Gradle___com_example___lab_1_1_0_SNAPSHOT_war/ticket';
-  urlCabinet = 'http://localhost:8085/Gradle___com_example___lab_1_1_0_SNAPSHOT_war/cabinet';
-  urlAdmin = 'http://localhost:8085/Gradle___com_example___lab_1_1_0_SNAPSHOT_war/admin';
+  url = '/ticket';
+  urlCabinet = '/cabinet';
+  urlAdmin = '/admin';
 
   constructor(private httpClient: HttpClient) {
   }
 
 
-  getAllTicketsByUser(user: User): Observable<Ticket[]> {
-    return this.httpClient.post<Ticket[]>(this.urlCabinet, user);
+  getAllTicketsByUser(username: String): Observable<Ticket[]> {
+    return this.httpClient.post<Ticket[]>(this.urlCabinet, {'username':username});
   }
 
   createTicketByUser(ticket: Ticket): any {
-
     return this.httpClient.post<Ticket>(this.url, ticket);
   }
 
@@ -29,11 +28,11 @@ export class TicketsService {
     return this.httpClient.get<Ticket[]>(this.url);
   }
 
-  updateTicket(flightId: number, id: number): Observable<any> {
-    return this.httpClient.post<any>(this.urlAdmin + '?ticketId=' + id + '&flightId=' + flightId, {});
+  updateTicket(flight_id: number, id: number): Observable<any> {
+    return this.httpClient.post<any>(this.urlAdmin + '?ticket_id=' + id + '&flight_id=' + flight_id, {});
   }
 
   deleteTicket(id: number): Observable<any> {
-    return this.httpClient.get<any>(this.urlAdmin + '?ticketId=' + id);
+    return this.httpClient.get<any>(this.urlAdmin + '?ticket_id=' + id);
   }
 }

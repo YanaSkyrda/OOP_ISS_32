@@ -6,9 +6,9 @@ export interface Ticket {
   baggage_price: number;
   have_priority_register: boolean
   priority_register_price: number;
-  flightId: Flight;
+  flight_id: string;
   flight_price: number;
   seat: string;
-  userByUserId: number;
+  username: number;
   status: string;
 }

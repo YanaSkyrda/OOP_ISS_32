@@ -1,18 +1,6 @@
-<header>
-  <nav class="top-menu">
-    <ul class="menu-main">
-<!--      <li class="right-item"><a href="/flight" (click)="app.showStatistics = false; app.showAccounting = false; app.showFlights = true;">Flights</a></li>-->
-<!--      <li class="right-item"><a href="/ticket" (click)="app.showStatistics = true; app.showAccounting = false; app.showFlights = false;">Statistics</a></li>-->
-    </ul>
-   </nav>
-</header>
 <h2 class="title">All available flights: </h2>
 <div class="container">
   <div class="right-block">
-    <div class="left-block">
-      <a href="/flights/1?field=price&direction=asc"></a>
-      <a href="/flights/1?field=price&direction=desc'}"></a>
-    </div>
     <div>
       <div class="card-side" *ngFor="let flight of flights; let i=index ">
         <div class="card-content">
@@ -84,10 +72,6 @@
                 <button id="button" type="submit" class="btn btn-success">Create
                 </button>
               </div>
-              <!--        <div th:if="${errorMessage}">-->
-              <!--          <p th:text="${errorMessage}"/>-->
-              <!--        </div>-->
-
             </form>
           </div>
         </div>

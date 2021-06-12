@@ -1,15 +1,3 @@
-//TODO THIS
-<header>
-  <nav class="top-menu">
-    <ul class="menu-main">
-      <li class="left-item"><a href="">EN</a></li>
-      <li class="left-item"><a href="">RU</a></li>
-      <li class="right-item"><button (click)="redirectFlights()">Flights</button></li>
-      <li class="right-item"><a href="/cabinet">Cabinet</a></li>
-      <li class="right-item"><a href="/ticket">Book Now</a></li>
-    </ul>
-  </nav>
-</header>
 <div class="container">
   <section class="filterBar">
     <div class="search-ui">
@@ -38,7 +26,7 @@
       <td class="username">{{i + 1}}</td>
       <td>{{ticket.have_baggage}}</td>
       <td>{{ticket.have_priority_register}}</td>
-      <td *ngIf="ticket.flightId;else elseBlock " class="commenter">{{ticket.flightId.id}}<i
+      <td *ngIf="ticket.flight_id;else elseBlock " class="commenter">{{ticket.flight_id}}<i
         class="fas fa-angle-down"></i>
       </td>
       <ng-template #elseBlock>

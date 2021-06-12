@@ -40,4 +40,7 @@ export class AuthGuard extends KeycloakAuthGuard {
     return this.authenticated;
   }
 
+  logout() {
+    this.keycloak.logout(window.location.origin);
+  }
 }

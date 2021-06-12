@@ -1,99 +1,32 @@
-<header>
-  <nav class="top-menu">
-    <ul class="menu-main">
-      <li class="right-item"><a href="/flight" (click)="app.showStatistics = false; app.showAccounting = false; app.showFlights = true;">Flights</a></li>
-      <li class="right-item"><a href="/ticket" (click)="app.showStatistics = true; app.showAccounting = false; app.showFlights = false;">Statistics</a></li>
-    </ul>
-  </nav>
-</header>
 <div class="container">
-<!--  <p class="h2">Flights by total price</p>-->
-<!--        <div class="card-side" *ngFor="let flight of getAllByPrice(); let i=index ">-->
-<!--          <div class="form">-->
-<!--            <div class="text-content">-->
-<!--              <h3 class="card-title"> {{flight.id}}</h3>-->
-<!--              <h4 class="price-title"> Departure from: {{flight.departureCountry}}</h4>-->
-<!--              <h4 class="price-title"> Arrival to: {{flight.arrivalCountry}}</h4>-->
-<!--              <h4 class="price-title"> Departure time: {{flight.departureTime}}</h4>-->
-<!--              <h4 class="price-title"> Arrival time: {{flight.arrivalTime}}</h4>-->
-<!--              <h4 class="price-title">Price: {{flight.price}}</h4>-->
-<!--              <h4 class="price-title">Price of baggage: {{flight.priceOfBaggage}}</h4>-->
-<!--              <h4 class="price-title">Price of priority register: {{flight.priceOfPriorityRegister}}</h4>-->
-<!--              <h4 class="price-title"> Number of seats available: {{flight.numberOfSeats}}</h4>-->
-<!--            </div>-->
-<!--          </div>-->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <form [formGroup]="ticketForm" class="main-form first" (ngSubmit)="createNewTicketByUser()"
+              method="post">
+          <h2>Booking</h2>
+          <div class="form-group">
+            <label for="baggage" class="control-label">Baggage</label>
+            <input id="baggage" formControlName="baggage" class="form-control" type="checkbox"/>
+          </div>
 
-<!--        </div>-->
-<!--</div>-->
-<!--<div class="container">-->
-<!--  <p class="h2">The most popular flights (from available) </p>-->
-<!--  <div class="card-side" *ngFor="let flight of getAllByMostPopular(); let i=index ">-->
-<!--    <div class="form">-->
-<!--      <div class="text-content">-->
-<!--        <h3 class="card-title"> {{flight.id}}</h3>-->
-<!--        <h4 class="price-title"> Departure from: {{flight.departureCountry}}</h4>-->
-<!--        <h4 class="price-title"> Arrival to: {{flight.arrivalCountry}}</h4>-->
-<!--        <h4 class="price-title"> Departure time: {{flight.departureTime}}</h4>-->
-<!--        <h4 class="price-title"> Arrival time: {{flight.arrivalTime}}</h4>-->
-<!--        <h4 class="price-title">Price: {{flight.price}}</h4>-->
-<!--        <h4 class="price-title">Price of baggage: {{flight.priceOfBaggage}}</h4>-->
-<!--        <h4 class="price-title">Price of priority register: {{flight.priceOfPriorityRegister}}</h4>-->
-<!--        <h4 class="price-title"> Number of seats available: {{flight.numberOfSeats}}</h4>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--  </div>-->
-<!--</div>-->
-
-<!--<div class="container">-->
-<!--  <p class="h2">Flights by baggage price</p>-->
-<!--  <div class="form" *ngFor="let flight of getByBaggagePrice(); let i=index ">-->
-<!--    <div class="card-content">-->
-<!--      <div class="text-content">-->
-<!--        <h3 class="card-title"> {{flight.id}}</h3>-->
-<!--        <h4 class="price-title"> Departure from: {{flight.departureCountry}}</h4>-->
-<!--        <h4 class="price-title"> Arrival to: {{flight.arrivalCountry}}</h4>-->
-<!--        <h4 class="price-title"> Departure time: {{flight.departureTime}}</h4>-->
-<!--        <h4 class="price-title"> Arrival time: {{flight.arrivalTime}}</h4>-->
-<!--        <h4 class="price-title">Price: {{flight.price}}</h4>-->
-<!--        <h4 class="price-title">Price of baggage: {{flight.priceOfBaggage}}</h4>-->
-<!--        <h4 class="price-title">Price of priority register: {{flight.priceOfPriorityRegister}}</h4>-->
-<!--        <h4 class="price-title"> Number of seats available: {{flight.numberOfSeats}}</h4>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--  </div>-->
-<!--</div>-->
-
-<!--<div class="container">-->
-<!--  <p class="h2">Flights by baggage price</p>-->
-<!--  <div class="form" *ngFor="let flight of getByPriorityPrice(); let i=index ">-->
-<!--    <div class="card-content">-->
-<!--      <div class="text-content">-->
-<!--        <h3 class="card-title"> {{flight.id}}</h3>-->
-<!--        <h4 class="price-title"> Departure from: {{flight.departureCountry}}</h4>-->
-<!--        <h4 class="price-title"> Arrival to: {{flight.arrivalCountry}}</h4>-->
-<!--        <h4 class="price-title"> Departure time: {{flight.departureTime}}</h4>-->
-<!--        <h4 class="price-title"> Arrival time: {{flight.arrivalTime}}</h4>-->
-<!--        <h4 class="price-title">Price: {{flight.price}}</h4>-->
-<!--        <h4 class="price-title">Price of baggage: {{flight.priceOfBaggage}}</h4>-->
-<!--        <h4 class="price-title">Price of priority register: {{flight.priceOfPriorityRegister}}</h4>-->
-<!--        <h4 class="price-title"> Number of seats available: {{flight.numberOfSeats}}</h4>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--  </div>-->
-<!--</div>-->
-
-<!--<div class="container">-->
-<!--  <p class="h2">Countries by flights frequency</p>-->
-<!--  <div class="form">-->
-<!--  <div *ngFor="let country of getByMostPopularCountries().entries(); let i=index ">-->
-<!--    <div class="card-content">-->
-<!--      <div class="text-content">-->
-<!--        <h3 id="email"> {{country[0]}} {{" - "}} {{country[1]}}</h3>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  </div>-->
+          <div class="form-group">
+            <label for="priority" class="control-label">Priority register</label>
+            <input id="priority" formControlName="priority" class="form-control" type="checkbox"/>
+          </div>
+          <div class="form-group">
+            <label for="class" class="control-label">Seat</label>
+            <select id="class" formControlName="seat" class="form-control">
+              <option value="standard">Standard</option>
+              <option value="business">Business</option>
+              <option value="lux">Lux</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <button id="button" type="submit" class="btn btn-success">Book now</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
