@@ -23,8 +23,13 @@ export class AuthGuard extends KeycloakAuthGuard {
     return this.keycloak.isUserInRole('ADMIN')
   }
 
-  getUsername() : String {
-    return this.keycloak.getUsername()
+  async getUsername() : Promise<String> {
+    if (await this.keycloak.isLoggedIn()) {
+      let profile = await this.keycloak.loadUserProfile(false)
+      return profile.username
+    } else {
+      return 'user';
+    }
   }
 
   async isAccessAllowed(
@@ -43,4 +48,5 @@ export class AuthGuard extends KeycloakAuthGuard {
   logout() {
     this.keycloak.logout(window.location.origin);
   }
+
 }

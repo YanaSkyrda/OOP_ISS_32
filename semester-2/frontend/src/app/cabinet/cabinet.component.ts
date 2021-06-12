@@ -4,6 +4,7 @@ import {Ticket} from '../model/ticket';
 import {TicketsService} from '../service/tickets.service';
 import {Router} from "@angular/router";
 import {AuthGuard} from "../guard/auth.guard";
+import {AppComponent} from "../app.component";
 
 @Component({
   selector: 'app-cabinet',
@@ -17,6 +18,7 @@ export class CabinetComponent implements OnInit {
 
   constructor(private userService: UserService,
               private ticketsService: TicketsService,
+              private app: AppComponent,
               private router: Router,
               private auth: AuthGuard) {
   }
@@ -29,8 +31,8 @@ export class CabinetComponent implements OnInit {
     this.router.navigate(['flights']);
   }
 
-  getAllTickets(): void {
-    this.ticketsService.getAllTicketsByUser(this.auth.getUsername()).pipe().subscribe(
+  async getAllTickets(): Promise<void> {
+    this.ticketsService.getAllTicketsByUser(await this.app.getUsername()).pipe().subscribe(
       (data: any[]) => {
         console.log(data);
         this.tickets = data;

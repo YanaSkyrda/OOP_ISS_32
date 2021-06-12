@@ -12,7 +12,12 @@ import {AuthGuard} from "./guard/auth.guard";
 })
 
 export class AppComponent {
+
   constructor(public auth: AuthGuard) {
+  }
+
+  getUsername() : Promise<String> {
+    return this.auth.getUsername()
   }
 
   title = 'frontend';

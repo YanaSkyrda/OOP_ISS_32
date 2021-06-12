@@ -35,7 +35,7 @@ export class TicketsComponent implements OnInit {
     );
   }
 
-  buildTicket(): any {
+  async buildTicket(): Promise<any> {
     console.log(this.app.chosenFlight);
 
     let baggagePrice = 0
@@ -48,13 +48,13 @@ export class TicketsComponent implements OnInit {
       priorityPrice = this.app.chosenFlight.priceOfPriorityRegister
     }
     const ticket = {
-      have_baggage: this.inputs.baggage,
-      have_priority_register: this.inputs.priority,
-      username: this.auth.getUsername(),
-      flight_id: this.app.chosenFlight.id,
-      flight_price: this.app.chosenFlight.price,
-      baggage_price: baggagePrice,
-      priority_register_price: priorityPrice,
+      haveBaggage: this.inputs.baggage,
+      havePriorityRegister: this.inputs.priority,
+      username: await this.app.getUsername(),
+      flightId: this.app.chosenFlight.id,
+      flightPrice: this.app.chosenFlight.price,
+      baggagePrice: baggagePrice,
+      priorityRegisterPrice: priorityPrice,
       seat: this.inputs.seat,
       status: this.state
     };
@@ -70,11 +70,11 @@ export class TicketsComponent implements OnInit {
     this.router.navigate(['/flights']);
   }
 
-  createNewTicketByUser(): any {
+  async createNewTicketByUser(): Promise<any> {
     this.state = 'BOOKED';
     console.log(this.app.chosenFlight);
     this.redirectToFlights();
-    return this.ticketsService.createTicketByUser(this.buildTicket()).subscribe((d: any) => console.log(d));
+    return this.ticketsService.createTicketByUser(await this.buildTicket()).subscribe((d: any) => console.log(d));
   }
 
 }
