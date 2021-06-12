@@ -1,6 +1,9 @@
 package dao.impl;
 
-import dao.*;
+import dao.FactoryDao;
+import dao.FlightDao;
+import dao.TicketDao;
+import dao.UserDao;
 
 import java.sql.Connection;
 
@@ -26,10 +29,4 @@ public class FactoryDaoImpl extends FactoryDao {
     public FlightDao createFlightDao() {
         return new FlightDaoImpl(getConnection());
     }
-
-    @Override
-    public StatisticDao createFlightStatisticDao() {
-        return new StatisticDaoImpl(getConnection());
-    }
-
 }

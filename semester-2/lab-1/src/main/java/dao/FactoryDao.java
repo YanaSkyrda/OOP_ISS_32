@@ -10,7 +10,6 @@ public abstract class FactoryDao {
     public abstract TicketDao createTicketDao();
 
     public abstract FlightDao createFlightDao();
-    public abstract StatisticDao createFlightStatisticDao();
 
     public static FactoryDao getInstance() {
         if (daoFactory == null) {
