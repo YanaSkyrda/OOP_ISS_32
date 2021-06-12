@@ -1,12 +1,4 @@
 <h2 class="left-item" style="color:peachpuff; margin-top: 15px; margin-left: 300px">Welcome to ~Aero~ </h2>
-<div *ngIf="showFlights==true">
-  <app-flights></app-flights>
-</div>
-<div *ngIf="showStatistics==true">
-  <app-booking></app-booking>
-</div>
-<div *ngIf="showAccounting==true">
-  <app-statistics></app-statistics>
-</div>
+<router-outlet></router-outlet>
 
 

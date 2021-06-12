@@ -19,6 +19,7 @@ export class TicketsComponent implements OnInit {
   ticketForm: FormGroup;
   user = 1;
   state = 'PENDING';
+  private ticketsService: TicketsService;
 
   constructor(private flightsComponent: FlightsComponent,
               private formBuilder: FormBuilder,
@@ -56,28 +57,8 @@ export class TicketsComponent implements OnInit {
     this.router.navigate(['ticket']);
   }
 
-  // createNewTicketByUser(): any {
-  //   return this.ticketsService.createTicketByUser(this.buildTicket()).subscribe((d: any) => console.log(d));
-  // }
-
-  getAllByMostPopular(): any {
-    return this.flightsComponent.getAllByMostPopular();
-  }
-
-  getAllByPrice(): any {
-    return this.flightsComponent.getAllByPrice();
-  }
-
-  getByBaggagePrice(): any {
-    return this.flightsComponent.getByBaggagePrice();
-  }
-
-  getByPriorityPrice(): any {
-    return this.flightsComponent.getByPriorityPrice();
-  }
-
-  getByMostPopularCountries(): any {
-    return this.flightsComponent.getByMostPopularCountries();
+  createNewTicketByUser(): any {
+    return this.ticketsService.createTicketByUser(this.buildTicket()).subscribe((d: any) => console.log(d));
   }
 
 }

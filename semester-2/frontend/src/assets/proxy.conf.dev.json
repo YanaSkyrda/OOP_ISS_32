@@ -1,0 +1,22 @@
+{
+  "/flight": {
+    "target": "http://localhost:8085/Gradle___com_example___lab_1_1_0_SNAPSHOT_war",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+
+  "/ticket": {
+    "target": "http://localhost:8085/Gradle___com_example___lab_1_1_0_SNAPSHOT_war",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+
+  "/login": {
+    "target": "http://localhost:8085/Gradle___com_example___lab_1_1_0_SNAPSHOT_war",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
@@ -9,7 +9,9 @@ import {TicketsComponent} from './tickets/tickets.component';
 import {FlightsComponent} from './flights/flights.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { StatisticsComponent } from './statistics/statistics.component';
+import {AppRoutingModule} from "./app-routing.module";
+import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
+import {initializeKeycloak} from "./init/keycloak-init.factory";
 
 @NgModule({
   declarations: [
@@ -19,15 +21,22 @@ import { StatisticsComponent } from './statistics/statistics.component';
     LoginComponent,
     TicketsComponent,
     FlightsComponent,
-    StatisticsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    KeycloakAngularModule,
     ReactiveFormsModule,
+    AppRoutingModule,
     FormsModule,
   ],
-  providers: [FlightsComponent, AppComponent],
+  providers: [FlightsComponent, AppComponent,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService],
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
