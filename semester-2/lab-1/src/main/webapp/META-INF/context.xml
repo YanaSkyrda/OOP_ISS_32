@@ -15,5 +15,6 @@
               removeAbandonedTimeout="30"
               maxActive="15"
               maxIdle="3"/>
+    <Valve className="org.keycloak.adapters.tomcat.KeycloakAuthenticatorValve"/>
 
 </Context>
