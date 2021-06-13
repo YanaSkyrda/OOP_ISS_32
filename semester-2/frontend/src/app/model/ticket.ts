@@ -2,12 +2,12 @@ import {Flight} from './flight';
 
 export interface Ticket {
   id: number;
-  have_baggage: boolean
-  baggage_price: number;
-  have_priority_register: boolean
-  priority_register_price: number;
-  flight_id: string;
-  flight_price: number;
+  haveBaggage: boolean
+  baggagePrice: number;
+  havePriorityRegister: boolean
+  priorityRegisterPrice: number;
+  flightId: string;
+  flightPrice: number;
   seat: string;
   username: number;
   status: string;

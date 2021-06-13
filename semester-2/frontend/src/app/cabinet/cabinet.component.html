@@ -1,49 +1,20 @@
 <div class="container">
-  <section class="filterBar">
-    <div class="search-ui">
-      <label for="search"> Search</label>
-      <div class="search-container">
-        <form action="">
-          <input class="search-input" type="text" placeholder=""
-                 name="search">
-          <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-      </div>
-    </div>
-  </section>
-
   <table>
     <tr class="table-header">
-      <th>Username</th>
-      <th>Departure country</th>
-      <th>Arrival country</th>
-      <th>Seat</th>
-      <th class="statusHead">Flight id</th>
+      <th>Flight id</th>
+      <th>Seat type</th>
+      <th>Have baggage</th>
+      <th>Have priority register</th>
+      <th class="statusHead">Price</th>
       <th class="statusHead">Status</th>
-      <th class="statusHead">Total price</th>
     </tr>
-    <tr *ngFor="let ticket of tickets; let i = index">
-      <td class="username">{{i + 1}}</td>
-      <td>{{ticket.have_baggage}}</td>
-      <td>{{ticket.have_priority_register}}</td>
-      <td *ngIf="ticket.flight_id;else elseBlock " class="commenter">{{ticket.flight_id}}<i
-        class="fas fa-angle-down"></i>
-      </td>
-      <ng-template #elseBlock>
-        <td class="commenter"><i class="fas fa-angle-down"></i></td>
-      </ng-template>
-
-
-      <td class="activeUser">{{ticket.status}}<i class="fas fa-angle-down"></i></td>
-      <div [ngSwitch]="ticket.status">
-        <ng-template ngSwitchCase="CONFIRMED">
-          <td><a>Accept</a></td>
-        </ng-template>
-        <ng-template ngSwitchDefault>
-          <td></td>
-        </ng-template>
-      </div>
-
+    <tr *ngFor="let ticket of tickets | async">
+      <td>{{ticket.flightId}}</td>
+      <td>{{ticket.seat}}</td>
+      <td>{{ticket.haveBaggage.toString()}}</td>
+      <td>{{ticket.havePriorityRegister.toString()}}</td>
+      <td>{{ticket.flightPrice.toString()}}</td>
+      <td>{{ticket.status}}</td>
     </tr>
   </table>
 </div>

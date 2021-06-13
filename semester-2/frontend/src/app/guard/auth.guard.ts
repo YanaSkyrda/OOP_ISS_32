@@ -20,10 +20,11 @@ export class AuthGuard extends KeycloakAuthGuard {
   }
 
   isUerAdmin() : Boolean {
-    return this.keycloak.isUserInRole('ADMIN')
+    console.log(this.keycloak.getUserRoles())
+    return this.keycloak.isUserInRole('admin')
   }
 
-  async getUsername() : Promise<String> {
+  async getUsername() : Promise<string> {
     if (await this.keycloak.isLoggedIn()) {
       let profile = await this.keycloak.loadUserProfile(false)
       return profile.username

@@ -3,8 +3,8 @@ import {UserService} from '../service/user.service';
 import {Ticket} from '../model/ticket';
 import {TicketsService} from '../service/tickets.service';
 import {Router} from "@angular/router";
-import {AuthGuard} from "../guard/auth.guard";
 import {AppComponent} from "../app.component";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-cabinet',
@@ -13,14 +13,12 @@ import {AppComponent} from "../app.component";
 })
 export class CabinetComponent implements OnInit {
 
-  //user: User;
-  tickets: Ticket[];
+  tickets: Observable<Ticket[]>|undefined;
 
   constructor(private userService: UserService,
               private ticketsService: TicketsService,
               private app: AppComponent,
-              private router: Router,
-              private auth: AuthGuard) {
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -32,11 +30,8 @@ export class CabinetComponent implements OnInit {
   }
 
   async getAllTickets(): Promise<void> {
-    this.ticketsService.getAllTicketsByUser(await this.app.getUsername()).pipe().subscribe(
-      (data: any[]) => {
-        console.log(data);
-        this.tickets = data;
-      }
-    );
+    console.log(this.tickets)
+    this.tickets = this.ticketsService.getAllTicketsByUser(await this.app.getUsername());
+    console.log(this.tickets.pipe().subscribe(data => console.log(data)))
   }
 }

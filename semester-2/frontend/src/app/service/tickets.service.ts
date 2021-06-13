@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Ticket} from '../model/ticket';
 import {User} from '../model/user';
@@ -16,8 +16,9 @@ export class TicketsService {
   }
 
 
-  getAllTicketsByUser(username: String): Observable<Ticket[]> {
-    return this.httpClient.post<Ticket[]>(this.urlCabinet, {'username':username});
+  getAllTicketsByUser(username: string): Observable<Ticket[]> {
+    const options = { params: new HttpParams().set("username",username) };
+    return this.httpClient.get<Ticket[]>(this.urlCabinet, options);
   }
 
   createTicketByUser(ticket: Ticket): any {

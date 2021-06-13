@@ -12,6 +12,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AppRoutingModule} from "./app-routing.module";
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 import {initializeKeycloak} from "./init/keycloak-init.factory";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {initializeKeycloak} from "./init/keycloak-init.factory";
     ReactiveFormsModule,
     AppRoutingModule,
     FormsModule,
+    CommonModule
   ],
   providers: [FlightsComponent, AppComponent,
     {

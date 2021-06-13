@@ -16,8 +16,8 @@ export class AppComponent {
   constructor(public auth: AuthGuard) {
   }
 
-  getUsername() : Promise<String> {
-    return this.auth.getUsername()
+  async getUsername() : Promise<string> {
+    return await this.auth.getUsername()
   }
 
   title = 'frontend';

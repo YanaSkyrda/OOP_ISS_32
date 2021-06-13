@@ -80,6 +80,18 @@ label {
   padding: 30px;
 }
 
+.card-content {
+  display: flex;
+  flex: 1 1 auto;
+  padding: 10px 10px;
+  margin:5% auto;
+  box-sizing: border-box;
+  background: darkolivegreen;
+  font-size: 0.9em;
+  line-height: calc(0.9em + 8px);
+  justify-content: space-between;
+}
+
 #button:hover {
   background-position:-400px;
 }
