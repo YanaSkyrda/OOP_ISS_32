@@ -1,40 +1,37 @@
-package task6;
+package problem6_lock;
 
 import java.util.concurrent.Semaphore;
 
-public class ReaderWriterPattern implements MyReadWriteLock {
-    private Semaphore serviceQueue;
-    private Semaphore readCountAccess;
-    private Semaphore write;
+public class ReaderWriterLock {
+    private final Semaphore service;
+    private final Semaphore readCountAccess;
+    private final Semaphore write;
     private int readCount;
 
-    public ReaderWriterPattern(){
+    public ReaderWriterLock() {
         readCount = 0;
-        serviceQueue = new Semaphore(1, true);
+        service = new Semaphore(1, true);
         readCountAccess = new Semaphore(1, true);
         write = new Semaphore(1, true);
     }
-
-    @Override
     public void lockReader() {
-        try{
-            serviceQueue.acquire();
+        try {
+            service.acquire();
             readCountAccess.acquire();
             try {
                 if (readCount == 0)
                     write.acquire();
                 readCount++;
-            } catch (InterruptedException ignored){
+            } catch (InterruptedException ignored) {
             } finally {
                 readCountAccess.release();
             }
-        } catch (InterruptedException ignored){
+        } catch (InterruptedException ignored) {
         } finally {
-            serviceQueue.release();
+            service.release();
         }
     }
 
-    @Override
     public void unlockReader() {
         try {
             readCountAccess.acquire();
@@ -43,22 +40,21 @@ public class ReaderWriterPattern implements MyReadWriteLock {
                 write.release();
             }
             readCountAccess.release();
-        } catch (InterruptedException ignored){
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
-    @Override
     public void lockWriter() {
         try {
-            serviceQueue.acquire();
+            service.acquire();
             write.acquire();
-        } catch (InterruptedException ignored){
+        } catch (InterruptedException ignored) {
         } finally {
-            serviceQueue.release();
+            service.release();
         }
     }
 
-    @Override
     public void unlockWriter() {
         write.release();
     }
