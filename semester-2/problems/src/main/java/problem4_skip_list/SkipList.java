@@ -1,4 +1,4 @@
-package problem;
+package problem4_skip_list;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;

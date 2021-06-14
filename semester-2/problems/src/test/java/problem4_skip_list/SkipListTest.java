@@ -1,14 +1,13 @@
 package problem4_skip_list;
 
 import org.junit.jupiter.api.Test;
-import problem.SkipList;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class SkipListTest {
-    problem.SkipList skipList = new SkipList(5);
+    SkipList skipList = new SkipList(5);
 
     private void removeInThread(int number) {
         new Thread(() -> skipList.remove(number)).start();

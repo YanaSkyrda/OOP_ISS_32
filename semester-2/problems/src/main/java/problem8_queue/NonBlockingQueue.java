@@ -1,91 +1,81 @@
-package problem;
-
-import java.lang.reflect.Field;
-import java.util.concurrent.atomic.AtomicReference;
+package problem8_queue;
 
 import sun.misc.Unsafe;
 
+import java.lang.reflect.Field;
+
 public class NonBlockingQueue {
-	static public class Node {
-        public int value;
-        public volatile Node next = null;
+    static public class Node {
+        public Integer value;
+        public volatile Node next;
         protected long offset;
         protected Unsafe unsafe;
 
-        Node(int value, Node next) throws NoSuchFieldException, SecurityException, IllegalAccessException {
+        Node(Integer value, Node next) throws NoSuchFieldException, SecurityException, IllegalAccessException {
             this.value = value;
             this.next = next;
             unsafe = getUnsafe();
             offset = unsafe.objectFieldOffset(Node.class.getDeclaredField("next"));
         }
+
         public String toString() {
             return Integer.toString(value);
         }
     }
-	
-	private static Unsafe getUnsafe() throws IllegalAccessException, NoSuchFieldException {
-		Field f = Unsafe.class.getDeclaredField("theUnsafe");
-	    f.setAccessible(true);
-	    return (Unsafe) f.get(null);
-	}
-	
-	private Node dummy;
-    private volatile Node head;
-    private volatile Node tail;
-    private long offsetHead;
-    private long offsetTail;
-    private Unsafe unsafe;
-    
+
+    private static Unsafe getUnsafe() throws IllegalAccessException, NoSuchFieldException {
+        Field f = Unsafe.class.getDeclaredField("theUnsafe");
+        f.setAccessible(true);
+        return (Unsafe) f.get(null);
+    }
+
+    private final Node dummy;
+    private final Node head;
+    private final Node tail;
+    private final long offsetHead;
+    private final long offsetTail;
+    private final Unsafe unsafe;
+
     public NonBlockingQueue() throws NoSuchFieldException, SecurityException, IllegalAccessException {
-    	dummy = new Node(-1000, null);
-    	head = dummy;
-    	tail = dummy;
-    	unsafe = getUnsafe();
-    	offsetHead = unsafe.objectFieldOffset(NonBlockingQueue.class.getDeclaredField("head"));
-    	offsetTail = unsafe.objectFieldOffset(NonBlockingQueue.class.getDeclaredField("tail"));
+        dummy = new Node(null, null);
+        head = dummy;
+        tail = dummy;
+        unsafe = getUnsafe();
+        offsetHead = unsafe.objectFieldOffset(NonBlockingQueue.class.getDeclaredField("head"));
+        offsetTail = unsafe.objectFieldOffset(NonBlockingQueue.class.getDeclaredField("tail"));
     }
-    
-    public Node getTail() {
-        return tail;
-    }
-    
+
     public void enqueue(int value) throws NoSuchFieldException, SecurityException, IllegalAccessException {
-        Node new_node = new Node(value, null);
+        Node newNode = new Node(value, null);
         while (true) {
             Node currentTail = tail;
             Node tailNext = currentTail.next;
-            if (currentTail == tail) {
-                if (tailNext != null) {
-                	unsafe.compareAndSwapObject(this, offsetTail, currentTail, tailNext);
-                    //tail.compareAndSet(currentTail, tailNext);
-                } else {
-                    if (currentTail.unsafe.compareAndSwapObject(currentTail,currentTail.offset, null, new_node)){
-                        unsafe.compareAndSwapObject(this, offsetTail, currentTail, new_node);
-                        return;
-                    }
+            if (tailNext != null) {
+                unsafe.compareAndSwapObject(this, offsetTail, currentTail, tailNext);
+            } else {
+                if (currentTail.unsafe.compareAndSwapObject(currentTail, currentTail.offset, null, newNode)) {
+                    unsafe.compareAndSwapObject(this, offsetTail, currentTail, newNode);
+                    return;
                 }
             }
         }
     }
 
     public boolean dequeue() {
-    	if(head == dummy) {
-    		unsafe.compareAndSwapObject(this, offsetHead,dummy,dummy.next);
-    	}
+        if (head == dummy) {
+            unsafe.compareAndSwapObject(this, offsetHead, dummy, dummy.next);
+        }
         while (true) {
             Node first = head;
             Node last = tail;
             Node next = first.next;
-            if (first == head) {
-                if (first == last) {
-                    if (next == null) 
-                    	return false;
-                    //tail.compareAndSet(last, next);
-                    unsafe.compareAndSwapObject(this, offsetTail,last,next);
-                } else {
-                    if (unsafe.compareAndSwapObject(this, offsetHead,first, next))
-                        return true;
+            if (first == last) {
+                if (next == null) {
+                    return false;
                 }
+                unsafe.compareAndSwapObject(this, offsetTail, last, next);
+            } else if (unsafe.compareAndSwapObject(this, offsetHead, first, next)) {
+                return true;
             }
         }
     }
@@ -93,14 +83,13 @@ public class NonBlockingQueue {
     public String toString() {
         StringBuilder answer = new StringBuilder();
         Node tmp = head;
-        int counter = 0;
         while (tmp != null) {
-            ++counter;
-            if(tmp.value!=-1000) {
-            	answer.append(tmp.value);
-            if(tmp.next != null) {
-                answer.append(' ');
-            }}           
+            if (tmp.value != null) {
+                answer.append(tmp.value);
+                if (tmp.next != null) {
+                    answer.append(' ');
+                }
+            }
             tmp = tmp.next;
         }
         return answer.toString();
