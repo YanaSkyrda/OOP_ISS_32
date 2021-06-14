@@ -3,8 +3,8 @@ package problem5_disruptor;
 public class Disruptor<E> {
     public static final int CAPACITY = 64;
 
-    private int capacity;
-    private E[] data;
+    private final int capacity;
+    private final E[] data;
     private volatile int readSequence;
     private volatile int writeSequence;
 
