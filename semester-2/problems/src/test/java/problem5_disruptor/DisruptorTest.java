@@ -1,9 +1,7 @@
 package problem5_disruptor;
 
 import org.junit.jupiter.api.Test;
-import problem.SkipList;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -34,5 +32,5 @@ public class DisruptorTest {
             assertTrue(res >= 0 && res < 100);
         }
     }
-    
+
 }

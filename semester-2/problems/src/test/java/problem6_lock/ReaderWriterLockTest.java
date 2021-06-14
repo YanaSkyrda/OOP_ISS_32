@@ -1,9 +1,6 @@
 package problem6_lock;
 
 import org.junit.jupiter.api.Test;
-import problem5_disruptor.Disruptor;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class ReaderWriterLockTest {

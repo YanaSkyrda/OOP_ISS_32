@@ -3,10 +3,6 @@ package problem4_skip_list;
 import org.junit.jupiter.api.Test;
 import problem.SkipList;
 
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -46,5 +42,5 @@ public class SkipListTest {
 
         }
     }
-    
+
 }
