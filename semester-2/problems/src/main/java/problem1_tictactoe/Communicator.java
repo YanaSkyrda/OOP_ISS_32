@@ -13,6 +13,8 @@ public class Communicator {
     private MessageProducer producer;
     private MessageConsumer consumer;
 
+    private final Character split = '#';
+
     public Communicator(int p) {
         ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
 
@@ -42,7 +44,7 @@ public class Communicator {
 
     public void sendMove(int i, int j) {
         try {
-            TextMessage message = session.createTextMessage("Move#" + i + "#" + j);
+            TextMessage message = session.createTextMessage("Move" + split + i + split + j);
             producer.send(message);
         } catch (JMSException e) {
             e.printStackTrace();
@@ -51,7 +53,7 @@ public class Communicator {
 
     public void sendWin(int i, int j) {
         try {
-            TextMessage message = session.createTextMessage("Win#" + i + "#" + j);
+            TextMessage message = session.createTextMessage("Win" + split + i + split + j);
             producer.send(message);
         } catch (JMSException e) {
             e.printStackTrace();
@@ -60,7 +62,7 @@ public class Communicator {
 
     public void sendTie(int i, int j) {
         try {
-            TextMessage message = session.createTextMessage("Tie#" + i + "#" + j);
+            TextMessage message = session.createTextMessage("Tie" + split + i + split + j);
             producer.send(message);
         } catch (JMSException e) {
             e.printStackTrace();
@@ -78,7 +80,7 @@ public class Communicator {
             if (message instanceof TextMessage) {
                 TextMessage textMessage = (TextMessage) message;
                 String buffer = textMessage.getText();
-                var fields = buffer.split("#");
+                var fields = buffer.split(split.toString());
 
                 int[] move = {0, -1, -1};
                 if ("Win".equals(fields[0]))
