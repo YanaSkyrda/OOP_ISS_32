@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.7.1'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    compile "org.postgresql:postgresql:42.2.19"
+
+    compile "javax.servlet:javax.servlet-api:3.0.1"
+
+    compile "org.apache.logging.log4j:log4j-core:2.9.1"
+
+    compile "com.fasterxml.jackson.core:jackson-core:2.2.2"
+    compile "com.fasterxml.jackson.core:jackson-databind:2.2.2"
+    compile "com.fasterxml.jackson.core:jackson-annotations:2.2.2"
+
+    compile "commons-dbcp:commons-dbcp:1.4"
+
+    compile "org.apache.tomcat:tomcat-catalina:8.0.36"
+
+    compile "org.json:json:20201115"
+
+    compile "org.mockito:mockito-all:1.8.5"
+    testCompile "org.jmockit:jmockit:1.24"
+    compile "org.mockito:mockito-core:2.24.0"
+
+    compile "org.powermock:powermock-api-mockito2:2.0.0-beta.5"
+    compile "org.powermock:powermock-module-junit4:2.0.0-beta.5"
+}
+
+test {
+    useJUnitPlatform()
+}
