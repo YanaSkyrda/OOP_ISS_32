@@ -19,9 +19,10 @@ public class ReaderWriterLock {
             service.acquire();
             readCountAccess.acquire();
             try {
-                if (readCount == 0)
+                if (readCount == 0) {
                     write.acquire();
-                readCount++;
+                }
+                ++readCount;
             } catch (InterruptedException ignored) {
             } finally {
                 readCountAccess.release();
@@ -35,7 +36,7 @@ public class ReaderWriterLock {
     public void unlockReader() {
         try {
             readCountAccess.acquire();
-            readCount--;
+            --readCount;
             if (readCount == 0) {
                 write.release();
             }
