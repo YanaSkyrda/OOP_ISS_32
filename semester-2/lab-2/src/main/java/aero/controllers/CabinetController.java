@@ -6,9 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,9 +22,8 @@ public class CabinetController {
         this.ticketService = ticketService;
     }
 
-    @PostMapping("/cabinet")
-    @PreAuthorize("isAuthenticated()")
-    public ResponseEntity getAllTicketsByUsername(@RequestBody String username) {
+    @GetMapping("/cabinet")
+    public ResponseEntity getAllTicketsByUsername(@RequestParam String username) {
         List<Ticket> allTicketsByUsername = ticketService.getAllTicketsByUsername(username);
         return ResponseEntity.ok(allTicketsByUsername);
     }

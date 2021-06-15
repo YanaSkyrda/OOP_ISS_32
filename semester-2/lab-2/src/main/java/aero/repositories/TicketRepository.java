@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
-    List<Ticket> getAllByUsername(String username);
+    List<Ticket> findByUsername(String username);
 
     List<Ticket> findAllByOrderByStatusDesc();
 }

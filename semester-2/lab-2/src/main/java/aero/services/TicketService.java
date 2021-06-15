@@ -46,7 +46,7 @@ public class TicketService {
     }
 
     public List<Ticket> getAllTicketsByUsername(String username) {
-        return ticketRepository.getAllByUsername(username);
+        return ticketRepository.findByUsername(username);
     }
 
     @Transactional

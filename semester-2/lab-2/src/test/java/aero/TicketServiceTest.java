@@ -40,11 +40,11 @@ public class TicketServiceTest {
     public void getAllTicketsByUser() {
         List<Ticket> list = new ArrayList<>();
 
-        when(ticketRepository.getAllByUsername("username")).thenReturn(list);
+        when(ticketRepository.findByUsername("username")).thenReturn(list);
 
         assertEquals(list, ticketService.getAllTicketsByUsername("username"));
 
-        verify(ticketRepository, times(1)).getAllByUsername("username");
+        verify(ticketRepository, times(1)).findByUsername("username");
     }
 
     @Test
