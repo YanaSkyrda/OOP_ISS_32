@@ -25,6 +25,6 @@ public class FlightController {
     @PreAuthorize("isAnonymous()")
     public ResponseEntity<FlightDTO> findAllFlights() {
 
-        return ResponseEntity.ok(flightService.getAllRooms());
+        return ResponseEntity.ok(flightService.findAllFlights());
     }
 }
