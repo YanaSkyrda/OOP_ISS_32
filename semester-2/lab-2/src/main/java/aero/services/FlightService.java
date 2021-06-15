@@ -1,9 +1,14 @@
 package aero.services;
 
 import aero.dto.FlightDTO;
+import aero.mapper.FlightMapper;
 import aero.models.Flight;
 import aero.repositories.FlightRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Room service class
@@ -16,8 +21,9 @@ public class FlightService {
         this.flightRepository = flightRepository;
     }
 
-    public FlightDTO findAllFlights() {
-        return new FlightDTO(flightRepository.findAll());
+    public List<FlightDTO> findAllFlights() {
+        return flightRepository.findAll()
+                .stream().map(FlightMapper::toDTO).collect(Collectors.toList());
     }
 
     public Flight findByFlightId(Long id) throws Exception {

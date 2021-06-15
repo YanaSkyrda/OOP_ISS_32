@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 
 @RestController
@@ -23,7 +24,7 @@ public class FlightController {
 
     @GetMapping()
     @PreAuthorize("isAnonymous()")
-    public ResponseEntity<FlightDTO> findAllFlights() {
+    public ResponseEntity<List<FlightDTO>> findAllFlights() {
 
         return ResponseEntity.ok(flightService.findAllFlights());
     }
