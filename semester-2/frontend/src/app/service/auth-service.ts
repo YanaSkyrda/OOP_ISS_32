@@ -26,7 +26,7 @@ export class AuthService {
 
 
   login(username: string, password: string): any {
-      return this.http.post<any>(`http://localhost:8085/Gradle___com_example___lab_1_1_0_SNAPSHOT_war/login`,
+      return this.http.post<any>(`http://localhost:8080/Gradle___com_example___lab_1_1_0_SNAPSHOT_war/login`,
         {"username": username, "password":password},
         httpOptions)
       .pipe(map(user => {

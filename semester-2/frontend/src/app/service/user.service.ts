@@ -8,7 +8,7 @@ import {User} from '../model/user';
 })
 export class UserService {
 
-  url = 'http://localhost:8085/Gradle___com_example___lab_1_1_0_SNAPSHOT_war/login';
+  url = 'http://localhost:8080/Gradle___com_example___lab_1_1_0_SNAPSHOT_war/login';
 
   constructor(private httpClient: HttpClient) {
   }
