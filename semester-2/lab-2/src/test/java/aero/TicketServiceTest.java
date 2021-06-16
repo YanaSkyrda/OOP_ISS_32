@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -101,5 +102,53 @@ public class TicketServiceTest {
         verify(flightRepository, times(1)).findById(3L);
 
         assertEquals(ticket.getStatus(), res.getStatus());
+    }
+
+    @Test
+    public void shouldThrowExceptionOnUpdateTicket() {
+
+        when(ticketRepository.findById(1L)).thenThrow(new IllegalArgumentException());
+
+        assertThrows(Exception.class,
+                () -> ticketService.updateTicket(1L, 3L),
+                "Can`t update ticket");
+
+        verify(ticketRepository, times(1)).findById(1L);
+        verify(flightRepository, times(0)).findById(3L);
+    }
+
+    @Test
+    public void shouldThrowExceptionOnCreateTicket() {
+
+        TicketDTO ticketDTO = new TicketDTO();
+        ticketDTO.setStatus("BOOKED");
+        ticketDTO.setId(1243L);
+        ticketDTO.setBaggagePrice(23456);
+        ticketDTO.setFlightPrice(243456);
+        ticketDTO.setPriorityRegisterPrice(456);
+        ticketDTO.setHavePriorityRegister(Boolean.TRUE);
+        ticketDTO.setHaveBaggage(Boolean.TRUE);
+        ticketDTO.setSeat("Business");
+
+        Ticket ticket = new TicketMap().toEntity(ticketDTO);
+
+        when(ticketRepository.save(any())).thenThrow(new IllegalArgumentException());
+
+        assertThrows(Exception.class,
+                () -> ticketService.createTicket(ticketDTO),
+                "Something went wrong.");
+
+        verify(ticketRepository, times(1)).save(any());
+    }
+
+    @Test
+    public void shouldThrowExceptionOnDeleteByIdTicket() {
+        doThrow(new IllegalArgumentException()).when(ticketRepository).deleteById(1L);
+
+        assertThrows(Exception.class,
+                () -> ticketService.deleteById(1L),
+                "Ticket id could not be null");
+
+        verify(ticketRepository, times(1)).deleteById(1L);
     }
 }
