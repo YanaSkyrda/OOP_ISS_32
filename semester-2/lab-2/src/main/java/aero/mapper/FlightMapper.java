@@ -22,4 +22,17 @@ public class FlightMapper {
                 .arrivalTime(flight.getArrivalTime())
                 .build();
     }
+    public static Flight toEntity(FlightDTO flight) {
+        return Flight.builder()
+                .id(flight.getId())
+                .price(flight.getPrice())
+                .priceOfBaggage(flight.getPriceOfBaggage())
+                .priceOfPriorityRegister(flight.getPriceOfPriorityRegister())
+                .numberOfSeats(flight.getNumberOfSeats())
+                .departureCountry(flight.getDepartureCountry())
+                .arrivalCountry(flight.getArrivalCountry())
+                .departureTime(flight.getDepartureTime())
+                .arrivalTime(flight.getArrivalTime())
+                .build();
+    }
 }

@@ -32,8 +32,8 @@ public class TicketService {
 
     public Ticket createTicket(TicketDTO ticketDTO) throws Exception {
         try {
-            Ticket Ticket = ticketMapper.toEntity(ticketDTO);
-            return ticketRepository.save(Ticket);
+            Ticket ticket = ticketMapper.toEntity(ticketDTO);
+            return ticketRepository.save(ticket);
 
         } catch (Exception e) {
             log.error("User can't book ticket");
@@ -55,7 +55,7 @@ public class TicketService {
             Ticket ticket = ticketRepository.findById(ticketId)
                     .orElseThrow(() -> new Exception("Can`t find user by ticketId"));
             Flight flight = flightRepository.findById(flightId)
-                    .orElseThrow(() -> new Exception("Can`t find room by ticketId"));
+                    .orElseThrow(() -> new Exception("Can`t find flight by flightId"));
             ticket.setFlightAndStatus(flight.getId(), "BOOKED");
             return ticketRepository.save(ticket);
         } catch (Exception e) {

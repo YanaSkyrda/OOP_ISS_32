@@ -12,6 +12,7 @@ public interface TicketMapper {
                 .havePriorityRegister(ticketDTO.getHavePriorityRegister())
                 .priorityRegisterPrice(ticketDTO.getPriorityRegisterPrice())
                 .flightPrice(ticketDTO.getFlightPrice())
+                .flightId(ticketDTO.getFlightId())
                 .seat(ticketDTO.getSeat())
                 .status(ticketDTO.getStatus())
                 .username(ticketDTO.getUsername())

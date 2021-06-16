@@ -8,6 +8,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Flight {
